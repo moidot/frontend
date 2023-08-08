@@ -1,0 +1,16 @@
+---
+name: Feature request
+about: Suggest an idea for this project
+title: ''
+labels: ''
+assignees: ''
+
+---
+
+# ISSUE ✅ :
+
+## 📖 Summary
+이슈를 간단히 요약해주세요
+
+## Figma View
+작업하시는 내용의 피그마 이미지를 첨부해주세요
