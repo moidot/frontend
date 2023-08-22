@@ -6,21 +6,23 @@ import Navbar from '@/components/common/navbar';
 import { NAV_LIST } from '@/components/common/navbar/Navigation';
 import Popup from '@/components/participate/popup';
 import { fetchInfo } from '@/components/participate/dataFetch';
-import ParticipationList, { participationDataProps } from '@/components/participate/list';
+import ParticipationList from '@/components/participate/list';
+import { ParticipationProps } from '@/types/ParticipateType';
 
 const Participate = () => {
   const [isClickDelete, setIsClickDelete] = useState<boolean>(false);
-  const [partData, setPartData] = useState<participationDataProps>();
+  const [partData, setPartData] = useState<ParticipationProps>();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [role, setRole] = useState<string>('member'); // 모임장 / 모임원 구분
   const deleteLeaderTitle: string = '정말 모이닷 스페이스를 삭제하시겠어요?';
   const deleteLeaderDesc: string =
     '모이닷스페이스에 등록된 모임원의 정보, 추천 장소 정보,\n투표 기록 등 모든 정보가 삭제됩니다!';
-  const deleteMemeberTitle: string = "정말 '" + partData.name + "'에서 나가시겠어요?";
+  const deleteMemeberTitle: string = "정말 '" + partData?.name + "'에서 나가시겠어요?";
   const deleteMemeberDesc: string =
     '모이닷 스페이스를 나가게 되면 입력하신 정보가 삭제되고\n스페이스 리스트에서 조회가 불가능합니다';
   const getPartData = async () => {
-    const data: participationDataProps = await fetchInfo();
-    if (data) setPartData(data as participationDataProps);
+    const data: ParticipationProps = await fetchInfo();
+    if (data) setPartData(data as ParticipationProps);
   };
 
   useEffect(() => {
