@@ -1,12 +1,13 @@
-import Header from '@/components/common/header';
-import Navbar from '@/components/common/navbar';
-import { NAV_LIST } from '@/components/common/navbar/Navigation';
+import HomeLayout from '@/components/common/layout/homeLayout';
+import Home from '@/components/home';
 
-export default function Home() {
+const HomePage = () => {
   return (
     <>
-      <Header />
-      <Navbar focusType={NAV_LIST.PARTICIPANT} />
+      <HomeLayout>
+        <Home />
+      </HomeLayout>
     </>
   );
-}
+};
+export default HomePage;

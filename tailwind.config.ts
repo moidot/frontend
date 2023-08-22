@@ -31,9 +31,10 @@ const config: Config = {
         btn_disabled: '#E9E9E9',
         icon_gray: '#DEDEDE',
         alert_delete: '#FF5555',
+        light_orange: '#FFF9F5',
       },
     },
   },
-  plugins: [],
+  plugins: [require('daisyui')],
 };
 export default config;
