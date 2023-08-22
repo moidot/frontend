@@ -1,0 +1,50 @@
+ {
+  "code" : 0,
+  "message" : "성공",
+  "data" : {
+    "groupId" : 1,
+    "adminId" : 1,
+    "name" : "모이닷 팀 프로젝트",
+    "date" : "2023-12-01",
+    "participantsByRegion" : [ {
+      "regionName" : "서울 성북구",
+      "participations" : [ {
+        "participationId" : 1,
+        "userId" : 1,
+        "userName" : "김모임장",
+        "locationName" : "서울 성북구 보문로34다길 2",
+        "transportation" : "PUBLIC"
+      }, {
+        "participationId" : 2,
+        "userId" : 13,
+        "userName" : "박이람이",
+        "locationName" : "서울 성북구 보문로34다길 2",
+        "transportation" : "PUBLIC"
+      } ]
+    }, {
+      "regionName" : "서울 강북구",
+      "participations" : [ {
+        "participationId" : 3,
+        "userId" : 25,
+        "userName" : "천수제비",
+        "locationName" : "서울 강북구 도봉로 76가길 55",
+        "transportation" : "PERSONAL"
+      }, {
+        "participationId" : 4,
+        "userId" : 6,
+        "userName" : "모람모람",
+        "locationName" : "서울 강북구 도봉로 76가길 54",
+        "transportation" : "PUBLIC"
+      } ]
+    }, {
+      "regionName" : "경기도 부천시",
+      "participations" : [ {
+        "participationId" : 3,
+        "userId" : 25,
+        "userName" : "낭만 ENFP",
+        "locationName" : "경기도 부천시 부천로 1",
+        "transportation" : "PERSONAL"
+      } ]
+    } ]
+  }
+}

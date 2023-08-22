@@ -27,7 +27,7 @@ const config: Config = {
         font_black: '#393939',
         main_orange: '#FB7E23',
         bg_orange: '#FFF9F5',
-        disabled_orange: '#F9CFB2',
+        disabled_orange: '#FFEADB',
         btn_disabled: '#E9E9E9',
         icon_gray: '#DEDEDE',
         alert_delete: '#FF5555',
