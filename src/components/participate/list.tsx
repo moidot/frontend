@@ -3,34 +3,9 @@ import KakaoTalk from '../../../public/assets/participate/icon_kakao_talk.svg';
 import Copy from '../../../public/assets/participate/icon_copy.svg';
 import Car from '../../../public/assets/transportation/icon_car.svg';
 import Sub from '../../../public/assets/transportation/icon_sub.svg';
+import { ParticipantsByRegionProps, ParticipationDataProps, ParticipationsProps } from '@/types/ParticipateType';
 
-export interface participationsProps {
-  participationId: number;
-  userId: number;
-  userName: string;
-  locationName: string;
-  transportation: string;
-}
-
-export interface participantsByRegionProps {
-  regionName: string;
-  participations: participationsProps[];
-}
-
-export interface participationProps {
-  groupId: number;
-  adminId: number;
-  name: string;
-  date: string;
-  participantsByRegion: participantsByRegionProps[];
-}
-
-export interface participationDataProps {
-  data: participationProps;
-  role: string;
-}
-
-const ParticipationList = ({ data, role }: participationDataProps) => {
+const ParticipationList = ({ data, role }: ParticipationDataProps) => {
   const currentLoginUserId: number = 13;
   return (
     <div className="max-w-[1200px]">
@@ -61,7 +36,7 @@ const ParticipationList = ({ data, role }: participationDataProps) => {
           </button>
         )}
         {data.participantsByRegion &&
-          data.participantsByRegion.map((item: participantsByRegionProps, index: number) => (
+          data.participantsByRegion.map((item: ParticipantsByRegionProps, index: number) => (
             <div className="mt-[72px]" key={index}>
               <div className="flex justify-between mb-5">
                 <div className="max-w-[265px] px-[32px] py-[8px] rounded-[53px] bg-main_orange text-b1 text-white font-bold">
@@ -69,7 +44,7 @@ const ParticipationList = ({ data, role }: participationDataProps) => {
                 </div>
               </div>
               {item.participations &&
-                item.participations.map((part: participationsProps) =>
+                item.participations.map((part: ParticipationsProps) =>
                   currentLoginUserId === part.userId ? (
                     <div
                       key={part.participationId}
