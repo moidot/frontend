@@ -1,4 +1,4 @@
-import LogoComponent from '../../../../public/assets/header/logo.svg';
+import LogoComponent from '@assets/header/logo.svg';
 const Header = () => {
   return (
     <>
