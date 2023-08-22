@@ -1,4 +1,5 @@
 import EmptyState from '@assets/home/illust_empty_state.svg';
+
 const Home5 = () => {
   return (
     <div className="flex flex-col justify-center items-center gap-[60px] bg-light_orange w-screen mt-[100px]">
