@@ -9,29 +9,31 @@ interface ISwipeList {
   index: number;
   image: React.FC<React.SVGProps<SVGSVGElement>>;
 }
+export const swipeList: ISwipeList[] = [
+  {
+    index: 0,
+    image: Card1,
+  },
+  {
+    index: 1,
+    image: Card2,
+  },
+  {
+    index: 2,
+    image: Card3,
+  },
+  {
+    index: 3,
+    image: Card4,
+  },
+  {
+    index: 4,
+    image: Card5,
+  },
+];
 const Home3 = () => {
-  const swipeList: ISwipeList[] = [
-    {
-      index: 0,
-      image: Card1,
-    },
-    {
-      index: 1,
-      image: Card2,
-    },
-    {
-      index: 2,
-      image: Card3,
-    },
-    {
-      index: 3,
-      image: Card4,
-    },
-    {
-      index: 4,
-      image: Card5,
-    },
-  ];
+  const [current, setCurrent] = useState(swipeList[0].index);
+
   return (
     <div className="flex flex-col justify-center items-center mt-[100px]">
       <SwipeText />
