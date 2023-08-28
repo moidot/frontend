@@ -6,13 +6,6 @@ import Navbar from '@/components/common/navbar';
 import { NAV_LIST } from '@/components/common/navbar/Navigation';
 import Popup from '@/components/participate/popup';
 import { fetchInfo } from '@/components/participate/dataFetch';
-<<<<<<< HEAD
-import ParticipationList, { participationDataProps, participationProps } from '@/components/participate/list';
-
-const Participate = () => {
-  const [isClickDelete, setIsClickDelete] = useState<boolean>(false);
-  const [partData, setPartData] = useState<participationProps>();
-=======
 import ParticipationList from '@/components/participate/list';
 import { ParticipationProps } from '@/types/ParticipateType';
 
@@ -20,7 +13,6 @@ const Participate = () => {
   const [isClickDelete, setIsClickDelete] = useState<boolean>(false);
   const [partData, setPartData] = useState<ParticipationProps>();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
->>>>>>> f42063fec4e2c5ce44bd1ea77917ec10540af207
   const [role, setRole] = useState<string>('member'); // 모임장 / 모임원 구분
   const deleteLeaderTitle: string = '정말 모이닷 스페이스를 삭제하시겠어요?';
   const deleteLeaderDesc: string =
@@ -29,13 +21,8 @@ const Participate = () => {
   const deleteMemeberDesc: string =
     '모이닷 스페이스를 나가게 되면 입력하신 정보가 삭제되고\n스페이스 리스트에서 조회가 불가능합니다';
   const getPartData = async () => {
-<<<<<<< HEAD
-    const data: participationDataProps = await fetchInfo();
-    if (data) setPartData(data as participationProps);
-=======
     const data: ParticipationProps = await fetchInfo();
     if (data) setPartData(data as ParticipationProps);
->>>>>>> f42063fec4e2c5ce44bd1ea77917ec10540af207
   };
 
   useEffect(() => {

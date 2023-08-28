@@ -1,5 +1,6 @@
-const Place = () => {
-  return <></>;
+import Place from '@/components/place';
+const PlacePage = () => {
+  return <Place />;
 };
 
-export default Place;
+export default PlacePage;
