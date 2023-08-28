@@ -8,8 +8,11 @@ import Popup from '@/components/participate/popup';
 import { fetchInfo } from '@/components/participate/dataFetch';
 import ParticipationList from '@/components/participate/list';
 import { ParticipationProps } from '@/types/ParticipateType';
+import { useRouter } from 'next/router';
+import { useQuery } from '@tanstack/react-query';
+import { getAllParticipantList } from '@/apis/participant';
 
-const Participate = () => {
+const ParticipatePage = () => {
   const [isClickDelete, setIsClickDelete] = useState<boolean>(false);
   const [partData, setPartData] = useState<ParticipationProps>();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -24,19 +27,25 @@ const Participate = () => {
     const data: ParticipationProps = await fetchInfo();
     if (data) setPartData(data as ParticipationProps);
   };
+  const router = useRouter();
 
   useEffect(() => {
     getPartData();
   }, []);
 
+  const { data } = useQuery(['get-all-participant'], () => getAllParticipantList('5'));
+  console.log('data는?', data);
+
   return (
     <section>
+      <Header />
+      <Navbar focusType={NAV_LIST.PARTICIPANT} />
       <div className="max-w-[1200px] mx-auto font-Pretendard">
-        <Header />
-        <Navbar focusType={NAV_LIST.PARTICIPANT} />
         {partData && <ParticipationList data={partData} role={role} />}
         <div className="w-[585px] my-[100px] mx-auto">
-          <div className="cursor-pointer flex w-[585px] h-[78px] items-center justify-center bg-main_orange rounded-2xl text-white text-b1 font-bold">
+          <div
+            className="cursor-pointer flex w-[585px] h-[78px] items-center justify-center bg-main_orange rounded-2xl text-white text-b1 font-bold"
+            onClick={() => router.push('/participant/myInfo')}>
             내 정보 수정하기
           </div>
           <div
@@ -58,4 +67,4 @@ const Participate = () => {
   );
 };
 
-export default Participate;
+export default ParticipatePage;
