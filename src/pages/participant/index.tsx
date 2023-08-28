@@ -6,21 +6,16 @@ import Navbar from '@/components/common/navbar';
 import { NAV_LIST } from '@/components/common/navbar/Navigation';
 import Popup from '@/components/participate/popup';
 import { fetchInfo } from '@/components/participate/dataFetch';
-<<<<<<< HEAD
-import ParticipationList, { participationDataProps, participationProps } from '@/components/participate/list';
-
-const Participate = () => {
-  const [isClickDelete, setIsClickDelete] = useState<boolean>(false);
-  const [partData, setPartData] = useState<participationProps>();
-=======
 import ParticipationList from '@/components/participate/list';
 import { ParticipationProps } from '@/types/ParticipateType';
+import { useRouter } from 'next/router';
+import { useQuery } from '@tanstack/react-query';
+import { getAllParticipantList } from '@/apis/participant';
 
-const Participate = () => {
+const ParticipatePage = () => {
   const [isClickDelete, setIsClickDelete] = useState<boolean>(false);
   const [partData, setPartData] = useState<ParticipationProps>();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
->>>>>>> f42063fec4e2c5ce44bd1ea77917ec10540af207
   const [role, setRole] = useState<string>('member'); // 모임장 / 모임원 구분
   const deleteLeaderTitle: string = '정말 모이닷 스페이스를 삭제하시겠어요?';
   const deleteLeaderDesc: string =
@@ -29,27 +24,28 @@ const Participate = () => {
   const deleteMemeberDesc: string =
     '모이닷 스페이스를 나가게 되면 입력하신 정보가 삭제되고\n스페이스 리스트에서 조회가 불가능합니다';
   const getPartData = async () => {
-<<<<<<< HEAD
-    const data: participationDataProps = await fetchInfo();
-    if (data) setPartData(data as participationProps);
-=======
     const data: ParticipationProps = await fetchInfo();
     if (data) setPartData(data as ParticipationProps);
->>>>>>> f42063fec4e2c5ce44bd1ea77917ec10540af207
   };
+  const router = useRouter();
 
   useEffect(() => {
     getPartData();
   }, []);
 
+  const { data } = useQuery(['get-all-participant'], () => getAllParticipantList('5'));
+  console.log('data는?', data);
+
   return (
     <section>
+      <Header />
+      <Navbar focusType={NAV_LIST.PARTICIPANT} />
       <div className="max-w-[1200px] mx-auto font-Pretendard">
-        <Header />
-        <Navbar focusType={NAV_LIST.PARTICIPANT} />
         {partData && <ParticipationList data={partData} role={role} />}
         <div className="w-[585px] my-[100px] mx-auto">
-          <div className="cursor-pointer flex w-[585px] h-[78px] items-center justify-center bg-main_orange rounded-2xl text-white text-b1 font-bold">
+          <div
+            className="cursor-pointer flex w-[585px] h-[78px] items-center justify-center bg-main_orange rounded-2xl text-white text-b1 font-bold"
+            onClick={() => router.push('/participant/myInfo')}>
             내 정보 수정하기
           </div>
           <div
@@ -71,4 +67,4 @@ const Participate = () => {
   );
 };
 
-export default Participate;
+export default ParticipatePage;

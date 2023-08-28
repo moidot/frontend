@@ -1,8 +1,8 @@
-import Master from '../../../public/assets/participate/icon_master.svg';
-import KakaoTalk from '../../../public/assets/participate/icon_kakao_talk.svg';
-import Copy from '../../../public/assets/participate/icon_copy.svg';
-import Car from '../../../public/assets/transportation/icon_car.svg';
-import Sub from '../../../public/assets/transportation/icon_sub.svg';
+import Master from '@assets/participate/icon_master.svg';
+import KakaoTalk from '@assets/participate/icon_kakao_talk.svg';
+import Copy from '@assets/participate/icon_copy.svg';
+import Car from '@assets/transportation/icon_circle_car.svg';
+import Sub from '@assets/transportation/icon_circle_sub.svg';
 import { ParticipantsByRegionProps, ParticipationDataProps, ParticipationsProps } from '@/types/ParticipateType';
 
 const ParticipationList = ({ data, role }: ParticipationDataProps) => {
