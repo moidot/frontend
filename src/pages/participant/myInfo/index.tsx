@@ -5,9 +5,41 @@ import DisabledSub from '@assets/transportation/disabled_sub.svg';
 import NoCheckBox from '@assets/participate/check/no_check_box.svg';
 import CheckBox from '@assets/participate/check/check_box.svg';
 import { useRouter } from 'next/router';
+import * as yup from 'yup';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useEffect, useState } from 'react';
+
+interface IvalidationForm {
+  nickname: string;
+  address: string;
+  transportation: string;
+}
 
 const MyInfoUpdatePage = () => {
   const router = useRouter();
+  const [isPublic, setIsPublic] = useState<boolean>(false);
+  useEffect(() => {
+    router.query.transportation === 'PUBLIC' && setIsPublic(!isPublic);
+  }, []);
+  const schema = yup.object().shape({
+    nickname: yup.string().required('닉네임을 입력해주세요.').max(8, '8자 이하로 입력해주세요'),
+    address: yup.string().required('주소를 입력해주세요'),
+  });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IvalidationForm>({
+    resolver: yupResolver(schema),
+    defaultValues: {
+      nickname: router?.query?.nickname,
+      address: router.query.address,
+    },
+  });
+  const check = (data: any) => {
+    console.log(data);
+  };
   return (
     <div>
       {/* 뒤로가기 상단바 */}
@@ -32,11 +64,12 @@ const MyInfoUpdatePage = () => {
           <div className="w-full relative">
             <input
               type="text"
-              value="김모임장"
               className="w-full h-[72px] pl-6 rounded-2xl bg-bg_orange text-b2 text-font_black outline-none"
+              {...register('nickname')}
             />
             <Pencil className="absolute top-5 right-6" />
           </div>
+          {errors.nickname && <div className="font-Pretendard text-alert_delete mt-4">{errors.nickname.message}</div>}
         </div>
         {/* 출발 장소 */}
         <div className="w-[586px] mx-auto mb-[40px]">
@@ -46,11 +79,12 @@ const MyInfoUpdatePage = () => {
           <div className="w-full relative">
             <input
               type="text"
-              value="성신여자대학교"
               className="w-full h-[72px] pl-6 rounded-2xl bg-bg_orange text-b2 text-font_black outline-none"
+              {...register('address')}
             />
             <Pencil className="absolute top-5 right-6" />
           </div>
+          {errors.address && <div>{errors.address.message}</div>}
         </div>
         {/* 이동 수단 */}
         <div className="w-[586px] mx-auto mb-[34px]">
@@ -60,16 +94,18 @@ const MyInfoUpdatePage = () => {
           <div className="flex relative items-center w-full h-[78px] pl-6 rounded-2xl bg-bg_orange text-b2 text-font_black outline-none mb-3">
             <DisabledSub className="ml-[2px]" />
             <span className="ml-[24px] text-font_black text-b2">대중교통</span>
-            <NoCheckBox className="absolute right-4" />
+            {isPublic ? <CheckBox className="absolute right-4" /> : <NoCheckBox className="absolute right-4" />}
           </div>
           <div className="flex relative items-center w-full h-[78px] pl-6 rounded-2xl bg-bg_orange text-b2 text-font_black outline-none">
             <FocusCar />
             <span className="ml-[24px] text-font_black text-b2">자동차</span>
-            <CheckBox className="absolute right-4" />
+            {!isPublic ? <CheckBox className="absolute right-4" /> : <NoCheckBox className="absolute right-4" />}
           </div>
         </div>
 
-        <div className="cursor-pointer flex w-[585px] h-[78px] items-center justify-center bg-main_orange rounded-2xl mx-auto mb-[92px] text-white text-b1 font-bold">
+        <div
+          className="cursor-pointer flex w-[585px] h-[78px] items-center justify-center bg-main_orange rounded-2xl mx-auto mb-[92px] text-white text-b1 font-bold"
+          onClick={handleSubmit(check)}>
           내 정보 수정하기
         </div>
       </div>
