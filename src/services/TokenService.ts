@@ -1,4 +1,5 @@
 import { Cookies } from 'react-cookie';
+
 class TokenService {
   cookie = new Cookies();
   setToken(token: string) {

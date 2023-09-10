@@ -1,4 +1,4 @@
-import StartButton from '../common/buttom/home/StartButton';
+import StartButton from '../common/button/home/StartButton';
 
 const Home4 = () => {
   return (
