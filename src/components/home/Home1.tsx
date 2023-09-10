@@ -1,19 +1,16 @@
 import LogoComponent from '@assets/home/logo_.svg';
 import GoogleLogin from '@assets/home/google/btn_login.svg';
-import KakaoLogin from '@assets/home/kakao/btn_login.svg';
 import NaverLogin from '@assets/home/naver/btn_login.svg';
+import KakaoLoginButton from '../common/button/kakao/KakaoButton';
 
 const Home1 = () => {
-  const onGoogleClick = () => {};
   return (
     <div className="flex flex-col items-center justify-center gap-[60px] mt-[100px]">
       {/* part1 : logo 및 소셜로그인 */}
       <LogoComponent />
       <div className="flex flex-col gap-3">
-        <div onClick={onGoogleClick}>
-          <GoogleLogin />
-        </div>
-        <KakaoLogin />
+        <GoogleLogin />
+        <KakaoLoginButton />
         <NaverLogin />
       </div>
       <div className="flex flex-col items-center justify-center w-[585px] h-[137px] bg-light_orange rounded-2xl gap-8">
