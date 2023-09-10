@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 const KakaoLoginButton = () => {
   const router = useRouter();
   const REST_API_KEY = process.env.NEXT_PUBLIC_KAKAO_REST_APT_KEY;
-  const REDIRECT_URI = process.env.NEXT_PUBLIC_REDIRECT_URI;
+  const REDIRECT_URI = process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI;
   const LINK = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
   function kakaoLogin() {

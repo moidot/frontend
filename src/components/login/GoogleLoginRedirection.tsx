@@ -6,14 +6,14 @@ import api from '@/services/TokenService';
 import { useRouter } from 'next/router';
 import getAuthLogin from '@/apis/getAuthLogin';
 
-const KakaoLoginRedirect = () => {
+const GoogleLoginRedirect = () => {
   const router = useRouter();
   const params = useSearchParams();
   const codeParam: string = params.get('code') as string;
   const setUserInfo = useSetRecoilState(userInfoAtom);
   useEffect(() => {
     const fetchData = async () => {
-      const response = await getAuthLogin(codeParam, 'KAKAO');
+      const response = await getAuthLogin(codeParam, 'GOOGLE');
       console.log(response);
       const { email, name, token } = response.data;
       const userInfo: UserInfoAtomProps = {
@@ -34,4 +34,4 @@ const KakaoLoginRedirect = () => {
   return <></>;
 };
 
-export default KakaoLoginRedirect;
+export default GoogleLoginRedirect;
