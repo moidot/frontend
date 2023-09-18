@@ -53,7 +53,7 @@ const KakaoMap = () => {
 
   return (
     <>
-      <div id="map" className="w-[80%] h-[600px]" />
+      <div id="map" className="w-[100%] h-[600px]"></div>
     </>
   );
 };
