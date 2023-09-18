@@ -1,9 +1,11 @@
 import { atom } from 'recoil';
+import { recoilPersist } from 'recoil-persist';
 
-// const { persistAtom } = recoilPersist({
-//   key: 'userInfoLocalStorage',
-//   storage: localStorage,
-// });
+const localStorage = typeof window !== `undefined` ? window.localStorage : null;
+const { persistAtom } = recoilPersist({
+  key: 'userInfoLocalStorage',
+  storage: localStorage!,
+});
 
 export interface UserInfoAtomProps {
   email: string;
@@ -16,5 +18,5 @@ export const userInfoAtom = atom<UserInfoAtomProps>({
     email: '',
     name: '',
   },
-  //   effects_UNSTABLE: [persistAtom],
+  effects_UNSTABLE: [persistAtom],
 });

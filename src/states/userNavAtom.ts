@@ -4,13 +4,15 @@ import { atom } from 'recoil';
 import { NAV_LIST } from '@/components/common/navbar/Navigation';
 
 type NavListType = keyof typeof NAV_INFO;
+const localStorage = typeof window !== `undefined` ? window.localStorage : null;
+
 export interface NavAtomProps {
   activeNavType: NavListType;
 }
 
 const { persistAtom } = recoilPersist({
   key: 'navLocalStorage',
-  storage: localStorage,
+  storage: localStorage!,
 });
 
 export const userNavAtom = atom<NavAtomProps>({
