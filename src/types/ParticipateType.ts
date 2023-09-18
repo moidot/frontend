@@ -1,6 +1,8 @@
+import { ResponseDto } from './common';
+
 export interface ParticipationsProps {
   participationId: number;
-  userId: number;
+  userEmail: string;
   userName: string;
   locationName: string;
   transportation: string;
@@ -13,7 +15,7 @@ export interface ParticipantsByRegionProps {
 
 export interface ParticipationProps {
   groupId: number;
-  adminId: number;
+  adminEmail: string;
   name: string;
   date: string;
   participantsByRegion: ParticipantsByRegionProps[];
@@ -21,5 +23,9 @@ export interface ParticipationProps {
 
 export interface ParticipationDataProps {
   data: ParticipationProps;
-  role: string;
+  mode: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  setMode: any;
 }
+
+export type GetAllParticipationRes = ResponseDto<ParticipationProps>;
