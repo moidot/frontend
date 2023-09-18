@@ -1,3 +1,5 @@
+import { ResponseDto } from './common';
+
 export interface ParticipationsProps {
   participationId: number;
   userEmail: string;
@@ -25,3 +27,5 @@ export interface ParticipationDataProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   setMode: any;
 }
+
+export type GetAllParticipationRes = ResponseDto<ParticipationProps>;
