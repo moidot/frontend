@@ -1,18 +1,8 @@
-import React from 'react';
-
 const Place = () => {
-  const onClick = async () => {
-    //const param = await axios.get('http://localhost:8080/oauth2/authorization/kakao');
-    //console.log(param.data);
-  };
-
   return (
-    <div>
-      <h1>하이</h1>
-      <h1>하이</h1>
-      <h1>하이</h1>
-      <button onClick={onClick}>버튼</button>
-    </div>
+    <>
+      <div className="font-Pretendard text-black text-h3 font-bold">모여서 여기로 가는거 어때요?</div>
+    </>
   );
 };
 export default Place;

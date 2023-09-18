@@ -8,11 +8,23 @@ class TokenService {
   setId(id: string) {
     this.cookie.set('id', id, { path: '/' });
   }
+  setName(name: string) {
+    this.cookie.set('name', name, { path: '/' });
+  }
+  setEmail(email: string) {
+    this.cookie.set('email', email, { path: '/' });
+  }
   getToken() {
     return this.cookie.get('token');
   }
   getId() {
     return this.cookie.get('id');
+  }
+  getName() {
+    return this.cookie.get('name');
+  }
+  getEmail() {
+    return this.cookie.get('email');
   }
   logout() {
     this.cookie.remove('token');

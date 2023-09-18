@@ -7,6 +7,7 @@ import { Outlet } from 'react-router-dom';
 
 const DefaultLayout = ({ children }: PropsWithChildren) => {
   const activeNavType = useRecoilValue(userNavAtom).activeNavType;
+  console.log(activeNavType);
   return (
     <>
       <Header />
