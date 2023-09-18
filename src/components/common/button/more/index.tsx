@@ -1,7 +1,7 @@
 const More = () => {
   return (
-    <div className="w-[585px] h-[79px] text-main_orange rounded-2xl">
-      <div className="flex items-center cursor-pointer text-b1">더보기</div>
+    <div className="flex items-center justify-center  w-[585px] h-[79px] bg-main_orange rounded-2xl">
+      <div className="text-center cursor-pointer text-white text-b1">더보기</div>
     </div>
   );
 };

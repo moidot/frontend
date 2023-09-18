@@ -18,7 +18,7 @@ const { persistAtom } = recoilPersist({
 export const userNavAtom = atom<NavAtomProps>({
   key: 'userNavAtom',
   default: {
-    activeNavType: NAV_LIST.PLACE,
+    activeNavType: NAV_LIST.MAIN,
   },
   effects_UNSTABLE: [persistAtom],
 });

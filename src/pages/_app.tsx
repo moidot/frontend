@@ -27,6 +27,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <RecoilRoot>
         <CookiesProvider>
           <Component {...pageProps} />
+
           <Script src="https://developers.kakao.com/sdk/js/kakao.js" onLoad={kakaoInit}></Script>
           <Script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js"></Script>
         </CookiesProvider>
