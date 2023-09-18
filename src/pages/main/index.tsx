@@ -1,13 +1,13 @@
 import DefaultLayout from '@/components/common/layout/defaultLayout';
-import Place from '@/components/place';
-const PlacePage = () => {
+import Main from '@/components/main';
+const MainPage = () => {
   return (
     <>
       <DefaultLayout>
-        <Place />
+        <Main />
       </DefaultLayout>
     </>
   );
 };
 
-export default PlacePage;
+export default MainPage;

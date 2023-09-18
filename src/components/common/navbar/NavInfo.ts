@@ -7,9 +7,9 @@ interface NavItemType {
 }
 
 export const NAV_INFO = {
-  [NAV_LIST.PLACE]: {
+  [NAV_LIST.MAIN]: {
     label: '모임 장소',
-    url: NAV_URL_LIST.PLACE,
+    url: NAV_URL_LIST.MAIN,
   },
   [NAV_LIST.PARTICIPANT]: {
     label: '참여 정보',
