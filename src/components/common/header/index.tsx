@@ -6,12 +6,16 @@ const Header = () => {
     router.push('/');
   };
   return (
-    <>
-      <div className="w-36 h-14 mt-10 ml-20 mb-3" onClick={onClick}>
-        <LogoComponent />
+    <div>
+      <div className="flex flex-row justify-between w-100vw  p-10 " onClick={onClick}>
+        <div className="w-36">
+          <LogoComponent />
+        </div>
+        <div className="font-normal font-Pretendard text-font_gray text-b2">로그아웃</div>
       </div>
+
       <hr />
-    </>
+    </div>
   );
 };
 
