@@ -1,18 +1,25 @@
 import EmptyState from '@assets/home/illust_empty_state.svg';
 import api from '@/services/TokenService';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useGetParticipate } from '@/hooks/useGetGroupParticipate';
+import SpaceBox from '../common/home/SpaceBox';
+import { useRouter } from 'next/router';
 
 const Home5 = () => {
   // 유저가 공간을 만든적이 없으면 empty -> true, 그게 아니면 false
   const [emptySpaceState, setEmptySpaceState] = useState(true);
   const token = api.getToken();
-  console.log(token);
-  const response = useGetParticipate(token);
-  if (response.data?.code == 400) {
-    setEmptySpaceState(false);
-  }
+  const response = useGetParticipate(token).data;
+  const router = useRouter();
 
+  useEffect(() => {
+    if (response?.data.length != 0) {
+      setEmptySpaceState(false);
+    }
+  }, []);
+  const onBoxClick = (groupId: number) => {
+    router.push(`/main/${groupId}`);
+  };
   return (
     <div className="flex flex-col justify-center items-center gap-[60px] bg-light_orange w-screen mt-24">
       <div className="flex flex-col justify-center items-center gap-[2px] mt-10">
@@ -21,7 +28,7 @@ const Home5 = () => {
           과거에 진행되었던 모임장소 조율이에요.
         </div>
       </div>
-      {emptySpaceState ? (
+      {emptySpaceState == true ? (
         <div>
           <EmptyState />
           <div className="flex flex-col justify-center items-center gap-[4px] mb-24">
@@ -32,7 +39,22 @@ const Home5 = () => {
           </div>
         </div>
       ) : (
-        <div></div>
+        <div className="grid grid-cols-2 w-100vw p-5 gap-8">
+          {response?.data.map((item) => (
+            <div key={item.groupId} onClick={() => onBoxClick(item.groupId)}>
+              <SpaceBox
+                groupAdminName={item.groupAdminName}
+                groupDate={item.groupDate}
+                groupId={item.groupId}
+                groupName={item.groupName}
+                groupParticipates={item.groupParticipates}
+                bestPlaceName={item.bestPlaceName}
+                confirmPlace={item.confirmPlace}
+                participantNames={item.participantNames}
+              />
+            </div>
+          ))}
+        </div>
       )}
     </div>
   );

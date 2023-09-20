@@ -12,7 +12,7 @@ interface PlaceDetailInfoProps {
   setClick: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const PlaceDetailInfo = ({ click, setClick }: PlaceDetailInfoProps) => {
+const PlaceDetailInfo = ({ setClick }: PlaceDetailInfoProps) => {
   const onClick = () => {
     setClick(false);
   };
