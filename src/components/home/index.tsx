@@ -7,9 +7,10 @@ import Home5 from './Home5';
 
 const Home = () => {
   const token = api.getToken();
+  console.log(token);
   return (
     <div className="h-100% w-screen flex flex-col items-center justify-center first-letter:overflow-scroll">
-      {token == null ? (
+      {token == undefined ? (
         <div>
           <Home1 />
           <Home2 />

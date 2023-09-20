@@ -7,7 +7,6 @@ import Sub from '@assets/transportation/icon_circle_sub.svg';
 import { ParticipantsByRegionProps, ParticipationDataProps, ParticipationsProps } from '@/types/ParticipateType';
 import { handleCopyClipBoard } from '@/utils/copyUrl';
 import { useRecoilValue } from 'recoil';
-import { userInfoAtom } from '@/states/userInfoAtom';
 import api from '@/services/TokenService';
 import { useEffect, useState } from 'react';
 import CommonPopupBackground from '../common/popup/CommonPopupBackground';
