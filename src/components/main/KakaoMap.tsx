@@ -1,3 +1,5 @@
+import { GetUserInfoProps } from '@/types/SpaceType';
+
 import { useEffect } from 'react';
 
 declare global {
@@ -6,7 +8,15 @@ declare global {
     kakao: any;
   }
 }
-const KakaoMap = () => {
+
+interface KakaoMapProps {
+  lng: number;
+  lat: number;
+  // adminUser: GetUserInfoProps[];
+  // defaultUser: GetUserInfoProps[];
+}
+
+const KakaoMap = ({ lng, lat }: KakaoMapProps) => {
   useEffect(() => {
     const mapScript = document.createElement('script');
 
@@ -22,29 +32,46 @@ const KakaoMap = () => {
         const container = document.getElementById('map');
         //지도 중심좌표
         const options = {
-          center: new window.kakao.maps.LatLng(33.450701, 126.570667),
+          center: new window.kakao.maps.LatLng(lat, lng),
           level: 3,
         };
         //지도 생성
         const map = new window.kakao.maps.Map(container, options);
-        // // 경로 표시
-        // const linePath: any[] = [];
-        // Object.entries(routes[0]).map(([key, value]) =>
-        //   linePath.push(new window.kakao.maps.LatLng(value[0], value[1])),
+        // 경로 표시
+        // const adminPath: any[] = [];
+        // const defaultPath: any[] = [];
+
+        // Object.entries(adminUser[0].path).map(([key, value]) =>
+        //   adminPath.push(new window.kakao.maps.LatLng(value.x, value.y)),
         // );
 
-        // // 지도에 표시할 선
+        // console.log(adminPath);
 
-        // const markerPosition = new window.kakao.maps.LatLng(latitude, longitude);
-        // const polyline = new window.kakao.maps.Polyline({
-        //   path: linePath, // 선을 구성하는 좌표배열 입니다
-        //   strokeWeight: 5, // 선의 두께 입니다
-        //   strokeColor: '#AD4C0D', // 선의 색깔입니다
-        //   strokeOpacity: 1, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
-        //   strokeStyle: 'solid', // 선의 스타일입니다
+        // for (let i = 0; i < defaultUser.length; i++) {
+        //   Object.entries(defaultUser[i]).map(([key, value]) =>
+        //     defaultPath.push(new window.kakao.maps.LatLng(value.x, value.y)),
+        //   );
+        // }
+
+        // // // 지도에 표시할 선
+
+        // const adminPolyline = new window.kakao.maps.Polyline({
+        //   path: adminPath,
+        //   strokeWeight: 5,
+        //   strokeColor: '#FB7E23',
+        //   strokeStyle: 'solid',
         // });
-
-        // polyline.setMap(map);
+        // adminPolyline.setMap(map);
+        // for (let i = 0; i < defaultPath.length; i++) {
+        //   const item = defaultPath[i];
+        //   const polyline = new window.kakao.maps.Polyline({
+        //     map: map,
+        //     path: item.path,
+        //     strokeWeight: 5,
+        //     strokeColor: '#fff',
+        //     strokeStyle: 'solid',
+        //   });
+        // }
       });
     };
     //script 완전히 로드된 후 지도 띄우는 코드

@@ -1,9 +1,15 @@
+import api from '@/services/TokenService';
 import LogoComponent from '@assets/header/logo.svg';
 import { useRouter } from 'next/router';
 const Header = () => {
+  const token = api.getToken();
   const router = useRouter();
   const onClick = () => {
-    router.push('/');
+    if (token != null) {
+      router.push('/login');
+    } else {
+      router.push('/');
+    }
   };
   return (
     <div>
