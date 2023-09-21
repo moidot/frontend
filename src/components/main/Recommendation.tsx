@@ -1,27 +1,24 @@
+import { GetGroupBestRegionListRes } from '@/types/SpaceType';
 import RecommendationItem from './RecommendationItem';
 
-export interface RecommendationProps {
-  stationName: string;
-}
-const Recommendation = () => {
+const Recommendation = (props: GetGroupBestRegionListRes) => {
+  const data = props.data;
   return (
     <div>
       <div className="carousel w-full">
-        <div id="slide1" className="carousel-item relative w-full flex justify-center items-center">
-          <div className="flex justify-center items-center">
-            <RecommendationItem />
+        {data.map((item) => (
+          <div
+            key={data.indexOf(item)}
+            id={data.indexOf(item).toString()}
+            className="carousel-item relative w-full  flex justify-center items-center">
+            <RecommendationItem
+              name={item.name}
+              latitude={item.latitude}
+              longitude={item.longitude}
+              moveUserInfo={item.moveUserInfo}
+            />
           </div>
-        </div>
-        <div id="slide2" className="carousel-item relative w-full flex justify-center items-center">
-          <div className="flex justify-center items-center">
-            <RecommendationItem />
-          </div>
-        </div>
-        <div id="slide3" className="carousel-item relative w-full flex justify-center items-center">
-          <div className="flex justify-center items-center">
-            <RecommendationItem />
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   );

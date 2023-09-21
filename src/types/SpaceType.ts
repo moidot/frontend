@@ -1,3 +1,4 @@
+import { TransportType } from '@/components/common/main/AdminBox';
 import { ResponseDto } from './common';
 
 export interface GetGroupProps {
@@ -38,9 +39,10 @@ export interface GetGroupBestRegionProps {
 }
 
 export interface GetUserInfoProps {
+  isAdmin: boolean;
   userId: number;
   userName: string;
-  transportationType: string;
+  transportationType: TransportType;
   transitCount: number;
   totalTime: number;
   totalDistance: number;

@@ -3,32 +3,58 @@ import React from 'react';
 import { useSetRecoilState } from 'recoil';
 import { NAV_LIST } from '../common/navbar/Navigation';
 import ShareButton from '../common/button/share';
-import KakaoMap from './KakaoMap';
 import Recommendation from './Recommendation';
 import Place from '../place';
+import { useGetGroupBestRegion } from '@/hooks/useGetGroupBestRegion';
+import api from '@/services/TokenService';
+import { useGetGroup } from '@/hooks/useGetGroup';
+import KakaoMap from './KakaoMap';
+import { useRouter } from 'next/router';
 
 const Main = () => {
+  const router = useRouter();
+  const token = api.getToken();
   const setUserAtom = useSetRecoilState(userNavAtom);
   setUserAtom({ activeNavType: NAV_LIST.MAIN });
+  const groupId = parseInt(router.query.id as string);
 
-  // data의 0번째를 그룹장이라 생각
+  console.log(router.query.id);
+  const { data: groupData, isLoading } = useGetGroupBestRegion(token, groupId);
+  const { data: groupNameData } = useGetGroup(token, groupId);
 
+  // 위도,경도 전역 상태로 관리
   return (
-    <div className="flex flex-col ">
-      <div className="flex flex-col justify-center items-center p-4 mt-10">
-        <div className="font-Pretendard text-black text-h1 font-bold">모이닷 팀 프로젝트</div>
-        <div className="font-Pretendard text-font_gray text-h3 font-bold">2023.12.01</div>
-      </div>
-      <div className="p-10">
-        <ShareButton />
-      </div>
-      <KakaoMap />
+    <>
+      {isLoading ? (
+        <>
+          <h1>로딩중</h1>
+        </>
+      ) : (
+        <div className="flex flex-col ">
+          <div className="flex flex-col justify-center items-center p-4 mt-10">
+            <div className="font-Pretendard text-black text-h1 font-bold">{groupNameData?.data.name}</div>
+            <div className="font-Pretendard text-font_gray text-h3 font-bold">{groupNameData?.data.date}</div>
+          </div>
+          <div className="p-10">
+            <ShareButton />
+          </div>
 
-      <Recommendation />
-      <div className="w-full h-full bg-light_orange p-8">
-        <Place />
-      </div>
-    </div>
+          <KakaoMap
+            lat={parseFloat(groupData?.data[0].latitude.toString() as string)}
+            lng={parseFloat(groupData?.data[0].longitude.toString() as string)}
+          />
+          {groupData ? (
+            <Recommendation code={groupData.code} message={groupData.message} data={groupData.data} />
+          ) : (
+            <div>데이터를 불러올 수 없습니다</div>
+          )}
+          <div className="w-full h-full bg-light_orange p-8">
+            <Place />
+          </div>
+        </div>
+      )}
+    </>
   );
 };
+
 export default Main;

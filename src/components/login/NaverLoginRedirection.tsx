@@ -19,7 +19,7 @@ const NaverLoginRedirect = () => {
         api.setEmail(email);
         api.setName(name);
       }
-      router.push('/');
+      router.push('/login');
     };
     if (codeParam != null) {
       fetchData();

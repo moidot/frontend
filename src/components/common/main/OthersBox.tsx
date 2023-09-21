@@ -6,10 +6,10 @@ export interface NaviProps {
   name: string;
   transportCount?: number;
   time: number;
-  money?: string;
+  money?: number;
   transportType: TransportType;
 }
-export type TransportType = 'TAXI' | 'SUBWAY';
+export type TransportType = 'TAXI' | 'PUBLIC';
 
 const OthersBox = ({ name, transportCount, transportType, money, time }: NaviProps) => {
   const hour = Math.floor(time / 60);
@@ -30,7 +30,7 @@ const OthersBox = ({ name, transportCount, transportType, money, time }: NaviPro
             </div>
           </div>
           <div className="flex items-center flex-row gap-4">
-            {transportType == 'SUBWAY' ? <SubwayButton /> : <TaxiButton />}
+            {transportType == 'PUBLIC' ? <SubwayButton /> : <TaxiButton />}
             <OthersMore />
           </div>
         </div>

@@ -1,10 +1,13 @@
 import HomeLayout from '@/components/common/layout/homeLayout';
-import Home from '@/components/home';
+import LoginBefore from '@/components/home/LoginBefore';
+import api from '@/services/TokenService';
 const HomePage = () => {
+  const token = api.getToken();
+  console.log(token);
   return (
     <>
       <HomeLayout>
-        <Home />
+        <LoginBefore />
       </HomeLayout>
     </>
   );
