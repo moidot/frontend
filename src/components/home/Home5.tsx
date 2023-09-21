@@ -18,7 +18,9 @@ const Home5 = () => {
     }
   }, []);
   const onBoxClick = (groupId: number) => {
-    router.push(`/main/${groupId}`);
+    router.push({
+      pathname: `/main/${groupId}`,
+    });
   };
   return (
     <div>

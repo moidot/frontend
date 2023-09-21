@@ -5,20 +5,20 @@ import { NAV_LIST } from '../common/navbar/Navigation';
 import ShareButton from '../common/button/share';
 import Recommendation from './Recommendation';
 import Place from '../place';
-import { useRouter } from 'next/router';
 import { useGetGroupBestRegion } from '@/hooks/useGetGroupBestRegion';
 import api from '@/services/TokenService';
 import { useGetGroup } from '@/hooks/useGetGroup';
 import KakaoMap from './KakaoMap';
+import { useRouter } from 'next/router';
+
 const Main = () => {
+  const router = useRouter();
   const token = api.getToken();
   const setUserAtom = useSetRecoilState(userNavAtom);
   setUserAtom({ activeNavType: NAV_LIST.MAIN });
-  const router = useRouter();
-  const { query } = router;
-  console.log(query);
-  //url의 파라미터에서 groupId추출하기
-  const groupId = parseInt(query.id as string);
+  const groupId = parseInt(router.query.id as string);
+
+  console.log(router.query.id);
   const { data: groupData, isLoading } = useGetGroupBestRegion(token, groupId);
   const { data: groupNameData } = useGetGroup(token, groupId);
 
@@ -56,4 +56,5 @@ const Main = () => {
     </>
   );
 };
+
 export default Main;
