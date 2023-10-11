@@ -1,4 +1,3 @@
-import BackBtn from '@assets/participate/btn_back.svg';
 import Pencil from '@assets/participate/icon_pencil.svg';
 import FocusCar from '@assets/transportation/focus_car.svg';
 import DisabledCar from '@assets/transportation/disabled_car.svg';
@@ -9,6 +8,7 @@ import CheckBox from '@assets/participate/check/check_box.svg';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import CommonPopupBackground from '@/components/common/popup/CommonPopupBackground';
+import SimpleNav from '@/components/common/navbar/SimpleNav';
 
 const MyInfoUpdatePage = () => {
   const router = useRouter();
@@ -42,11 +42,7 @@ const MyInfoUpdatePage = () => {
   return (
     <div>
       {/* 뒤로가기 상단바 */}
-      <div className="w-full h-[80px] border border-[#E2E2E2]">
-        <div className="flex w-[1200px] h-full items-center mx-auto">
-          <BackBtn onClick={() => router.push('/participant')} className="cursor-pointer" />
-        </div>
-      </div>
+      <SimpleNav />
       <div className="font-Pretendard w-[1200px] mx-auto pt-9">
         <div className="w-[290px] mx-auto mb-[56px]">
           <div className="text-h2 text-font_black font-bold">내 정보 수정하기</div>
