@@ -12,9 +12,9 @@ const KakaoLoginRedirect = () => {
     const fetchData = async () => {
       const response = await getAuthLogin(codeParam, 'KAKAO');
       console.log(response);
-      const { email, name, token } = response.data;
+      const { email, name, accessToken } = response.data;
       if (response.data) {
-        api.setToken(token);
+        api.setToken(accessToken);
         api.setEmail(email);
         api.setName(name);
       }
