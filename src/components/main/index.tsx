@@ -11,17 +11,20 @@ import { useGetGroup } from '@/hooks/useGetGroup';
 import { useRouter } from 'next/router';
 import KakaoMap from './KakaoMap';
 
-const Main = () => {
+interface MainProps {
+  id: string;
+}
+
+const Main = ({ id }: MainProps) => {
   const router = useRouter();
   const token = api.getToken();
   const setUserAtom = useSetRecoilState(userNavAtom);
 
   setUserAtom({ activeNavType: NAV_LIST.MAIN });
-  const groupId = parseInt(router.query.id as string);
 
   console.log(router.query.id);
-  const { data: groupData, isLoading } = useGetGroupBestRegion(token, groupId);
-  const { data: groupNameData } = useGetGroup(token, groupId);
+  const { data: groupData, isLoading } = useGetGroupBestRegion(token, parseInt(id));
+  const { data: groupNameData } = useGetGroup(token, parseInt(id));
   console.log(groupData);
   const adminPath = groupData?.data[0].moveUserInfo.filter((item) => item.isAdmin == true);
   const defaultUserPath = groupData?.data[0].moveUserInfo.filter((item) => item.isAdmin == false);

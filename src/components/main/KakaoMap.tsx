@@ -63,21 +63,6 @@ const KakaoMap = ({ lng, lat, adminUser, defaultUser }: KakaoMapProps) => {
           });
         }
 
-        // let linePath = [new window.kakao.maps.LatLng(adminUser[0].path[0].y, adminUser[0].path[0].x)];
-        // Object.entries(adminUser[0].path).map((item) =>
-        //   linePath.push(new window.kakao.maps.LatLng(item[1].x, item[1].y)),
-        // );
-        // console.log(linePath);
-
-        // const polyline = new window.kakao.maps.Polyline({
-        //   map: map,
-        //   path: linePath,
-        //   strokeWeight: 5,
-        //   strokeColor: '#fc03f8',
-        //   strokeStyle: 'solid',
-        // });
-        // polyline.setMap(map);
-
         console.log(adminPath);
         for (let i = 0; i < defaultPath.length; i++) {
           const item = defaultPath[i].path;
