@@ -29,6 +29,7 @@
     "react-cookies": "^0.1.1",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.45.4",
+    "react-kakao-maps-sdk": "^1.1.24",
     "react-router-dom": "^6.15.0",
     "recoil": "^0.7.7",
     "recoil-persist": "^5.1.0",

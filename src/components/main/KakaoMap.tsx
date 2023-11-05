@@ -2,21 +2,19 @@ import { GetUserInfoProps } from '@/types/SpaceType';
 
 import { useEffect } from 'react';
 
-declare global {
-  interface Window {
-    /* eslint-disable @typescript-eslint/no-explicit-any */
-    kakao: any;
-  }
-}
-
 interface KakaoMapProps {
   lng: number;
   lat: number;
-  // adminUser: GetUserInfoProps[];
-  // defaultUser: GetUserInfoProps[];
+  adminUser: GetUserInfoProps[];
+  defaultUser: GetUserInfoProps[];
 }
 
-const KakaoMap = ({ lng, lat }: KakaoMapProps) => {
+interface PathProps {
+  id: number;
+  path: any[];
+}
+
+const KakaoMap = ({ lng, lat, adminUser, defaultUser }: KakaoMapProps) => {
   useEffect(() => {
     const mapScript = document.createElement('script');
 
@@ -25,7 +23,7 @@ const KakaoMap = ({ lng, lat }: KakaoMapProps) => {
 
     document.head.appendChild(mapScript);
 
-    // sceipt가 완전히 로드된 후 실행
+    // script가 완전히 로드된 후 실행
     const onLoadKakaoMap = () => {
       window.kakao.maps.load(() => {
         //지도를 표시할 div
@@ -33,45 +31,81 @@ const KakaoMap = ({ lng, lat }: KakaoMapProps) => {
         //지도 중심좌표
         const options = {
           center: new window.kakao.maps.LatLng(lat, lng),
-          level: 3,
+          level: 8,
         };
         //지도 생성
         const map = new window.kakao.maps.Map(container, options);
         // 경로 표시
-        // const adminPath: any[] = [];
-        // const defaultPath: any[] = [];
+        const adminPath: PathProps[] = [];
+        const defaultPath: PathProps[] = [];
 
-        // Object.entries(adminUser[0].path).map(([key, value]) =>
-        //   adminPath.push(new window.kakao.maps.LatLng(value.x, value.y)),
+        for (let i = 0; i < adminUser.length; i++) {
+          let list: any[] = [new window.kakao.maps.LatLng(adminUser[i].path[0].y, adminUser[i].path[0].x)];
+          Object.entries(adminUser[i].path).map((item) =>
+            list.push(new window.kakao.maps.LatLng(item[1].y, item[1].x)),
+          );
+
+          adminPath.push({
+            id: i,
+            path: list,
+          });
+        }
+
+        for (let i = 0; i < defaultUser.length; i++) {
+          let list: any[] = [new window.kakao.maps.LatLng(defaultUser[i].path[0].y, defaultUser[i].path[0].x)];
+          Object.entries(defaultUser[i].path).map((item) =>
+            list.push(new window.kakao.maps.LatLng(item[1].y, item[1].x)),
+          );
+
+          defaultPath.push({
+            id: i,
+            path: list,
+          });
+        }
+
+        // let linePath = [new window.kakao.maps.LatLng(adminUser[0].path[0].y, adminUser[0].path[0].x)];
+        // Object.entries(adminUser[0].path).map((item) =>
+        //   linePath.push(new window.kakao.maps.LatLng(item[1].x, item[1].y)),
         // );
+        // console.log(linePath);
 
-        // console.log(adminPath);
-
-        // for (let i = 0; i < defaultUser.length; i++) {
-        //   Object.entries(defaultUser[i]).map(([key, value]) =>
-        //     defaultPath.push(new window.kakao.maps.LatLng(value.x, value.y)),
-        //   );
-        // }
-
-        // // // 지도에 표시할 선
-
-        // const adminPolyline = new window.kakao.maps.Polyline({
-        //   path: adminPath,
+        // const polyline = new window.kakao.maps.Polyline({
+        //   map: map,
+        //   path: linePath,
         //   strokeWeight: 5,
-        //   strokeColor: '#FB7E23',
+        //   strokeColor: '#fc03f8',
         //   strokeStyle: 'solid',
         // });
-        // adminPolyline.setMap(map);
-        // for (let i = 0; i < defaultPath.length; i++) {
-        //   const item = defaultPath[i];
-        //   const polyline = new window.kakao.maps.Polyline({
-        //     map: map,
-        //     path: item.path,
-        //     strokeWeight: 5,
-        //     strokeColor: '#fff',
-        //     strokeStyle: 'solid',
-        //   });
-        // }
+        // polyline.setMap(map);
+
+        console.log(adminPath);
+        for (let i = 0; i < defaultPath.length; i++) {
+          const item = defaultPath[i].path;
+          console.log(item);
+          const polyline = new window.kakao.maps.Polyline({
+            map: map,
+            path: item,
+            strokeWeight: 5,
+            strokeColor: '#7E7E7E',
+            strokeOpacity: 1,
+            strokeStyle: 'solid',
+          });
+          polyline.setMap(map);
+        }
+
+        for (let i = 0; i < adminPath.length; i++) {
+          const item = adminPath[i].path;
+          console.log(item);
+          const polyline = new window.kakao.maps.Polyline({
+            map: map,
+            path: item,
+            strokeWeight: 5,
+            strokeColor: '#FB7E23',
+            strokeOpacity: 1,
+            strokeStyle: 'solid',
+          });
+          polyline.setMap(map);
+        }
       });
     };
     //script 완전히 로드된 후 지도 띄우는 코드
