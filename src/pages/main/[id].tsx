@@ -2,7 +2,7 @@ import DefaultLayout from '@/components/common/layout/defaultLayout';
 import Main from '@/components/main';
 import { GetServerSideProps } from 'next';
 
-const MainPage = (props) => {
+const MainPage = (props: any) => {
   console.log(props);
   return (
     <>

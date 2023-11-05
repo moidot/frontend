@@ -1,4 +1,5 @@
 import HomeLayout from '@/components/common/layout/homeLayout';
+import LoginAfter from '@/components/home/LoginAfter';
 import LoginBefore from '@/components/home/LoginBefore';
 import api from '@/services/TokenService';
 const HomePage = () => {
@@ -6,9 +7,15 @@ const HomePage = () => {
   console.log(token);
   return (
     <>
-      <HomeLayout>
-        <LoginBefore />
-      </HomeLayout>
+      {token ? (
+        <HomeLayout>
+          <LoginAfter />
+        </HomeLayout>
+      ) : (
+        <HomeLayout>
+          <LoginBefore />
+        </HomeLayout>
+      )}
     </>
   );
 };
