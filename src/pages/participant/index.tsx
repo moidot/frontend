@@ -5,11 +5,13 @@ import { NAV_LIST } from '@/components/common/navbar/Navigation';
 import ParticipationList from '@/components/participate/ParticipationList';
 import { ParticipationProps } from '@/types/ParticipateType';
 import { useGetGroup } from '@/hooks/useGetGroup';
+import api from '@/services/TokenService';
 
 const ParticipatePage = () => {
   const [partData, setPartData] = useState<ParticipationProps>();
   const [updateMode, setUpdateMode] = useState<boolean>(false);
-  const response = useGetGroup(7);
+  const token = api.getToken();
+  const response = useGetGroup(token, 7);
   useEffect(() => {
     if (response.data?.message === '성공') setPartData(response.data?.data);
   }, [response]);
