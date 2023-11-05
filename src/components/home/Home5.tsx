@@ -9,8 +9,11 @@ const Home5 = () => {
   // 유저가 공간을 만든적이 없으면 empty -> true, 그게 아니면 false
   const [emptySpaceState, setEmptySpaceState] = useState(true);
   const token = api.getToken();
+  console.log(api.getToken());
   const { data, isLoading } = useGetParticipate(token);
   const router = useRouter();
+
+  console.log(data);
 
   useEffect(() => {
     if (data?.data.length != 0) {

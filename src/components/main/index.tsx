@@ -8,20 +8,28 @@ import Place from '../place';
 import { useGetGroupBestRegion } from '@/hooks/useGetGroupBestRegion';
 import api from '@/services/TokenService';
 import { useGetGroup } from '@/hooks/useGetGroup';
-import KakaoMap from './KakaoMap';
 import { useRouter } from 'next/router';
+import KakaoMap from './KakaoMap';
 
-const Main = () => {
+interface MainProps {
+  id: string;
+}
+
+const Main = ({ id }: MainProps) => {
   const router = useRouter();
   const token = api.getToken();
   const setUserAtom = useSetRecoilState(userNavAtom);
+
   setUserAtom({ activeNavType: NAV_LIST.MAIN });
-  const groupId = parseInt(router.query.id as string);
 
   console.log(router.query.id);
-  const { data: groupData, isLoading } = useGetGroupBestRegion(token, groupId);
-  const { data: groupNameData } = useGetGroup(token, groupId);
-
+  const { data: groupData, isLoading } = useGetGroupBestRegion(token, parseInt(id));
+  const { data: groupNameData } = useGetGroup(token, parseInt(id));
+  console.log(groupData);
+  const adminPath = groupData?.data[0].moveUserInfo.filter((item) => item.isAdmin == true);
+  const defaultUserPath = groupData?.data[0].moveUserInfo.filter((item) => item.isAdmin == false);
+  console.log(adminPath);
+  console.log(defaultUserPath);
   // 위도,경도 전역 상태로 관리
   return (
     <>
@@ -39,15 +47,21 @@ const Main = () => {
             <ShareButton />
           </div>
 
-          <KakaoMap
-            lat={parseFloat(groupData?.data[0].latitude.toString() as string)}
-            lng={parseFloat(groupData?.data[0].longitude.toString() as string)}
-          />
+          {adminPath && defaultUserPath ? (
+            <KakaoMap
+              lat={parseFloat(groupData?.data[0].latitude.toString() as string)}
+              lng={parseFloat(groupData?.data[0].longitude.toString() as string)}
+              adminUser={adminPath}
+              defaultUser={defaultUserPath}
+            />
+          ) : null}
+
           {groupData ? (
             <Recommendation code={groupData.code} message={groupData.message} data={groupData.data} />
           ) : (
             <div>데이터를 불러올 수 없습니다</div>
           )}
+
           <div className="w-full h-full bg-light_orange p-8">
             <Place />
           </div>

@@ -8,8 +8,8 @@ import { CookiesProvider } from 'react-cookie';
 
 declare global {
   interface Window {
-    /* eslint-disable @typescript-eslint/no-explicit-any */
     Kakao: any;
+    kakao: any;
   }
 }
 export default function App({ Component, pageProps }: AppProps) {
@@ -18,7 +18,9 @@ export default function App({ Component, pageProps }: AppProps) {
 
   function kakaoInit() {
     // 페이지가 로드되면 실행
-    window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_JS_KEY);
+    if (!window.Kakao.isInitialized()) {
+      window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_JS_KEY);
+    }
   }
 
   return (
@@ -26,7 +28,6 @@ export default function App({ Component, pageProps }: AppProps) {
       <RecoilRoot>
         <CookiesProvider>
           <Component {...pageProps} />
-
           <Script src="https://developers.kakao.com/sdk/js/kakao.js" onLoad={kakaoInit}></Script>
           <Script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js"></Script>
         </CookiesProvider>
