@@ -31,10 +31,28 @@ const KakaoMap = ({ lng, lat, adminUser, defaultUser }: KakaoMapProps) => {
         //지도 중심좌표
         const options = {
           center: new window.kakao.maps.LatLng(lat, lng),
-          level: 8,
+          level: 6,
         };
         //지도 생성
         const map = new window.kakao.maps.Map(container, options);
+
+        // 마킹 찍기
+        let imageSrc = 'https://jungminbuckets.s3.ap-northeast-2.amazonaws.com/marker.svg', // 마커이미지의 주소입니다
+          imageSize = new window.kakao.maps.Size(80, 108), // 마커이미지의 크기입니다
+          imageOption = { offset: new window.kakao.maps.Point(27, 69) }; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+
+        // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+        let markerImage = new window.kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
+          markerPosition = new window.kakao.maps.LatLng(lat, lng); // 마커가 표시될 위치입니다
+
+        // 마커를 생성합니다
+        let marker = new window.kakao.maps.Marker({
+          position: markerPosition,
+          image: markerImage, // 마커이미지 설정
+        });
+
+        marker.setMap(map);
+
         // 경로 표시
         const adminPath: PathProps[] = [];
         const defaultPath: PathProps[] = [];

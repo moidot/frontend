@@ -6,7 +6,7 @@ const Header = () => {
   const router = useRouter();
   const onClick = () => {
     if (token != null) {
-      router.push('/login');
+      router.push('/user');
     } else {
       router.push('/');
     }

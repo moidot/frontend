@@ -25,7 +25,7 @@ const GoogleLoginRedirect = () => {
         console.log(api.getToken());
       }
 
-      router.push('/login');
+      router.push('/user');
     };
     if (codeParam != null) {
       fetchData();

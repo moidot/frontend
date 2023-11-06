@@ -18,7 +18,7 @@ const KakaoLoginRedirect = () => {
         api.setEmail(email);
         api.setName(name);
       }
-      router.push('/login');
+      router.push('/user');
     };
     if (codeParam != null) {
       fetchData();
