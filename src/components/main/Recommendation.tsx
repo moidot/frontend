@@ -13,6 +13,7 @@ const Recommendation = (props: GetGroupBestRegionListRes) => {
             id={data.indexOf(item).toString()}
             className="carousel-item relative w-full  flex justify-center items-center">
             <RecommendationItem
+              userId={item.userId}
               name={item.name}
               latitude={item.latitude}
               longitude={item.longitude}

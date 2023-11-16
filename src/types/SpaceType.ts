@@ -33,6 +33,7 @@ export interface GetParticipateProps {
 // 스페이스 추천역 조회 API
 export interface GetGroupBestRegionProps {
   name: string;
+  userId: number;
   latitude: number;
   longitude: number;
   moveUserInfo: GetUserInfoProps[];

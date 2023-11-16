@@ -2,6 +2,7 @@ import { Cookies } from 'react-cookie';
 
 class TokenService {
   cookie = new Cookies();
+
   setToken(token: string) {
     this.cookie.set('token', token, { path: '/' });
   }

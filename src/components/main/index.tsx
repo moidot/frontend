@@ -17,6 +17,7 @@ interface MainProps {
 
 const Main = ({ id }: MainProps) => {
   const router = useRouter();
+  const userId = api.getId();
   const token = api.getToken();
   const setUserAtom = useSetRecoilState(userNavAtom);
 
@@ -26,10 +27,11 @@ const Main = ({ id }: MainProps) => {
   const { data: groupData, isLoading } = useGetGroupBestRegion(token, parseInt(id));
   const { data: groupNameData } = useGetGroup(token, parseInt(id));
   console.log(groupData);
-  const adminPath = groupData?.data[0].moveUserInfo.filter((item) => item.isAdmin == true);
-  const defaultUserPath = groupData?.data[0].moveUserInfo.filter((item) => item.isAdmin == false);
-  console.log(adminPath);
-  console.log(defaultUserPath);
+  // 현재 로그인된 유저의 path
+  const userPath = groupData?.data[0].moveUserInfo.filter((item) => item.userId === userId);
+  // 유저 이외의 사람들의 path
+  const otherUserPath = groupData?.data[0].moveUserInfo.filter((item) => item.userId != userId);
+
   // 위도,경도 전역 상태로 관리
   return (
     <>
@@ -47,12 +49,12 @@ const Main = ({ id }: MainProps) => {
             <ShareButton />
           </div>
 
-          {adminPath && defaultUserPath ? (
+          {userPath && otherUserPath ? (
             <KakaoMap
               lat={parseFloat(groupData?.data[0].latitude.toString() as string)}
               lng={parseFloat(groupData?.data[0].longitude.toString() as string)}
-              adminUser={adminPath}
-              defaultUser={defaultUserPath}
+              user={userPath}
+              otherUser={otherUserPath}
             />
           ) : null}
 

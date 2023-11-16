@@ -14,11 +14,13 @@ const GoogleLoginRedirect = () => {
   useEffect(() => {
     const fetchData = async () => {
       const response = await getAuthLogin(codeParam, 'GOOGLE');
+      console.log(response);
 
-      const { email, name, accessToken } = response.data;
+      const { userId, email, name, accessToken } = response.data;
 
       console.log(response.data);
       if (response.message == '성공') {
+        api.setId(userId.toString());
         api.setToken(accessToken);
         api.setEmail(email);
         api.setName(name);
