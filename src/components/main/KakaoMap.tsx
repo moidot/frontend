@@ -81,7 +81,6 @@ const KakaoMap = ({ lng, lat, user, otherUser }: KakaoMapProps) => {
 
         for (let i = 0; i < otherUserPath.length; i++) {
           const item = otherUserPath[i].path;
-          console.log(item);
           const polyline = new window.kakao.maps.Polyline({
             map: map,
             path: item,

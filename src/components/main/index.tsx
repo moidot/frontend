@@ -8,7 +8,6 @@ import Place from '../place';
 import { useGetGroupBestRegion } from '@/hooks/useGetGroupBestRegion';
 import api from '@/services/TokenService';
 import { useGetGroup } from '@/hooks/useGetGroup';
-import { useRouter } from 'next/router';
 import KakaoMap from './KakaoMap';
 
 interface MainProps {
@@ -16,17 +15,25 @@ interface MainProps {
 }
 
 const Main = ({ id }: MainProps) => {
-  const router = useRouter();
   const userId = api.getId();
   const token = api.getToken();
-  const setUserAtom = useSetRecoilState(userNavAtom);
+  let lat = 0;
+  let lng = 0;
+  let local = '';
 
+  const setUserAtom = useSetRecoilState(userNavAtom);
   setUserAtom({ activeNavType: NAV_LIST.MAIN });
 
-  console.log(router.query.id);
   const { data: groupData, isLoading } = useGetGroupBestRegion(token, parseInt(id));
   const { data: groupNameData } = useGetGroup(token, parseInt(id));
-  console.log(groupData);
+  // 0번째 추천 지역 대상으로 lat,lng 추출
+
+  if (groupData) {
+    lat = groupData?.data[0].latitude;
+    lng = groupData?.data[0].longitude;
+    local = groupData?.data[0].name;
+  }
+
   // 현재 로그인된 유저의 path
   const userPath = groupData?.data[0].moveUserInfo.filter((item) => item.userId === userId);
   // 유저 이외의 사람들의 path
@@ -65,7 +72,7 @@ const Main = ({ id }: MainProps) => {
           )}
 
           <div className="w-full h-full bg-light_orange p-8">
-            <Place />
+            <Place lat={lat.toString()} lng={lng.toString()} local={local} />
           </div>
         </div>
       )}
