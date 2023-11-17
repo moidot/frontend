@@ -4,6 +4,7 @@ import Navbar from '../../navbar';
 import { PropsWithChildren } from 'react';
 import { userNavAtom } from '@/states/userNavAtom';
 import { Outlet } from 'react-router-dom';
+import Footer from '../../footer';
 
 const DefaultLayout = ({ children }: PropsWithChildren) => {
   const activeNavType = useRecoilValue(userNavAtom).activeNavType;
@@ -13,6 +14,7 @@ const DefaultLayout = ({ children }: PropsWithChildren) => {
       <Header />
       <Navbar focusType={activeNavType} />
       {children || <Outlet />}
+      <Footer />
     </>
   );
 };

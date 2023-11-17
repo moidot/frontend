@@ -2,7 +2,7 @@ import AdminBox from '../common/main/AdminBox';
 import OthersBox from '../common/main/OthersBox';
 import { GetGroupBestRegionProps, GetUserInfoProps } from '@/types/SpaceType';
 
-const RecommendationItem = ({ name, latitude, longitude, moveUserInfo }: GetGroupBestRegionProps) => {
+const RecommendationItem = ({ userId, name, latitude, longitude, moveUserInfo }: GetGroupBestRegionProps) => {
   const adminUser: GetUserInfoProps[] = moveUserInfo.filter((item) => item.isAdmin);
   const defaultUser: GetUserInfoProps[] = moveUserInfo.filter((item) => !item.isAdmin);
   return (

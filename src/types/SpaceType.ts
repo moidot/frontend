@@ -33,6 +33,7 @@ export interface GetParticipateProps {
 // 스페이스 추천역 조회 API
 export interface GetGroupBestRegionProps {
   name: string;
+  userId: number;
   latitude: number;
   longitude: number;
   moveUserInfo: GetUserInfoProps[];
@@ -64,7 +65,34 @@ export interface GetGroupParticipateProps {
   confirmPlace: string;
   bestPlaceNames: string[];
 }
+
+// 스페이스 역 주변 추천 장소 조회
+
+export interface GetGroupBestRegionPlaceProps {
+  title: string;
+  thumUrl: string;
+  distance: string;
+  openTime: string;
+  tel: string;
+  detail: BestRegionPlaceDetailProps;
+  x: string;
+  y: string;
+  thumUrls: string[];
+  menuInfo: string[];
+}
+
+export interface BestRegionPlaceDetailProps {
+  local: string;
+  title: string;
+  address: string;
+  status: string;
+  openTime: string;
+  hompageUrl: string;
+  tel: string;
+  category: string[];
+}
 export type GetGroupRes = ResponseDto<GetGroupProps>;
 export type GetUserParticipateListRes = ResponseDto<GetParticipateProps[]>;
 export type GetGroupBestRegionListRes = ResponseDto<GetGroupBestRegionProps[]>;
 export type GetGroupParticipateListRes = ResponseDto<GetGroupParticipateProps[]>;
+export type GetGroupBestRegionPlaceRes = ResponseDto<GetGroupBestRegionPlaceProps[]>;

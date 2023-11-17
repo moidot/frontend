@@ -13,13 +13,14 @@ const NaverLoginRedirect = () => {
     const fetchData = async () => {
       const response = await getAuthLogin(codeParam, 'NAVER');
       console.log(response);
-      const { email, name, accessToken } = response.data;
+      const { userId, email, name, accessToken } = response.data;
       if (response.data) {
+        api.setId(userId.toString());
         api.setToken(accessToken);
         api.setEmail(email);
         api.setName(name);
       }
-      router.push('/login');
+      router.push('/user');
     };
     if (codeParam != null) {
       fetchData();
