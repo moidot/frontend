@@ -9,6 +9,7 @@ import { useGetGroupBestRegion } from '@/hooks/useGetGroupBestRegion';
 import api from '@/services/TokenService';
 import { useGetGroup } from '@/hooks/useGetGroup';
 import KakaoMap from './KakaoMap';
+import { groupIdAtom } from '@/states/groupIdAtom';
 
 interface MainProps {
   id: string;
@@ -17,6 +18,11 @@ interface MainProps {
 const Main = ({ id }: MainProps) => {
   const userId = api.getId();
   const token = api.getToken();
+  const setGroupId = useSetRecoilState(groupIdAtom);
+  setGroupId({
+    groupId: id,
+  });
+
   let lat = 0;
   let lng = 0;
   let local = '';
@@ -28,6 +34,7 @@ const Main = ({ id }: MainProps) => {
   const { data: groupNameData } = useGetGroup(token, parseInt(id));
   // 0번째 추천 지역 대상으로 lat,lng 추출
 
+  console.log(groupData);
   if (groupData) {
     lat = groupData?.data[0].latitude;
     lng = groupData?.data[0].longitude;

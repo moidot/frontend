@@ -15,6 +15,7 @@ import { useGetGroupBestRegionPlace } from '@/hooks/useGetGroupBestRegionPlace';
 import api from '@/services/TokenService';
 import { KeywordType } from '@/apis/getGroupBestRegionPlace';
 import PlaceDetail from '../placeDetail';
+import { BestRegionPlaceDetailProps } from '@/types/SpaceType';
 
 const ChipList = {
   CAFE: 'CAFE',
@@ -36,6 +37,7 @@ interface PlaceDetailProps {
   distance: string;
   openTime: string;
   tel: string;
+  detail: BestRegionPlaceDetailProps;
 }
 
 const Place = ({ lng, lat, local }: PlaceProps) => {
@@ -70,8 +72,15 @@ const Place = ({ lng, lat, local }: PlaceProps) => {
     setPortalElement(document.getElementById('root-modal'));
   }, [modalClick]);
 
-  const onModalClick = ({ title, openTime, thumUrl, distance, tel }: PlaceDetailProps) => {
-    const data: PlaceDetailProps = { title: title, openTime: openTime, thumUrl: thumUrl, distance: distance, tel: tel };
+  const onModalClick = ({ title, openTime, thumUrl, distance, tel, detail }: PlaceDetailProps) => {
+    const data: PlaceDetailProps = {
+      title: title,
+      openTime: openTime,
+      thumUrl: thumUrl,
+      distance: distance,
+      tel: tel,
+      detail: detail,
+    };
     setData(data);
     setModalClick(!modalClick);
   };
@@ -135,6 +144,7 @@ const Place = ({ lng, lat, local }: PlaceProps) => {
               distance={data?.distance as string}
               openTime={data?.openTime as string}
               setModalClick={setModalClick}
+              detail={data?.detail as BestRegionPlaceDetailProps}
             />
           </div>
         ) : (

@@ -1,13 +1,14 @@
 import PhoneIcon from '@assets/main/phone.svg';
 import TimeIcon from '@assets/main/time.svg';
 import Image from 'next/image';
-
+import { BestRegionPlaceDetailProps } from '@/types/SpaceType';
 interface PlaceItemProps {
   title: string;
   thumUrl: string;
   distance: string;
   openTime: string;
   tel: string;
+  detail?: BestRegionPlaceDetailProps;
 }
 
 const PlaceItem = ({ title, thumUrl, distance, openTime, tel }: PlaceItemProps) => {
