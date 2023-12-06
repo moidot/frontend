@@ -1,5 +1,4 @@
 import CommonPopupBackground from '../common/popup/CommonPopupBackground';
-import VoteStartBtn from './VoteStartBtn';
 import UrlButton from '../common/button/url';
 import { useRouter } from 'next/router';
 
@@ -18,7 +17,9 @@ const VotePopup = () => {
             <UrlButton />
           </div>
           <div onClick={closeExitPopup}>
-            <VoteStartBtn />
+            <div className="cursor-pointer flex w-[585px] h-[78px] items-center justify-center bg-main_orange rounded-2xl mx-auto mb-[92px] text-white text-b1 font-bold">
+              투표 하러가기
+            </div>
           </div>
         </div>
       </div>
