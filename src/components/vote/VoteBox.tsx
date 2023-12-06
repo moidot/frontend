@@ -2,7 +2,7 @@ import api from '@/services/TokenService';
 import VoteIcon from '@assets/vote/icon_before_vote.svg';
 import UrlButton from '../common/button/url';
 
-const VoteBox = () => {
+const VoteBox = ({ admin }: any) => {
   const currentUserEmail = api.getEmail();
   const leaderMent = '모두 정보를 입력하였다면 투표로 장소를 정할 수 있어요.\n투표를 시작할 준비, 되셨나요?';
   const memberMent =
@@ -12,11 +12,11 @@ const VoteBox = () => {
       <div className="pt-[32px]">
         <VoteIcon className="mx-auto" />
       </div>
-      {currentUserEmail === 'qop341@gmail.com' ? <div className="h-[80px]"></div> : <div className="h-[20px]"></div>}
+      {currentUserEmail === admin ? <div className="h-[80px]"></div> : <div className="h-[20px]"></div>}
       <div className="text-main_orange text-b1 font-bold text-center whitespace-pre">
-        {currentUserEmail === 'qop341@gmail.com' ? leaderMent : memberMent}
+        {currentUserEmail === admin ? leaderMent : memberMent}
       </div>
-      <div className="mt-[30px]">{currentUserEmail === 'qop341@gmail.co' && <UrlButton />}</div>
+      <div className="mt-[30px]">{currentUserEmail !== admin && <UrlButton />}</div>
     </div>
   );
 };

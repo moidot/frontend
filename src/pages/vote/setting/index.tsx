@@ -4,8 +4,14 @@ import VoteStartBtn from '@/components/vote/VoteStartBtn';
 import VoteOptionBtn from '@/components/vote/setting/VoteOptionBtn';
 import OrangeCalendar from '@assets/vote/icon_calendar_orange.svg';
 import GrayCalendar from '@assets/vote/icon_calendar_gray.svg';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import VoteTimePicker from '@/components/vote/setting/VoteTimePicker';
+import { useMutation } from '@tanstack/react-query';
+import { VoteStartData, postGroupVote } from '@/apis/postGroupVote';
+import api from '@/services/TokenService';
+import { useRecoilValue } from 'recoil';
+import { groupIdAtom } from '@/states/groupIdAtom';
+import { handleDateFormat } from '@/utils/changeDateFormat';
 
 const VoteSettingPage = () => {
   const [endTime, setEndTime] = useState<boolean>(false);
@@ -13,6 +19,34 @@ const VoteSettingPage = () => {
   const [anonymous, setAnonymous] = useState<boolean>(false);
   const [setting, setSetting] = useState<boolean>(false);
   const [openPicker, setOpenPicker] = useState<boolean>(false);
+  const [voteEndDate, setVoteEndDate] = useState<any>('');
+  const [voteEndAt, setVoteEndAt] = useState<any>('');
+  const token = api.getToken();
+  const groupIdValue = useRecoilValue(groupIdAtom);
+  const voteData = {
+    groupId: groupIdValue.groupId,
+    isAnonymous: anonymous,
+    isEnabledMultipleChoice: duplicated,
+    endAt: voteEndAt,
+  };
+
+  useEffect(() => {
+    // setVoteEndAt(changeDate);
+    console.log(voteEndAt, 'voteEndAt');
+    const changeDate = handleDateFormat(voteEndAt);
+    setVoteEndDate(changeDate);
+  }, [voteEndAt]);
+
+  const postGroupVoteMutation = useMutation((data: VoteStartData) => postGroupVote(token, data), {
+    onSuccess: () => {
+      alert('투표 생성 완료!');
+      // router.push('/participate'); // 내 모이닷 스페이스로 수정하기
+    },
+    onError: () => {
+      console.log('투표 생성 error');
+    },
+  });
+
   return (
     <section className="font-Pretendard">
       <SimpleNav />
@@ -28,7 +62,11 @@ const VoteSettingPage = () => {
         <div
           onClick={() => setOpenPicker(!openPicker)}
           className="w-[586px] h-[72px] mx-auto mb-[90px] bg-bg_orange rounded-2xl px-6 flex justify-between items-center cursor-pointer">
-          <div className="text-b2 text-font_gray">종료시간을 선택해주세요.</div>
+          {voteEndAt === '' ? (
+            <div className="text-b2 text-font_gray">종료시간을 선택해주세요.</div>
+          ) : (
+            <div className="text-b2 text-main_orange">{voteEndDate}</div>
+          )}
           <OrangeCalendar />
         </div>
       ) : (
@@ -39,11 +77,15 @@ const VoteSettingPage = () => {
       )}
       <VoteOptionBtn title="복수선택" option={duplicated} setOption={setDuplicated} />
       <VoteOptionBtn title="익명투표" option={anonymous} setOption={setAnonymous} />
-      <div className="mt-[100px]" onClick={() => setSetting(!setting)}>
+      <div
+        className="mt-[100px]"
+        onClick={() => {
+          setSetting(!setting), postGroupVoteMutation.mutate(voteData);
+        }}>
         <VoteStartBtn />
       </div>
       {setting && <VotePopup />}
-      {openPicker && <VoteTimePicker setOpenPicker={setOpenPicker} />}
+      {openPicker && <VoteTimePicker setOpenPicker={setOpenPicker} setVoteEndAt={setVoteEndAt} />}
     </section>
   );
 };
