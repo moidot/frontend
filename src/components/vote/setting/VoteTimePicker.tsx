@@ -7,6 +7,7 @@ import { useState } from 'react';
 const VoteTimePicker = ({ setOpenPicker, setVoteEndAt }: any) => {
   const date = new Date();
   const year = date.getFullYear();
+
   const [month, setMonth] = useState<number>(1);
   const [day, setDay] = useState<number>(1);
   const [time, setTime] = useState(0);

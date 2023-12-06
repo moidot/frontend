@@ -5,8 +5,8 @@ import { useEffect } from 'react';
 interface KakaoMapProps {
   lng: number;
   lat: number;
-  adminUser: GetUserInfoProps[];
-  defaultUser: GetUserInfoProps[];
+  user: GetUserInfoProps[];
+  otherUser: GetUserInfoProps[];
 }
 
 interface PathProps {
@@ -14,7 +14,7 @@ interface PathProps {
   path: any[];
 }
 
-const KakaoMap = ({ lng, lat, adminUser, defaultUser }: KakaoMapProps) => {
+const KakaoMap = ({ lng, lat, user, otherUser }: KakaoMapProps) => {
   useEffect(() => {
     const mapScript = document.createElement('script');
 
@@ -31,42 +31,56 @@ const KakaoMap = ({ lng, lat, adminUser, defaultUser }: KakaoMapProps) => {
         //지도 중심좌표
         const options = {
           center: new window.kakao.maps.LatLng(lat, lng),
-          level: 8,
+          level: 6,
         };
         //지도 생성
         const map = new window.kakao.maps.Map(container, options);
+
+        // 마킹 찍기
+        let imageSrc = 'https://moidot-bucket.s3.ap-northeast-2.amazonaws.com/image/marker.svg', // 마커이미지의 주소입니다
+          imageSize = new window.kakao.maps.Size(80, 108), // 마커이미지의 크기입니다
+          imageOption = { offset: new window.kakao.maps.Point(27, 69) }; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+
+        // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+        let markerImage = new window.kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
+          markerPosition = new window.kakao.maps.LatLng(lat, lng); // 마커가 표시될 위치입니다
+
+        // 마커를 생성합니다
+        let marker = new window.kakao.maps.Marker({
+          position: markerPosition,
+          image: markerImage, // 마커이미지 설정
+        });
+
+        marker.setMap(map);
+
         // 경로 표시
-        const adminPath: PathProps[] = [];
-        const defaultPath: PathProps[] = [];
+        const userPath: PathProps[] = [];
+        const otherUserPath: PathProps[] = [];
 
-        for (let i = 0; i < adminUser.length; i++) {
-          let list: any[] = [new window.kakao.maps.LatLng(adminUser[i].path[0].y, adminUser[i].path[0].x)];
-          Object.entries(adminUser[i].path).map((item) =>
-            list.push(new window.kakao.maps.LatLng(item[1].y, item[1].x)),
-          );
+        for (let i = 0; i < user.length; i++) {
+          let list: any[] = [new window.kakao.maps.LatLng(user[i].path[0].y, user[i].path[0].x)];
+          Object.entries(user[i].path).map((item) => list.push(new window.kakao.maps.LatLng(item[1].y, item[1].x)));
 
-          adminPath.push({
+          userPath.push({
             id: i,
             path: list,
           });
         }
 
-        for (let i = 0; i < defaultUser.length; i++) {
-          let list: any[] = [new window.kakao.maps.LatLng(defaultUser[i].path[0].y, defaultUser[i].path[0].x)];
-          Object.entries(defaultUser[i].path).map((item) =>
+        for (let i = 0; i < otherUser.length; i++) {
+          let list: any[] = [new window.kakao.maps.LatLng(otherUser[i].path[0].y, otherUser[i].path[0].x)];
+          Object.entries(otherUser[i].path).map((item) =>
             list.push(new window.kakao.maps.LatLng(item[1].y, item[1].x)),
           );
 
-          defaultPath.push({
+          otherUserPath.push({
             id: i,
             path: list,
           });
         }
 
-        console.log(adminPath);
-        for (let i = 0; i < defaultPath.length; i++) {
-          const item = defaultPath[i].path;
-          console.log(item);
+        for (let i = 0; i < otherUserPath.length; i++) {
+          const item = otherUserPath[i].path;
           const polyline = new window.kakao.maps.Polyline({
             map: map,
             path: item,
@@ -78,9 +92,8 @@ const KakaoMap = ({ lng, lat, adminUser, defaultUser }: KakaoMapProps) => {
           polyline.setMap(map);
         }
 
-        for (let i = 0; i < adminPath.length; i++) {
-          const item = adminPath[i].path;
-          console.log(item);
+        for (let i = 0; i < userPath.length; i++) {
+          const item = userPath[i].path;
           const polyline = new window.kakao.maps.Polyline({
             map: map,
             path: item,

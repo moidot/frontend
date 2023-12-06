@@ -8,6 +8,9 @@ const nextConfig = {
     });
     return config;
   },
+  images: {
+    domains: ['ldb-phinf.pstatic.net', 'naverbooking-phinf.pstatic.net', 'ldb-phinf.pstatic.net'],
+  },
 };
 
 module.exports = nextConfig;
