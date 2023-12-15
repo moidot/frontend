@@ -2,6 +2,13 @@ import PhoneIcon from '@assets/main/phone.svg';
 import TimeIcon from '@assets/main/time.svg';
 import Image from 'next/image';
 import { BestRegionPlaceDetailProps } from '@/types/SpaceType';
+import CafeImg from '@assets/place/cafe_vec.svg';
+import LibraryImg from '@assets/place/library_vec.svg';
+import RestaurantImg from '@assets/place/sicdang_vec.svg';
+import StudyRoomImg from '@assets/place/studyroom_vec.svg';
+import StudyCafeImg from '@assets/place/studycafe_vec.svg';
+import { ChipList } from '.';
+
 interface PlaceItemProps {
   title: string;
   thumUrl: string;
@@ -9,24 +16,36 @@ interface PlaceItemProps {
   openTime: string;
   tel: string;
   detail?: BestRegionPlaceDetailProps;
+  category: keyof typeof ChipList;
 }
 
-const PlaceItem = ({ title, thumUrl, distance, openTime, tel }: PlaceItemProps) => {
+const PlaceItem = ({ title, thumUrl, distance, openTime, tel, category }: PlaceItemProps) => {
+  const renderCategoryImage = () => {
+    switch (category) {
+      case 'CAFE':
+        return <CafeImg />;
+      case 'LIBRARY':
+        return <LibraryImg />;
+      case 'RESTAURANT':
+        return <RestaurantImg />;
+      case 'STUDY_CAFE':
+        return <StudyCafeImg />;
+      case 'STUDY_ROOM':
+        return <StudyRoomImg />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <>
       <div className="bg-white w-[585px]  rounded-2xl flex-row flex p-8 gap-5 shadow-card_shadow ">
         <div style={{ borderRadius: '16px' }}>
-          <Image
-            src={
-              thumUrl
-                ? thumUrl
-                : 'https://ldb-phinf.pstatic.net/20221124_209/1669253717040P6mjS_JPEG/KakaoTalk_20221123_114530445_03.jpg'
-            }
-            width={175}
-            height={180}
-            priority
-            alt="placeImg"
-          />
+          {thumUrl ? (
+            <Image src={thumUrl} layout="fixed" width={175} height={160} alt="placeImg" priority />
+          ) : (
+            renderCategoryImage()
+          )}
         </div>
         <div className=" flex flex-col gap-[64px]">
           <div>

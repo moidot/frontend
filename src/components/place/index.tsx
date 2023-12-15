@@ -17,7 +17,7 @@ import { KeywordType } from '@/apis/getGroupBestRegionPlace';
 import PlaceDetail from '../placeDetail';
 import { BestRegionPlaceDetailProps } from '@/types/SpaceType';
 
-const ChipList = {
+export const ChipList = {
   CAFE: 'CAFE',
   STUDY_CAFE: 'STUDY_CAFE',
   RESTAURANT: 'RESTAURANT',
@@ -47,18 +47,24 @@ const Place = ({ lng, lat, local }: PlaceProps) => {
   const [keyword, setKeyword] = useState<KeywordType>('카페');
   const [chip, setChip] = useState<keyof typeof ChipList>(ChipList.LIBRARY);
   const [data, setData] = useState<PlaceDetailProps>();
+  const [category, setCategory] = useState<keyof typeof ChipList>(ChipList.CAFE);
   console.log(data);
   useEffect(() => {
     if (chip == 'CAFE') {
       setKeyword('카페');
+      setCategory('CAFE');
     } else if (chip == 'STUDY_CAFE') {
       setKeyword('스터디카페');
+      setCategory('STUDY_CAFE');
     } else if (chip == 'RESTAURANT') {
       setKeyword('식당');
+      setCategory('RESTAURANT');
     } else if (chip == 'LIBRARY') {
       setKeyword('도서관');
+      setCategory('LIBRARY');
     } else {
       setKeyword('스터디룸');
+      setCategory('STUDY_ROOM');
     }
   }, [chip]);
   const { data: bestPlaceData } = useGetGroupBestRegionPlace(token, lat, lng, local, keyword);
@@ -145,6 +151,7 @@ const Place = ({ lng, lat, local }: PlaceProps) => {
               openTime={data?.openTime as string}
               setModalClick={setModalClick}
               detail={data?.detail as BestRegionPlaceDetailProps}
+              category={category}
             />
           </div>
         ) : (
@@ -160,6 +167,7 @@ const Place = ({ lng, lat, local }: PlaceProps) => {
                       thumUrl={item.thumUrl}
                       distance={item.distance}
                       tel={item.tel}
+                      category={category}
                     />
                   </div>
                 ))
@@ -178,6 +186,7 @@ const Place = ({ lng, lat, local }: PlaceProps) => {
                       thumUrl={item.thumUrl}
                       distance={item.distance}
                       tel={item.tel}
+                      category={category}
                     />
                   </div>
                 ))
