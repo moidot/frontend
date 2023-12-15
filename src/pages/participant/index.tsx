@@ -11,9 +11,10 @@ const ParticipatePage = () => {
   const [partData, setPartData] = useState<ParticipationProps>();
   const [updateMode, setUpdateMode] = useState<boolean>(false);
   const token = api.getToken();
-  const response = useGetGroup(token, 7);
+  const response = useGetGroup(token, 22);
   useEffect(() => {
     if (response.data?.message === '성공') setPartData(response.data?.data);
+    console.log(response.data?.data);
   }, [response]);
 
   return (
