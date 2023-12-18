@@ -3,7 +3,7 @@ import customedAxios from './customedAxios';
 
 export const patchGroupVote = async (token: string, groupId: number) => {
   try {
-    const res = await customedAxios.patch(`/group/${groupId}/vote`, {
+    const res = await customedAxios.patch(`/group/${groupId}/vote`, null, {
       headers: {
         Authorization: 'Bearer ' + token,
       },

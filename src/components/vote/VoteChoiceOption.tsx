@@ -2,6 +2,8 @@ import NoCheckBox from '@assets/participate/check/no_check_box.svg';
 import CheckBox from '@assets/participate/check/check_box.svg';
 import IconPeople from '@assets/vote/icon_people.svg';
 import { useEffect, useState } from 'react';
+import VoteProgressBar from './detail/VoteProgressBar';
+import VoteMemberPopup from './detail/VoteMemberPopup';
 
 export interface VoteOptionProps {
   bestPlaceId: number;
@@ -15,10 +17,11 @@ export interface VoteOptionProps {
 
 const VoteChoiceOption = ({ bestPlaceId, votes, placeName, isVoted, votePlaceIds }: VoteOptionProps) => {
   const [checkedBox, setCheckedBox] = useState<boolean>(isVoted);
+  const [isClickedPeopleIcon, setIsClickedPeopleIcon] = useState<boolean>(false);
 
   useEffect(() => {
     checkedBox ? votePlaceIds.push(bestPlaceId) : votePlaceIds.pop();
-    console.log(votePlaceIds);
+    // console.log(votePlaceIds);
   }, [checkedBox]);
 
   return (
@@ -32,15 +35,29 @@ const VoteChoiceOption = ({ bestPlaceId, votes, placeName, isVoted, votePlaceIds
           <NoCheckBox />
         </div>
       )}
-      <div className="w-[988px] mx-5 text-b2 pb-1 border-b-2 border-b-bg_orange text-left">
-        {checkedBox ? (
-          <div className="text-main_orange font-bold">{placeName}</div>
-        ) : (
-          <div className="text-font_black">{placeName}</div>
-        )}
+      <div>
+        <div className="w-[988px] mx-5 text-b2 pb-1 border-b-2 border-b-bg_orange text-left">
+          {checkedBox ? (
+            <div className="text-main_orange font-bold">{placeName}</div>
+          ) : (
+            <div className="text-font_black">{placeName}</div>
+          )}
+        </div>
+        <div className=" mx-5 ">
+          <VoteProgressBar bestPlaceId={bestPlaceId} votes={votes} />
+        </div>
       </div>
-      <IconPeople />
-      <div className="ml-2 text-font_gray text-b2">{votes}</div>
+      <div className="flex items-center" onClick={() => setIsClickedPeopleIcon(!isClickedPeopleIcon)}>
+        <IconPeople />
+        <div className="ml-2 text-font_gray text-b2">{votes}</div>
+      </div>
+      {isClickedPeopleIcon && (
+        <VoteMemberPopup
+          placeName={placeName}
+          bestPlaceId={bestPlaceId}
+          setIsClickedPeopleIcon={setIsClickedPeopleIcon}
+        />
+      )}
     </div>
   );
 };

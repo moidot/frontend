@@ -12,17 +12,12 @@ export type GetVoteSelectRes = ResponseDto<VoteSelectData>;
 export const postGroupVoteSelect = async (token: string, data: VoteSelectData): Promise<GetVoteSelectRes> => {
   try {
     console.log(data.bestPlaceIds, 'votepppppdata');
-    const res = await customedAxios.post(
-      `/group/${data.groupId}/vote/select`,
-      {
-        bestPlaceIds: data.bestPlaceIds,
+    const res = await customedAxios.post(`/group/${data.groupId}/vote/select`, null, {
+      headers: {
+        Authorization: 'Bearer ' + token,
       },
-      {
-        headers: {
-          Authorization: 'Bearer ' + token,
-        },
-      },
-    );
+      params: { bestPlaceIds: data.bestPlaceIds.join() },
+    });
     return res.data;
   } catch (error) {
     throw error;

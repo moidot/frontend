@@ -6,12 +6,15 @@ import ParticipationList from '@/components/participate/ParticipationList';
 import { ParticipationProps } from '@/types/ParticipateType';
 import { useGetGroup } from '@/hooks/useGetGroup';
 import api from '@/services/TokenService';
+import { useRecoilValue } from 'recoil';
+import { groupIdAtom } from '@/states/groupIdAtom';
 
 const ParticipatePage = () => {
   const [partData, setPartData] = useState<ParticipationProps>();
   const [updateMode, setUpdateMode] = useState<boolean>(false);
   const token = api.getToken();
-  const response = useGetGroup(token, 22);
+  const group = useRecoilValue(groupIdAtom);
+  const response = useGetGroup(token, group.groupId);
   useEffect(() => {
     if (response.data?.message === '성공') setPartData(response.data?.data);
     console.log(response.data?.data);
