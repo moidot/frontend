@@ -2,11 +2,6 @@ import PhoneIcon from '@assets/main/phone.svg';
 import TimeIcon from '@assets/main/time.svg';
 import Image from 'next/image';
 import { BestRegionPlaceDetailProps } from '@/types/SpaceType';
-import CafeImg from '@assets/place/cafe_vec.svg';
-import LibraryImg from '@assets/place/library_vec.svg';
-import RestaurantImg from '@assets/place/sicdang_vec.svg';
-import StudyRoomImg from '@assets/place/studyroom_vec.svg';
-import StudyCafeImg from '@assets/place/studycafe_vec.svg';
 import { ChipList } from '.';
 
 interface PlaceItemProps {
@@ -23,33 +18,35 @@ const PlaceItem = ({ title, thumUrl, distance, openTime, tel, category }: PlaceI
   const renderCategoryImage = () => {
     switch (category) {
       case 'CAFE':
-        return <CafeImg />;
+        return 'https://jungminbucket2.s3.ap-northeast-2.amazonaws.com/cafe_png.png';
       case 'LIBRARY':
-        return <LibraryImg />;
+        return 'https://jungminbucket2.s3.ap-northeast-2.amazonaws.com/library_png.png';
       case 'RESTAURANT':
-        return <RestaurantImg />;
+        return 'https://jungminbucket2.s3.ap-northeast-2.amazonaws.com/sicdang_png.png';
       case 'STUDY_CAFE':
-        return <StudyCafeImg />;
+        return 'https://jungminbucket2.s3.ap-northeast-2.amazonaws.com/studycafe_png.png';
       case 'STUDY_ROOM':
-        return <StudyRoomImg />;
-      default:
-        return null;
+        return 'https://jungminbucket2.s3.ap-northeast-2.amazonaws.com/studyroom_png.png';
     }
   };
+  //<div style={{ overflow: 'hidden' }}>{renderCategoryImage()}</div>
 
   return (
     <>
-      <div className="bg-white w-[585px]  rounded-2xl flex-row flex p-8 gap-5 shadow-card_shadow ">
-        <div style={{ borderRadius: '16px' }}>
-          {thumUrl ? (
-            <Image src={thumUrl} layout="fixed" width={175} height={160} alt="placeImg" priority />
-          ) : (
-            renderCategoryImage()
-          )}
-        </div>
+      <div className="bg-white w-[585px] rounded-2xl flex-row flex  gap-5 shadow-card_shadow ">
+        {thumUrl ? (
+          <div style={{ overflow: 'hidden' }} className="rounded-l-lg flex justify-start">
+            <Image src={thumUrl} width={175} height={175} objectFit="cover" alt="placeImg" priority />
+          </div>
+        ) : (
+          <div style={{ overflow: 'hidden' }} className="rounded-l-lg flex justify-start">
+            <Image src={renderCategoryImage()} width={175} height={185} objectFit="cover" alt="placeImg" priority />
+          </div>
+        )}
+
         <div className=" flex flex-col gap-[64px]">
           <div>
-            <div className="font-Pretendard text-black text-b1 font-bold">{title}</div>
+            <div className="font-Pretendard text-black text-b1 font-bold pt-4">{title}</div>
             <div className="font-Pretendard text-main_orange text-b4 font-regular">{distance}</div>
           </div>
           <div className="flex flex-col gap-[12px]">

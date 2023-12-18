@@ -1,6 +1,10 @@
 import PlaceDetailInfo from './PlaceDetailInfo';
 import { BestRegionPlaceDetailProps } from '@/types/SpaceType';
 import { ChipList } from '../place';
+import PlaceNavBar from '../placeDetail/navbar/index';
+import { PLACE_NAV_LIST } from './navbar/Navigation';
+import { useState } from 'react';
+
 interface PlaceDetailProps {
   title: string;
   thumUrl: string;
@@ -23,6 +27,8 @@ const PlaceDetail = ({
   detail,
   category,
 }: PlaceDetailProps) => {
+  const [focusType, setFocusType] = useState<keyof typeof PLACE_NAV_LIST>(PLACE_NAV_LIST.LOCATION);
+
   return (
     <div
       className="fixed flex justify-center items-center flex-row top-0 right-0 left-0 w-[100vw] h-[100vh] z-10"
@@ -38,6 +44,7 @@ const PlaceDetail = ({
           detail={detail}
           category={category}
         />
+        <PlaceNavBar focusType={focusType} setFocusType={setFocusType} />
       </div>
     </div>
   );
