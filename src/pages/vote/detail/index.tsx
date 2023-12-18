@@ -21,8 +21,8 @@ import { handleDateFormat } from '@/utils/changeDateFormat';
 const VoteDetailPage = () => {
   const [voteData, setVoteData] = useState<VoteData>(); // 투표 조회 데이터
   const [voteEndAt, setVoteEndAt] = useState<any>(''); // 투표 종료 시간 데이터
-  let votePlaceIds: any = [31, 33];
-  const [clickedStartBtn, setClickedStartBtn] = useState<boolean>(false);
+  let votePlaceIds: any = [];
+  // const [clickedStartBtn, setClickedStartBtn] = useState<boolean>(false);
   // const [clickedAgainBtn, setClickedAgainBtn] = useState<boolean>(false);
   const [endVote, setEndVote] = useState<boolean>(false);
 
@@ -89,7 +89,8 @@ const VoteDetailPage = () => {
           <div className="text-b2 text-font_gray">{voteEndAt}</div>
         </div>
         {/* 투표 창 */}
-        <div className="w-[1168px] mx-auto" style={{ pointerEvents: clickedStartBtn ? 'auto' : 'none' }}>
+        {/* <div className="w-[1168px] mx-auto" style={{ pointerEvents: clickedStartBtn ? 'auto' : 'none' }}> */}
+        <div className="w-[1168px] mx-auto">
           {voteData?.voteStatuses.map((item: VoteStatusData) => (
             <VoteChoiceOption
               key={item.bestPlaceId}
@@ -103,16 +104,16 @@ const VoteDetailPage = () => {
             />
           ))}
         </div>
-        {clickedStartBtn ? (
-          <div
-            onClick={() => postGroupVoteSelectMutation.mutate(voteP)}
-            className="cursor-pointer flex w-[585px] h-[72px] items-center justify-center bg-main_orange rounded-2xl mx-auto mt-[60px] mb-[22px] text-white text-b2">
-            투표하기
+
+        {/* 회색 스타일링 / className="cursor-pointer flex w-[585px] h-[72px] items-center justify-center border-2 bg-btn_disabled rounded-2xl mx-auto mt-[60px] mb-[22px] text-font_gray text-b2"> */}
+        {voteData?.isVotingParticipant ? (
+          <div className="cursor-pointer flex w-[585px] h-[72px] items-center justify-center bg-main_orange rounded-2xl mx-auto mt-[60px] mb-[22px] text-white text-b2">
+            다시 투표하기
           </div>
         ) : (
           <div
-            onClick={() => setClickedStartBtn(!clickedStartBtn)}
-            className="cursor-pointer flex w-[585px] h-[72px] items-center justify-center border-2 bg-btn_disabled rounded-2xl mx-auto mt-[60px] mb-[22px] text-font_gray text-b2">
+            onClick={() => postGroupVoteSelectMutation.mutate(voteP)}
+            className="cursor-pointer flex w-[585px] h-[72px] items-center justify-center bg-main_orange rounded-2xl mx-auto mt-[60px] mb-[22px] text-white text-b2">
             투표하기
           </div>
         )}

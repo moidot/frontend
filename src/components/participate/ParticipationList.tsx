@@ -23,10 +23,11 @@ const ParticipationList = ({ data, mode, setMode }: ParticipationDataProps) => {
   const [isClickedRemoval, setIsClickedRemoval] = useState(false);
   const [role, setRole] = useState<string>('member'); // 모임장 / 모임원 구분
   const [userName, setUserName] = useState<string>('');
+
   const currentUser = useState<ParticipationsProps>({
     participationId: 5,
-    userEmail: 'moidot@gmail.com',
-    userName: '김모람람',
+    userEmail: api.getEmail(),
+    userName: api.getName(),
     locationName: '서울 성북구 보문로34다길 2',
     transportation: 'PUBLIC',
   });
@@ -67,11 +68,11 @@ const ParticipationList = ({ data, mode, setMode }: ParticipationDataProps) => {
     (participateId: number) => deleteGroupParticipate(token, participateId),
     {
       onSuccess: () => {
-        alert('스페이스 나가기 성공');
+        alert('스페이스 내보내기 성공');
         router.push('/'); // 내 모이닷 스페이스로 수정하기
       },
       onError: () => {
-        console.log('스페이스 나가기 error');
+        console.log('스페이스 내보내기 error');
       },
     },
   );
@@ -79,10 +80,6 @@ const ParticipationList = ({ data, mode, setMode }: ParticipationDataProps) => {
   useEffect(() => {
     data && currentUserEmail === data?.adminEmail ? setRole('leader') : setRole('member');
   }, [currentUserEmail, data]);
-
-  // useEffect(() => {
-  //   console.log('role', role);
-  // }, [role]);
 
   return (
     <div className="max-w-[1200px]">

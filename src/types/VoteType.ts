@@ -14,6 +14,7 @@ export interface VoteData {
   groupName: string;
   groupDate: null | string;
   voteId: number;
+  isVotingParticipant: boolean;
   isClosed: boolean;
   isAnonymous: boolean;
   isEnabledMultipleChoice: boolean;
