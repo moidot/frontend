@@ -9,12 +9,13 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import CommonPopupBackground from '@/components/common/popup/CommonPopupBackground';
 import SimpleNav from '@/components/common/navbar/SimpleNav';
+import api from '@/services/TokenService';
 
 const MyInfoUpdatePage = () => {
   const router = useRouter();
-  const [userName, setUserName] = useState((router?.query.nickname as string).length > 0 ? router?.query.nickname : '');
+  const [userName, setUserName] = useState(api.getName());
   const [userLocation, setUserLocation] = useState(
-    (router?.query.address as string).length > 0 ? router?.query.address : '',
+    (router?.query.address as string)?.length > 0 ? router?.query.address : '',
   );
   const [isPublic, setIsPublic] = useState<boolean>(false);
   const [isClickedPatch, setIsClickedPatch] = useState<boolean>(false);

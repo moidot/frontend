@@ -1,11 +1,25 @@
+import { patchGroupVote } from '@/apis/patchGroupVote';
 import CommonPopupBackground from '@/components/common/popup/CommonPopupBackground';
-import { useRouter } from 'next/router';
+import api from '@/services/TokenService';
+import { groupIdAtom } from '@/states/groupIdAtom';
+import { useMutation } from '@tanstack/react-query';
+import { useRecoilValue } from 'recoil';
 
 const VoteEndPopup = () => {
-  const router = useRouter();
-  const closeExitPopup = () => {
-    router.push('/vote'); // 나의 모이닷 스페이스 url로 이동
-  };
+  const token = api.getToken();
+  const groupIdData = useRecoilValue(groupIdAtom);
+
+  // 투표 종료하기 Mutation
+  const patchGroupVoteMutation = useMutation((groupId: number) => patchGroupVote(token, groupId), {
+    onSuccess: () => {
+      alert('투표가 종료되었습니다.');
+      location.reload();
+    },
+    onError: () => {
+      console.log('투표 종료 error');
+    },
+  });
+
   return (
     <CommonPopupBackground>
       <div className="flex justify-center h-[100vh] items-center font-Pretendard">
@@ -21,7 +35,7 @@ const VoteEndPopup = () => {
               취소하기
             </div>
             <div
-              onClick={closeExitPopup}
+              onClick={() => patchGroupVoteMutation.mutate(groupIdData.groupId)}
               className="flex justify-center items-center w-[277px] h-[78px] rounded-2xl bg-main_orange mx-auto text-white text-b2 cursor-pointer">
               투표 종료하기
             </div>
