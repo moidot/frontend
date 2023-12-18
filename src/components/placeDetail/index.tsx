@@ -1,5 +1,10 @@
-import PlaceDetailInfo from './placeDetailInfo';
+import PlaceDetailInfo from './PlaceDetailInfo';
 import { BestRegionPlaceDetailProps } from '@/types/SpaceType';
+import { ChipList } from '../place';
+import PlaceNavBar from '../placeDetail/navbar/index';
+import { PLACE_NAV_LIST } from './navbar/Navigation';
+import { useState } from 'react';
+
 interface PlaceDetailProps {
   title: string;
   thumUrl: string;
@@ -8,10 +13,22 @@ interface PlaceDetailProps {
   tel: string;
   setModalClick: React.Dispatch<React.SetStateAction<boolean>>;
   detail: BestRegionPlaceDetailProps;
+  category: keyof typeof ChipList;
 }
 
 export type placeDetailType = 'LOCATION' | 'PHOTO';
-const PlaceDetail = ({ title, thumUrl, distance, openTime, tel, setModalClick, detail }: PlaceDetailProps) => {
+const PlaceDetail = ({
+  title,
+  thumUrl,
+  distance,
+  openTime,
+  tel,
+  setModalClick,
+  detail,
+  category,
+}: PlaceDetailProps) => {
+  const [focusType, setFocusType] = useState<keyof typeof PLACE_NAV_LIST>(PLACE_NAV_LIST.LOCATION);
+
   return (
     <div
       className="fixed flex justify-center items-center flex-row top-0 right-0 left-0 w-[100vw] h-[100vh] z-10"
@@ -25,7 +42,9 @@ const PlaceDetail = ({ title, thumUrl, distance, openTime, tel, setModalClick, d
           tel={tel}
           setModalClick={setModalClick}
           detail={detail}
+          category={category}
         />
+        <PlaceNavBar focusType={focusType} setFocusType={setFocusType} />
       </div>
     </div>
   );

@@ -10,7 +10,6 @@ import api from '@/services/TokenService';
 import { useGetGroup } from '@/hooks/useGetGroup';
 import KakaoMap from './KakaoMap';
 import { groupIdAtom } from '@/states/groupIdAtom';
-
 interface MainProps {
   id: string;
 }
@@ -20,7 +19,7 @@ const Main = ({ id }: MainProps) => {
   const token = api.getToken();
   const setGroupId = useSetRecoilState(groupIdAtom);
   setGroupId({
-    groupId: id,
+    groupId: parseInt(id),
   });
 
   let lat = 0;
