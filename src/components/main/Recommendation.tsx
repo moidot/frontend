@@ -3,7 +3,6 @@ import RecommendationItem from './RecommendationItem';
 
 const Recommendation = (props: GetGroupBestRegionListRes) => {
   const data = props.data;
-  console.log(data.length);
   return (
     <div>
       <div className="carousel w-full">
