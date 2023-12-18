@@ -6,6 +6,6 @@ export interface GroupIdProps {
 export const groupIdAtom = atom<GroupIdProps>({
   key: 'groupIdAtom',
   default: {
-    groupId: 22,
+    groupId: 2,
   },
 });

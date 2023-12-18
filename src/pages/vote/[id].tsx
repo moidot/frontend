@@ -7,10 +7,12 @@ import VoteTitle from '@/components/vote/VoteTitle';
 import { useGetGroup } from '@/hooks/useGetGroup';
 import { useGetGroupVote } from '@/hooks/useGetGroupVote';
 import api from '@/services/TokenService';
+import { groupIdAtom } from '@/states/groupIdAtom';
 import { ParticipationProps } from '@/types/ParticipateType';
 import { VoteData } from '@/types/VoteType';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
 
 const VotePage = () => {
   const currentUserEmail = api.getEmail();
@@ -19,6 +21,7 @@ const VotePage = () => {
   const [voteData, setVoteData] = useState<VoteData>();
   const [groupData, setGroupData] = useState<ParticipationProps>();
   const [adminEmail, setAdminEmail] = useState<string | undefined>('');
+  const group = useRecoilValue(groupIdAtom);
   const response = useGetGroupVote(token, 22);
   const getGroup = useGetGroup(token, 22);
   useEffect(() => {
