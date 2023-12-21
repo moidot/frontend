@@ -1,10 +1,13 @@
-import PlaceDetailInfo from './PlaceDetailInfo';
+import PlaceDetailInfo from './placeDetailInfo';
 import { BestRegionPlaceDetailProps } from '@/types/SpaceType';
 import { ChipList } from '../place';
 import PlaceNavBar from '../placeDetail/navbar/index';
-import { PLACE_NAV_LIST } from './navbar/Navigation';
 import { useState } from 'react';
+import PlaceLocation from './placeLocation';
+import PlacePhoto from './PlacePhoto';
+import PlacePrice from './PlacePrice';
 
+export type PLACE_NAV_LIST = 'LOCATION' | 'PRICE' | 'PHOTO';
 interface PlaceDetailProps {
   title: string;
   thumUrl: string;
@@ -14,9 +17,9 @@ interface PlaceDetailProps {
   setModalClick: React.Dispatch<React.SetStateAction<boolean>>;
   detail: BestRegionPlaceDetailProps;
   category: keyof typeof ChipList;
+  lng: number;
+  lat: number;
 }
-
-export type placeDetailType = 'LOCATION' | 'PHOTO';
 const PlaceDetail = ({
   title,
   thumUrl,
@@ -26,9 +29,11 @@ const PlaceDetail = ({
   setModalClick,
   detail,
   category,
+  lng,
+  lat,
 }: PlaceDetailProps) => {
-  const [focusType, setFocusType] = useState<keyof typeof PLACE_NAV_LIST>(PLACE_NAV_LIST.LOCATION);
-
+  const [placeNav, setPlaceNav] = useState<PLACE_NAV_LIST>('LOCATION');
+  console.log(placeNav);
   return (
     <div
       className="fixed flex justify-center items-center flex-row top-0 right-0 left-0 w-[100vw] h-[100vh] z-10"
@@ -44,7 +49,10 @@ const PlaceDetail = ({
           detail={detail}
           category={category}
         />
-        <PlaceNavBar focusType={focusType} setFocusType={setFocusType} />
+        <PlaceNavBar placeNav={placeNav} setPlaceNav={setPlaceNav} />
+        {placeNav == 'LOCATION' && <PlaceLocation lng={lng} lat={lat} />}
+        {placeNav == 'PHOTO' && <PlacePhoto />}
+        {placeNav == 'PRICE' && <PlacePrice />}
       </div>
     </div>
   );

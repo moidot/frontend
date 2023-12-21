@@ -152,6 +152,8 @@ const Place = ({ lng, lat, local }: PlaceProps) => {
               setModalClick={setModalClick}
               detail={data?.detail as BestRegionPlaceDetailProps}
               category={category}
+              lng={parseInt(lng)}
+              lat={parseInt(lat)}
             />
           </div>
         ) : (
