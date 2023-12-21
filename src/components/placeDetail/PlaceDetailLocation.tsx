@@ -21,7 +21,7 @@ const PlaceDetailLocation = ({ lng, lat }: KakaoMapProps) => {
         const container = document.getElementById('map');
         //지도 중심좌표
         const options = {
-          center: new window.kakao.maps.LatLng(lat, lng),
+          center: new window.kakao.maps.LatLng(127.0133939, 37.4830372),
           level: 6,
         };
         //지도 생성
@@ -51,7 +51,7 @@ const PlaceDetailLocation = ({ lng, lat }: KakaoMapProps) => {
 
   return (
     <>
-      <div id="map" className="w-[100%] h-[600px]"></div>
+      <div id="detailMap" className="w-[100%] h-[323px]"></div>
     </>
   );
 };

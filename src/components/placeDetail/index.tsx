@@ -3,9 +3,9 @@ import { BestRegionPlaceDetailProps } from '@/types/SpaceType';
 import { ChipList } from '../place';
 import PlaceNavBar from '../placeDetail/navbar/index';
 import { useState } from 'react';
-import PlaceLocation from './placeLocation';
-import PlacePhoto from './PlacePhoto';
-import PlacePrice from './PlacePrice';
+import PlaceDetailLocation from './PlaceDetailLocation';
+import PlaceDetailPhoto from './PlaceDetailPhoto';
+import PlaceDetailPrice from './PlaceDetailPrice';
 
 export type PLACE_NAV_LIST = 'LOCATION' | 'PRICE' | 'PHOTO';
 interface PlaceDetailProps {
@@ -50,9 +50,9 @@ const PlaceDetail = ({
           category={category}
         />
         <PlaceNavBar placeNav={placeNav} setPlaceNav={setPlaceNav} />
-        {placeNav == 'LOCATION' && <PlaceLocation lng={lng} lat={lat} />}
-        {placeNav == 'PHOTO' && <PlacePhoto />}
-        {placeNav == 'PRICE' && <PlacePrice />}
+        {placeNav == 'LOCATION' && <PlaceDetailLocation lng={lng} lat={lat} />}
+        {placeNav == 'PHOTO' && <PlaceDetailPhoto />}
+        {placeNav == 'PRICE' && <PlaceDetailPrice />}
       </div>
     </div>
   );
