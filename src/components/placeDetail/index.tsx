@@ -1,4 +1,4 @@
-import PlaceDetailInfo from './placeDetailInfo';
+import PlaceDetailInfo from './PlaceDetailInfo';
 import { BestRegionPlaceDetailProps } from '@/types/SpaceType';
 import { ChipList } from '../place';
 import PlaceNavBar from '../placeDetail/navbar/index';
@@ -33,12 +33,14 @@ const PlaceDetail = ({
   lat,
 }: PlaceDetailProps) => {
   const [placeNav, setPlaceNav] = useState<PLACE_NAV_LIST>('LOCATION');
-  console.log(placeNav);
+
   return (
     <div
-      className="fixed flex justify-center items-center flex-row top-0 right-0 left-0 w-[100vw] h-[100vh] z-10"
+      className="fixed flex justify-center items-center flex-row top-0 right-0 left-0 w-[100vw] h-[100vh] z-10 "
       style={{ backgroundColor: 'rgba( 0, 0, 0, 0.6 )' }}>
-      <div className="flex flex-col justify-center items-center rounded-xl w-[1200px] p-20 bg-white z-20">
+      <div
+        className="flex flex-col justify-center items-center rounded-xl w-[70%] max-h-[90%] overflow-scroll p-20 bg-white z-20 pt-[32px] mt-[32px]"
+        style={{ overflowY: 'scroll' }}>
         <PlaceDetailInfo
           title={title}
           thumUrl={thumUrl}

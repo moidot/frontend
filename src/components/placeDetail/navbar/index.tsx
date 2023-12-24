@@ -18,7 +18,7 @@ const Navbar = ({ placeNav, setPlaceNav }: NavBarProps) => {
         </div>
         <ShareButton />
       </div>
-      <div className="flex justify-center items-center w-full h-0.5 bg-disabled_orange pl-[44px] pr-[44px] relative "></div>
+      <div className="flex justify-center items-center w-full h-0.5 bg-disabled_orange pl-[44px] pr-[44px]  mb-[10px]"></div>
     </div>
   );
 };

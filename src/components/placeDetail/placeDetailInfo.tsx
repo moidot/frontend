@@ -56,9 +56,19 @@ const PlaceDetailInfo = ({
   };
 
   return (
-    <div className="flex gap-10 flex-row">
-      <div style={{ borderRadius: '16px' }}>
-        {thumUrl ? <Image src={thumUrl} width={404} height={373} alt="placeImg" /> : renderCategoryImage()}
+    <div className="flex gap-10 flex-row pt-[64px]">
+      <div style={{ borderRadius: '16px', position: 'relative', width: '300px', height: '400px' }}>
+        {thumUrl ? (
+          <Image
+            src={thumUrl}
+            width={300}
+            height={400}
+            alt="placeImg"
+            style={{ position: 'absolute', top: 0, left: 0, width: '300px', height: '400px' }}
+          />
+        ) : (
+          renderCategoryImage()
+        )}
       </div>
       <div className=" flex flex-col gap-[40px]">
         <div className=" flex flex-col gap-[4px]">

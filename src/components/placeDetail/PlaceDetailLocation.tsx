@@ -18,10 +18,10 @@ const PlaceDetailLocation = ({ lng, lat }: KakaoMapProps) => {
     const onLoadKakaoMap = () => {
       window.kakao.maps.load(() => {
         //지도를 표시할 div
-        const container = document.getElementById('map');
+        const container = document.getElementById('detailMap');
         //지도 중심좌표
         const options = {
-          center: new window.kakao.maps.LatLng(127.0133939, 37.4830372),
+          center: new window.kakao.maps.LatLng(lat, lng),
           level: 6,
         };
         //지도 생성
