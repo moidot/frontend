@@ -22,8 +22,8 @@ const VotePage = () => {
   const [groupData, setGroupData] = useState<ParticipationProps>();
   const [adminEmail, setAdminEmail] = useState<string | undefined>('');
   const group = useRecoilValue(groupIdAtom);
-  const response = useGetGroupVote(token, 22);
-  const getGroup = useGetGroup(token, 22);
+  const response = useGetGroupVote(token, group.groupId);
+  const getGroup = useGetGroup(token, group.groupId);
   useEffect(() => {
     if (response.data?.message === '성공') setVoteData(response.data?.data);
     if (getGroup.data?.message === '성공') setGroupData(getGroup.data?.data);
