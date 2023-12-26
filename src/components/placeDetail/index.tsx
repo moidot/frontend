@@ -21,6 +21,7 @@ interface PlaceDetailProps {
   lng: number;
   lat: number;
   thumUrls: string[];
+  menu: string[];
 }
 const PlaceDetail = ({
   title,
@@ -34,6 +35,7 @@ const PlaceDetail = ({
   lng,
   lat,
   thumUrls,
+  menu,
 }: PlaceDetailProps) => {
   const [placeNav, setPlaceNav] = useState<PLACE_NAV_LIST>('LOCATION');
 
@@ -66,7 +68,11 @@ const PlaceDetail = ({
               <PlaceDetailPhoto thumUrls={thumUrls} />
             </div>
           )}
-          {placeNav == 'PRICE' && <PlaceDetailPrice />}
+          {placeNav == 'PRICE' && (
+            <div className="pb-[23px]">
+              <PlaceDetailPrice menu={menu} />
+            </div>
+          )}
         </div>
       </div>
     </div>

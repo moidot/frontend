@@ -157,6 +157,7 @@ const Place = ({ lng, lat, local }: PlaceProps) => {
               lng={parseInt(lng)}
               lat={parseInt(lat)}
               thumUrls={data?.detail.thumUrls as string[]}
+              menu={data?.detail.menuInfo as string[]}
             />
           </div>
         ) : (
