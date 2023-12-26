@@ -51,7 +51,7 @@ const PlaceDetailLocation = ({ lng, lat }: KakaoMapProps) => {
 
   return (
     <>
-      <div id="detailMap" className="w-[100%] h-[323px]"></div>
+      <div id="detailMap" style={{ width: '1200px', height: '323px' }}></div>
     </>
   );
 };

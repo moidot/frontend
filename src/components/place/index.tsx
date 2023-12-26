@@ -38,6 +38,7 @@ interface PlaceDetailProps {
   openTime: string;
   tel: string;
   detail: BestRegionPlaceDetailProps;
+  thumUrls: string[];
 }
 
 const Place = ({ lng, lat, local }: PlaceProps) => {
@@ -78,7 +79,7 @@ const Place = ({ lng, lat, local }: PlaceProps) => {
     setPortalElement(document.getElementById('root-modal'));
   }, [modalClick]);
 
-  const onModalClick = ({ title, openTime, thumUrl, distance, tel, detail }: PlaceDetailProps) => {
+  const onModalClick = ({ title, openTime, thumUrl, distance, tel, detail, thumUrls }: PlaceDetailProps) => {
     const data: PlaceDetailProps = {
       title: title,
       openTime: openTime,
@@ -86,6 +87,7 @@ const Place = ({ lng, lat, local }: PlaceProps) => {
       distance: distance,
       tel: tel,
       detail: detail,
+      thumUrls: thumUrls,
     };
     setData(data);
     setModalClick(!modalClick);
@@ -154,6 +156,7 @@ const Place = ({ lng, lat, local }: PlaceProps) => {
               category={category}
               lng={parseInt(lng)}
               lat={parseInt(lat)}
+              thumUrls={data?.detail.thumUrls as string[]}
             />
           </div>
         ) : (

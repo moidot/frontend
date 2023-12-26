@@ -26,8 +26,9 @@ const NavItem = ({ type, placeNav, setPlaceNav }: NavItemProps) => {
   return (
     <>
       {type === placeNav ? (
-        <div className="w-[131px] h-[29px] text-center ">
+        <div className="w-[131px] h-[29px] text-center">
           <div className="font-thin font-Pretendard text-main_orange text-b2 ">{label}</div>
+          <div className="w-[131px] h-[4px]  bg-main_orange  z-40 mt-[6px]"></div>
         </div>
       ) : (
         <div className="w-[131px] h-[29px] text-center cursor-pointer" onClick={() => onNavClick(type)}>
