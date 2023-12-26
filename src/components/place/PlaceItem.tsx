@@ -2,6 +2,8 @@ import PhoneIcon from '@assets/main/phone.svg';
 import TimeIcon from '@assets/main/time.svg';
 import Image from 'next/image';
 import { BestRegionPlaceDetailProps } from '@/types/SpaceType';
+import { ChipList } from '.';
+
 interface PlaceItemProps {
   title: string;
   thumUrl: string;
@@ -9,28 +11,42 @@ interface PlaceItemProps {
   openTime: string;
   tel: string;
   detail?: BestRegionPlaceDetailProps;
+  category: keyof typeof ChipList;
 }
 
-const PlaceItem = ({ title, thumUrl, distance, openTime, tel }: PlaceItemProps) => {
+const PlaceItem = ({ title, thumUrl, distance, openTime, tel, category }: PlaceItemProps) => {
+  const renderCategoryImage = () => {
+    switch (category) {
+      case 'CAFE':
+        return 'https://jungminbucket2.s3.ap-northeast-2.amazonaws.com/cafe_png.png';
+      case 'LIBRARY':
+        return 'https://jungminbucket2.s3.ap-northeast-2.amazonaws.com/library_png.png';
+      case 'RESTAURANT':
+        return 'https://jungminbucket2.s3.ap-northeast-2.amazonaws.com/sicdang_png.png';
+      case 'STUDY_CAFE':
+        return 'https://jungminbucket2.s3.ap-northeast-2.amazonaws.com/studycafe_png.png';
+      case 'STUDY_ROOM':
+        return 'https://jungminbucket2.s3.ap-northeast-2.amazonaws.com/studyroom_png.png';
+    }
+  };
+  //<div style={{ overflow: 'hidden' }}>{renderCategoryImage()}</div>
+
   return (
     <>
-      <div className="bg-white w-[585px]  rounded-2xl flex-row flex p-8 gap-5 shadow-card_shadow ">
-        <div style={{ borderRadius: '16px' }}>
-          <Image
-            src={
-              thumUrl
-                ? thumUrl
-                : 'https://ldb-phinf.pstatic.net/20221124_209/1669253717040P6mjS_JPEG/KakaoTalk_20221123_114530445_03.jpg'
-            }
-            width={175}
-            height={180}
-            priority
-            alt="placeImg"
-          />
-        </div>
+      <div className="bg-white w-[585px] rounded-2xl flex-row flex  gap-5 shadow-card_shadow ">
+        {thumUrl ? (
+          <div style={{ overflow: 'hidden' }} className="rounded-l-lg flex justify-start">
+            <Image src={thumUrl} width={175} height={175} objectFit="cover" alt="placeImg" priority />
+          </div>
+        ) : (
+          <div style={{ overflow: 'hidden' }} className="rounded-l-lg flex justify-start">
+            <Image src={renderCategoryImage()} width={175} height={185} objectFit="cover" alt="placeImg" priority />
+          </div>
+        )}
+
         <div className=" flex flex-col gap-[64px]">
           <div>
-            <div className="font-Pretendard text-black text-b1 font-bold">{title}</div>
+            <div className="font-Pretendard text-black text-b1 font-bold pt-4">{title}</div>
             <div className="font-Pretendard text-main_orange text-b4 font-regular">{distance}</div>
           </div>
           <div className="flex flex-col gap-[12px]">

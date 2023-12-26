@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import CafeImg from '@assets/main/cafeImg.png';
+
 import AddressIcon from '@assets/main/address.svg';
 import PhoneIcon from '@assets/main/phone.svg';
 import HomePageIcon from '@assets/main/homePage.svg';
@@ -7,6 +7,12 @@ import FeatureIcon from '@assets/main/feature.svg';
 import TimeIcon from '@assets/main/time.svg';
 import CloseBtn from '@assets/main/closeBtn.svg';
 import { BestRegionPlaceDetailProps } from '@/types/SpaceType';
+import CafeImg from '@assets/placeDetail/cafe_vec.svg';
+import LibraryImg from '@assets/placeDetail/library_vec.svg';
+import RestaurantImg from '@assets/placeDetail/sicdang_vec.svg';
+import StudyRoomImg from '@assets/placeDetail/studyroom_vec.svg';
+import StudyCafeImg from '@assets/placeDetail/studycafe_vec.svg';
+import { ChipList } from '../place';
 
 interface PlaceDetailInfoProps {
   setModalClick: React.Dispatch<React.SetStateAction<boolean>>;
@@ -16,21 +22,61 @@ interface PlaceDetailInfoProps {
   openTime: string;
   tel: string;
   detail: BestRegionPlaceDetailProps;
+  category: keyof typeof ChipList;
 }
 
-const PlaceDetailInfo = ({ setModalClick, title, thumUrl, distance, openTime, tel, detail }: PlaceDetailInfoProps) => {
+const PlaceDetailInfo = ({
+  setModalClick,
+  title,
+  thumUrl,
+  distance,
+  openTime,
+  tel,
+  detail,
+  category,
+}: PlaceDetailInfoProps) => {
   const onClick = () => {
     setModalClick(false);
   };
+  const renderCategoryImage = () => {
+    switch (category) {
+      case 'CAFE':
+        return <CafeImg />;
+      case 'LIBRARY':
+        return <LibraryImg />;
+      case 'RESTAURANT':
+        return <RestaurantImg />;
+      case 'STUDY_CAFE':
+        return <StudyCafeImg />;
+      case 'STUDY_ROOM':
+        return <StudyRoomImg />;
+      default:
+        return null;
+    }
+  };
+
   return (
-    <div className="flex gap-10 flex-row">
-      <div style={{ borderRadius: '16px' }}>
-        <Image src={thumUrl ? thumUrl : CafeImg} width={300} height={300} alt="placeImg" />
-      </div>
+    <div className="flex gap-10 flex-row pt-[64px]">
+      {thumUrl ? (
+        <div style={{ borderRadius: '16px', position: 'relative', width: '300px', height: '400px' }}>
+          <Image
+            src={thumUrl}
+            width={300}
+            height={400}
+            alt="placeImg"
+            style={{ position: 'absolute', top: 0, left: 0, width: '300px', height: '400px' }}
+          />
+        </div>
+      ) : (
+        renderCategoryImage()
+      )}
+
       <div className=" flex flex-col gap-[40px]">
         <div className=" flex flex-col gap-[4px]">
-          <div className="inline-block rounded-[30px] flex justify-center items-center bg-main_orange pr-1.5 pl-1.5 pt-1 pb-1">
-            <div className="font-Pretendard text-white text-b1 font-bold">{detail.local}</div>
+          <div className="flex">
+            <div className=" rounded-[30px] bg-main_orange pb-2 pt-2 pr-4 pl-4 ">
+              <div className=" font-Pretendard text-white text-b1 font-bold">{detail.local}</div>
+            </div>
           </div>
           <div className="font-Pretendard text-black text-h3 font-bold">{title}</div>
           <div className="font-Pretendard text-main_orange text-b3 font-regular">{distance}</div>
