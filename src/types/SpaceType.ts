@@ -90,6 +90,8 @@ export interface BestRegionPlaceDetailProps {
   hompageUrl: string;
   tel: string;
   category: string[];
+  thumUrls: string[];
+  menuInfo: string[];
 }
 export type GetGroupRes = ResponseDto<GetGroupProps>;
 export type GetUserParticipateListRes = ResponseDto<GetParticipateProps[]>;
