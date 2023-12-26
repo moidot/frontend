@@ -6,7 +6,6 @@ export interface VoteSelectProps {
   bestPlaceId: number;
 }
 
-
 export type GetVoteSelectPeopleRes = ResponseDto<VoteSelectProps>;
 
 //장소에 투표한 인원 조회 API
