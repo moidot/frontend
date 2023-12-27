@@ -1,7 +1,7 @@
 import { Funnel } from '../funnel/Funnel';
 import SpaceCreateInfo from './spaceCreateInfo/SpaceCreateInfo';
 import SpaceCreateMoveInfo from './SpaceCreateMoveInfo';
-import SpaceCreateName from './SpaceCreateName';
+import SpaceCreateName from './spaceCreateName/index';
 
 const SpaceCreate = () => {
   return (
