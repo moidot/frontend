@@ -20,8 +20,7 @@ const VoteChoiceOption = ({ bestPlaceId, votes, placeName, isVoted, votePlaceIds
   const [isClickedPeopleIcon, setIsClickedPeopleIcon] = useState<boolean>(false);
 
   useEffect(() => {
-    checkedBox ? votePlaceIds.push(bestPlaceId) : votePlaceIds.pop();
-    // console.log(votePlaceIds);
+    checkedBox ? votePlaceIds.push(bestPlaceId) : votePlaceIds.splice(votePlaceIds.indexOf(bestPlaceId), 1);
   }, [checkedBox]);
 
   return (

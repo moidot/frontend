@@ -3,8 +3,8 @@ import { useEffect } from 'react';
 const VoteKakaoMapUpdate = ({ locationInfo }: any) => {
   useEffect(() => {
     if (locationInfo) {
-      const lat = locationInfo[0].latitude;
-      const lng = locationInfo[0].longitude;
+      const lat = locationInfo[0]?.latitude;
+      const lng = locationInfo[0]?.longitude;
       const mapScript = document.createElement('script');
 
       mapScript.async = true;
@@ -17,7 +17,7 @@ const VoteKakaoMapUpdate = ({ locationInfo }: any) => {
       const onLoadKakaoMap = () => {
         window.kakao.maps.load(() => {
           //지도를 표시할 div
-          const container = document.getElementById('map');
+          const container = document.getElementById('vote-map');
           //지도 중심좌표
           const options = {
             center: new window.kakao.maps.LatLng(lat, lng),
@@ -53,7 +53,7 @@ const VoteKakaoMapUpdate = ({ locationInfo }: any) => {
 
   return (
     <>
-      <div id="map" className="w-[100%] h-[600px]"></div>
+      <div id="vote-map" className="w-[100%] h-[600px]"></div>
     </>
   );
 };

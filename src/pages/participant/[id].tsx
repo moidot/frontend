@@ -6,19 +6,24 @@ import ParticipationList from '@/components/participate/ParticipationList';
 import { ParticipationProps } from '@/types/ParticipateType';
 import { useGetGroup } from '@/hooks/useGetGroup';
 import api from '@/services/TokenService';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useRecoilState } from 'recoil';
 import { groupIdAtom } from '@/states/groupIdAtom';
+import { groupAdminIdAtom } from '@/states/groupAdminIdAtom';
 
 const ParticipatePage = () => {
   const [partData, setPartData] = useState<ParticipationProps>();
   const [updateMode, setUpdateMode] = useState<boolean>(false);
+  const [adminId, setAdminId] = useRecoilState<any>(groupAdminIdAtom);
   const token = api.getToken();
   const group = useRecoilValue(groupIdAtom);
   const response = useGetGroup(token, group.groupId);
   useEffect(() => {
     if (response.data?.message === '성공') setPartData(response.data?.data);
-    console.log(response.data?.data);
+    setAdminId(response.data?.data.adminEmail);
+    console.log(response.data?.data, 'dddd', response.data?.data.adminEmail, adminId);
   }, [response]);
+
+  useEffect;
 
   return (
     <section>
