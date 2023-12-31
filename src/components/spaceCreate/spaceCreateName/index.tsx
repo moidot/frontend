@@ -21,13 +21,16 @@ const SpaceCreateName = () => {
   const onNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.currentTarget.value);
     const regex = /^[a-zA-Z0-9_\-]*$/;
-    if (name.length >= 8) {
-      setName('');
-    }
     if (regex.test(name) == false) {
       setError('부적절한 닉네임입니다 (특수문자)');
     } else {
       setError('');
+    }
+    if (name.length >= 8) {
+      setName('');
+    }
+    if (name.length <= 8 && regex.test(name)) {
+      setActive(true);
     }
     if (confirmName) {
       setActive(true);
