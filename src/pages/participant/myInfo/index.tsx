@@ -9,21 +9,21 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import CommonPopupBackground from '@/components/common/popup/CommonPopupBackground';
 import SimpleNav from '@/components/common/navbar/SimpleNav';
-import api from '@/services/TokenService';
+import { useRecoilValue } from 'recoil';
+import { myInfoUserAtom } from '@/states/myInfoUserAtom';
 
 const MyInfoUpdatePage = () => {
   const router = useRouter();
-  const [userName, setUserName] = useState(api.getName());
-  const [userLocation, setUserLocation] = useState(
-    (router?.query.address as string)?.length > 0 ? router?.query.address : '',
-  );
+  const userData = useRecoilValue(myInfoUserAtom);
+  const [userName, setUserName] = useState(userData.nickname);
+  const [userLocation, setUserLocation] = useState('');
   const [isPublic, setIsPublic] = useState<boolean>(false);
   const [isClickedPatch, setIsClickedPatch] = useState<boolean>(false);
   const [inputCount, setInputCount] = useState<number>(
-    (router?.query.nickname as string)?.length > 0 ? (router?.query.nickname as string)?.length : 0,
+    (userData.nickname as string)?.length > 0 ? (userData.nickname as string)?.length : 0,
   );
   useEffect(() => {
-    router.query.transportation === 'PUBLIC' && setIsPublic(!isPublic);
+    userData.transportation === 'PUBLIC' && setIsPublic(!isPublic);
   }, []);
 
   const handleUserNameInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -120,6 +120,7 @@ const MyInfoUpdatePage = () => {
           }}>
           수정하기
         </div>
+        {/* 팝업 - 임시 데이터 */}
         {isClickedPatch && (
           <CommonPopupBackground>
             <div className="flex justify-center h-[100vh] items-center font-Pretendard">
