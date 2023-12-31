@@ -1,4 +1,4 @@
-import PlaceDetailInfo from './PlaceDetailInfo';
+import PlaceDetailInfo from './placeDetailInfo';
 import { BestRegionPlaceDetailProps } from '@/types/SpaceType';
 import { ChipList } from '../place';
 import PlaceNavBar from '../placeDetail/navbar/index';
