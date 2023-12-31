@@ -15,9 +15,15 @@ const SpaceCreateInfo = () => {
   const [name, setName] = useState('');
   const [date, setDate] = useState(DEFAULT_DATE);
   const [active, setActive] = useState(false);
+  const [portalElement, setPortalElement] = useState<Element | null>(null);
+  const [modalClick, setModalClick] = useState(false);
+  const { data, setCurrent, setData } = useFunnelContext();
+
+  useEffect(() => {
+    setPortalElement(document.getElementById('root-modal'));
+  }, [modalClick]);
   console.log(active);
 
-  const { data, setCurrent, setData } = useFunnelContext();
   const onBackClick = () => {
     router.push('/user');
   };
@@ -38,6 +44,7 @@ const SpaceCreateInfo = () => {
   };
   const onDateChange = () => {
     setDate(date);
+    setModalClick(!modalClick);
     if (name != '' && date != DEFAULT_DATE) {
       setActive(true);
     }

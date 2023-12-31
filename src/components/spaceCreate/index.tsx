@@ -1,14 +1,15 @@
 import { Funnel } from '../funnel/Funnel';
-import SpaceCreateInfo from './spaceCreateInfo/SpaceCreateInfo';
-import SpaceCreateMoveInfo from './SpaceCreateMoveInfo';
+import SpaceCreateInfo from './spaceCreateInfo';
+import SpaceCreateMoveInfo from './spaceCreateMoveInfo';
 import SpaceCreateName from './spaceCreateName/index';
 
 const SpaceCreate = () => {
   return (
     <div>
       <Funnel>
-        <SpaceCreateInfo />
         <SpaceCreateName />
+        <SpaceCreateInfo />
+
         <SpaceCreateMoveInfo />
       </Funnel>
     </div>
