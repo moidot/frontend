@@ -1,6 +1,8 @@
 import NoCheckBox from '@assets/participate/check/no_check_box.svg';
+import Master from '@assets/participate/icon_master.svg';
 import CheckBox from '@assets/participate/check/check_box.svg';
-import IconPeople from '@assets/vote/icon_people.svg';
+import IconGrayPeople from '@assets/vote/icon_gray_people.svg';
+import IconOrangePeople from '@assets/vote/icon_orange_people.svg';
 import { useEffect, useState } from 'react';
 import VoteProgressBar from './detail/VoteProgressBar';
 import VoteMemberPopup from './detail/VoteMemberPopup';
@@ -13,10 +15,21 @@ export interface VoteOptionProps {
   longitude: number;
   isVoted: boolean;
   isAnonymous: boolean;
+  isClosed: boolean;
+  voteMax: any;
   votePlaceIds: number[];
 }
 
-const VoteChoiceOption = ({ bestPlaceId, votes, placeName, isVoted, votePlaceIds, isAnonymous }: VoteOptionProps) => {
+const VoteChoiceOption = ({
+  bestPlaceId,
+  votes,
+  placeName,
+  isVoted,
+  isClosed,
+  votePlaceIds,
+  isAnonymous,
+  voteMax,
+}: VoteOptionProps) => {
   const [checkedBox, setCheckedBox] = useState<boolean>(isVoted);
   const [isClickedPeopleIcon, setIsClickedPeopleIcon] = useState<boolean>(false);
 
@@ -25,20 +38,27 @@ const VoteChoiceOption = ({ bestPlaceId, votes, placeName, isVoted, votePlaceIds
   }, [checkedBox]);
 
   return (
-    <div className="w-full h-[72px] flex items-center">
+    <div
+      className="w-full h-[72px] flex items-center pl-4 rounded-2xl"
+      style={{
+        backgroundColor: isClosed && voteMax?.bestPlaceId === bestPlaceId ? '#FFEADB' : '',
+      }}>
       {checkedBox ? (
-        <div onClick={() => setCheckedBox(!checkedBox)}>
+        <div style={{ pointerEvents: isClosed ? 'none' : 'auto' }} onClick={() => setCheckedBox(!checkedBox)}>
           <CheckBox />
         </div>
       ) : (
-        <div onClick={() => setCheckedBox(!checkedBox)}>
+        <div style={{ pointerEvents: isClosed ? 'none' : 'auto' }} onClick={() => setCheckedBox(!checkedBox)}>
           <NoCheckBox />
         </div>
       )}
       <div>
-        <div className="w-[988px] mx-5 text-b2 pb-1 border-b-2 border-b-bg_orange text-left">
+        <div className="w-[988px] mx-5 text-b2 pb-1 text-left">
           {checkedBox ? (
-            <div className="text-main_orange font-bold">{placeName}</div>
+            <div className="text-main_orange font-bold flex items-center">
+              {isClosed && voteMax?.bestPlaceId === bestPlaceId && <Master />}
+              <div className="ml-2">{placeName}</div>
+            </div>
           ) : (
             <div className="text-font_black">{placeName}</div>
           )}
@@ -48,8 +68,12 @@ const VoteChoiceOption = ({ bestPlaceId, votes, placeName, isVoted, votePlaceIds
         </div>
       </div>
       <div className="flex items-center" onClick={() => setIsClickedPeopleIcon(!isClickedPeopleIcon)}>
-        <IconPeople />
-        <div className="ml-2 text-font_gray text-b2">{votes}</div>
+        {isClosed && voteMax?.bestPlaceId === bestPlaceId ? <IconOrangePeople /> : <IconGrayPeople />}
+        <div
+          className="ml-2 text-font_gray text-b2"
+          style={{ color: isClosed && voteMax?.bestPlaceId === bestPlaceId ? '#FB7E23' : '' }}>
+          {votes}
+        </div>
       </div>
       {!isAnonymous && isClickedPeopleIcon && (
         <VoteMemberPopup

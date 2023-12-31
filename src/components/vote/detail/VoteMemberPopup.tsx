@@ -20,6 +20,7 @@ const VoteMemberPopup = ({ placeName, bestPlaceId, setIsClickedPeopleIcon }: any
   const response = useGetVoteSelect(token, data);
   useEffect(() => {
     if (response.data?.message === '성공') setVoteMemberArr(response.data?.data);
+    console.log('user Email & admin Ema', userEmail, 'ddd', admin.adminId);
   }, [response]);
   return (
     <CommonPopupBackground>

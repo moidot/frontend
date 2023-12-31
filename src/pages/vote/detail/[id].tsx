@@ -26,6 +26,7 @@ const VoteDetailPage = () => {
   const [clickedStartBtn, setClickedStartBtn] = useState<boolean>(false); // 투표하기 버튼 선택/미선택
   const [clickedAgainBtn, setClickedAgainBtn] = useState<boolean>(false); // 재투표 버튼 선택/미선택
   const [clickedEndVote, setClickedEndVote] = useState<boolean>(false); // 투표 종료 버튼 클릭 여부
+  const [voteMax, setVoteMax] = useState<any>();
   const token = api.getToken();
   const groupIdData = useRecoilValue(groupIdAtom);
   const groupAdminId = useRecoilValue(groupAdminIdAtom);
@@ -52,7 +53,16 @@ const VoteDetailPage = () => {
   useEffect(() => {
     const temp = voteData?.voteStatuses.filter((item) => item.isVoted);
     temp?.map((item) => votePlaceIds.push(item.bestPlaceId));
-  }, [clickedAgainBtn]);
+  }, [clickedAgainBtn, voteData?.voteStatuses, votePlaceIds]);
+
+  useEffect(() => {
+    setVoteMax(
+      voteData?.voteStatuses.reduce((prev, value) => {
+        return prev.votes >= value.votes ? prev : value;
+      }),
+    );
+    console.log('voteMax is...', voteMax);
+  }, [voteData?.isClosed, voteData?.voteStatuses, voteMax]);
 
   //투표 참여 API react-query mutation
   const postGroupVoteSelectMutation = useMutation((data: VoteSelectData) => postGroupVoteSelect(token, data), {
@@ -95,9 +105,7 @@ const VoteDetailPage = () => {
           <div className="text-b2 text-font_gray">{voteEndAt}</div>
         </div>
         {/* 투표 창 */}
-        <div
-          className="w-[1168px] mx-auto"
-          style={{ pointerEvents: clickedStartBtn || clickedAgainBtn ? 'auto' : 'none' }}>
+        <div className="w-[1168px] mx-auto">
           <div className="w-[1168px] mx-auto cursor-pointer">
             {voteData?.voteStatuses.map((item: VoteStatusData) => (
               <VoteChoiceOption
@@ -110,12 +118,13 @@ const VoteDetailPage = () => {
                 latitude={item.latitude}
                 longitude={item.longitude}
                 isAnonymous={voteData.isAnonymous}
+                isClosed={voteData.isClosed}
+                voteMax={voteMax}
               />
             ))}
           </div>
         </div>
-
-        {/* 회색 스타일링 / className="cursor-pointer flex w-[585px] h-[72px] items-center justify-center border-2 bg-btn_disabled rounded-2xl mx-auto mt-[60px] mb-[22px] text-font_gray text-b2"> */}
+        {/* 투표가 진행중이고 참여자가 있을 때 버튼 보임 */}
         {!voteData?.isClosed &&
           (voteData?.isVotingParticipant ? (
             clickedAgainBtn ? (
