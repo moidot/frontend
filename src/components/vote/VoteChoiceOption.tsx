@@ -12,10 +12,11 @@ export interface VoteOptionProps {
   latitude: number;
   longitude: number;
   isVoted: boolean;
+  isAnonymous: boolean;
   votePlaceIds: number[];
 }
 
-const VoteChoiceOption = ({ bestPlaceId, votes, placeName, isVoted, votePlaceIds }: VoteOptionProps) => {
+const VoteChoiceOption = ({ bestPlaceId, votes, placeName, isVoted, votePlaceIds, isAnonymous }: VoteOptionProps) => {
   const [checkedBox, setCheckedBox] = useState<boolean>(isVoted);
   const [isClickedPeopleIcon, setIsClickedPeopleIcon] = useState<boolean>(false);
 
@@ -50,7 +51,7 @@ const VoteChoiceOption = ({ bestPlaceId, votes, placeName, isVoted, votePlaceIds
         <IconPeople />
         <div className="ml-2 text-font_gray text-b2">{votes}</div>
       </div>
-      {isClickedPeopleIcon && (
+      {!isAnonymous && isClickedPeopleIcon && (
         <VoteMemberPopup
           placeName={placeName}
           bestPlaceId={bestPlaceId}

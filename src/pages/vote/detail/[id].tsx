@@ -109,50 +109,52 @@ const VoteDetailPage = () => {
                 bestPlaceId={item.bestPlaceId}
                 latitude={item.latitude}
                 longitude={item.longitude}
+                isAnonymous={voteData.isAnonymous}
               />
             ))}
           </div>
         </div>
 
         {/* 회색 스타일링 / className="cursor-pointer flex w-[585px] h-[72px] items-center justify-center border-2 bg-btn_disabled rounded-2xl mx-auto mt-[60px] mb-[22px] text-font_gray text-b2"> */}
-        {voteData?.isVotingParticipant ? (
-          clickedAgainBtn ? (
-            // 재투표 선택
+        {!voteData?.isClosed &&
+          (voteData?.isVotingParticipant ? (
+            clickedAgainBtn ? (
+              // 재투표 선택
+              <div
+                onClick={() => {
+                  setClickedAgainBtn(false), clickedAgainBtn && postGroupVoteSelectMutation.mutate(voteP);
+                }}
+                className="cursor-pointer flex w-[585px] h-[72px] items-center justify-center bg-main_orange rounded-2xl mx-auto mt-[60px] mb-[22px] text-white text-b2">
+                다시 투표하기
+              </div>
+            ) : (
+              <div
+                onClick={() => {
+                  setClickedAgainBtn(true);
+                }}
+                className="cursor-pointer flex w-[585px] h-[72px] items-center justify-center border-2 bg-btn_disabled rounded-2xl mx-auto mt-[60px] mb-[22px] text-font_gray text-b2">
+                다시 투표하기
+              </div>
+            )
+          ) : clickedStartBtn ? (
             <div
               onClick={() => {
-                setClickedAgainBtn(false), clickedAgainBtn && postGroupVoteSelectMutation.mutate(voteP);
+                setClickedStartBtn(!clickedStartBtn), clickedStartBtn && postGroupVoteSelectMutation.mutate(voteP);
               }}
               className="cursor-pointer flex w-[585px] h-[72px] items-center justify-center bg-main_orange rounded-2xl mx-auto mt-[60px] mb-[22px] text-white text-b2">
-              다시 투표하기
+              투표하기
             </div>
           ) : (
             <div
               onClick={() => {
-                setClickedAgainBtn(true);
+                setClickedStartBtn(!clickedStartBtn), clickedStartBtn && postGroupVoteSelectMutation.mutate(voteP);
               }}
               className="cursor-pointer flex w-[585px] h-[72px] items-center justify-center border-2 bg-btn_disabled rounded-2xl mx-auto mt-[60px] mb-[22px] text-font_gray text-b2">
-              다시 투표하기
+              투표하기
             </div>
-          )
-        ) : clickedStartBtn ? (
-          <div
-            onClick={() => {
-              setClickedStartBtn(!clickedStartBtn), clickedStartBtn && postGroupVoteSelectMutation.mutate(voteP);
-            }}
-            className="cursor-pointer flex w-[585px] h-[72px] items-center justify-center bg-main_orange rounded-2xl mx-auto mt-[60px] mb-[22px] text-white text-b2">
-            투표하기
-          </div>
-        ) : (
-          <div
-            onClick={() => {
-              setClickedStartBtn(!clickedStartBtn), clickedStartBtn && postGroupVoteSelectMutation.mutate(voteP);
-            }}
-            className="cursor-pointer flex w-[585px] h-[72px] items-center justify-center border-2 bg-btn_disabled rounded-2xl mx-auto mt-[60px] mb-[22px] text-font_gray text-b2">
-            투표하기
-          </div>
-        )}
+          ))}
         {/* 모임장일 때만 버튼 생성 */}
-        {currentId === groupAdminId.adminId ? (
+        {currentId === groupAdminId ? (
           <div
             onClick={() => setClickedEndVote(!clickedEndVote)}
             className="cursor-pointer flex w-[585px] h-[72px] mb-[150px] items-center justify-center border-2 border-main_orange rounded-2xl mx-auto text-main_orange text-b2 box-border">
