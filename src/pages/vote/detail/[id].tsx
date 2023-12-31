@@ -124,6 +124,7 @@ const VoteDetailPage = () => {
             ))}
           </div>
         </div>
+
         {/* 투표가 진행중이고 참여자가 있을 때 버튼 보임 */}
         {!voteData?.isClosed &&
           (voteData?.isVotingParticipant ? (
