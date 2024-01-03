@@ -9,7 +9,7 @@ const SpaceCreate = () => {
       <Funnel>
         <SpaceCreateName />
         <SpaceCreateInfo />
-
+ㄴ
         <SpaceCreateMoveInfo />
       </Funnel>
     </div>
