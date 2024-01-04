@@ -20,6 +20,7 @@ const VoteMemberPopup = ({ placeName, bestPlaceId, setIsClickedPeopleIcon }: any
   const response = useGetVoteSelect(token, data);
   useEffect(() => {
     if (response.data?.message === '성공') setVoteMemberArr(response.data?.data);
+    console.log('user Email & admin Ema', userEmail, 'ddd', admin.adminId);
   }, [response]);
   return (
     <CommonPopupBackground>
@@ -31,6 +32,9 @@ const VoteMemberPopup = ({ placeName, bestPlaceId, setIsClickedPeopleIcon }: any
           <span>
             <b>{placeName}</b>에 투표한 모임원
           </span>
+          {voteMemberArr?.voteParticipations.length === 0 && (
+            <div className="text-b1 mt-[20px]">투표한 모임원이 없어요.</div>
+          )}
           <div>
             {voteMemberArr?.voteParticipations.map((item: any, idx: number) => (
               <div

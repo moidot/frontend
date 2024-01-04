@@ -18,6 +18,7 @@ const TimePicker = ({ time, setTime, hour, setHour, min, setMin }: any) => {
   };
   const handleMins = (i: number) => {
     setMin(i === 0 ? i : i * 5);
+    console.log('minnn', min);
     minRef.current?.children[i].scrollIntoView({ behavior: 'smooth' });
   };
 

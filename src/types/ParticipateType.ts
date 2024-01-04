@@ -14,6 +14,7 @@ export interface ParticipantsByRegionProps {
 }
 
 export interface ParticipationProps {
+  participations: any;
   groupId: number;
   adminEmail: string;
   name: string;

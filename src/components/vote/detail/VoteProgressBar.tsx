@@ -16,7 +16,7 @@ const VoteProgressBar = ({ votes }: any) => {
 
   const dealt = Math.floor((votes / (votePeopleData?.totalVoteNum === 0 ? 1 : votePeopleData?.totalVoteNum)) * 100);
   return (
-    <div className="w-full bg-gray-200 rounded-full h-1 dark:bg-gray-700">
+    <div className="w-full bg-gray-200 rounded-full h-1">
       <div className="bg-main_orange h-1 rounded-full" style={{ width: `${dealt}%` }}></div>
     </div>
   );

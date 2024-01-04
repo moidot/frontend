@@ -5,7 +5,7 @@ import { groupIdAtom } from '@/states/groupIdAtom';
 import { useMutation } from '@tanstack/react-query';
 import { useRecoilValue } from 'recoil';
 
-const VoteEndPopup = () => {
+const VoteEndPopup = ({ setClickedEndVote }: any) => {
   const token = api.getToken();
   const groupIdData = useRecoilValue(groupIdAtom);
 
@@ -31,7 +31,9 @@ const VoteEndPopup = () => {
             투표를 종료하게 되면 더 이상 투표 진행 및 수정이 불가해요.
           </div>
           <div className="flex w-[585px] justify-between items-center mx-auto mb-[16px]">
-            <div className="flex justify-center items-center w-[277px] h-[78px] rounded-2xl border-2 border-main_orange mx-auto text-main_orange text-b2 cursor-pointer">
+            <div
+              onClick={() => setClickedEndVote(false)}
+              className="flex justify-center items-center w-[277px] h-[78px] rounded-2xl border-2 border-main_orange mx-auto text-main_orange text-b2 cursor-pointer">
               취소하기
             </div>
             <div

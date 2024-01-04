@@ -6,6 +6,6 @@ export interface GroupAdminIdProps {
 export const groupAdminIdAtom = atom<GroupAdminIdProps>({
   key: 'groupAdminIdAtom',
   default: {
-    adminId: 'qop341@gmail.com',
+    adminId: '',
   },
 });
