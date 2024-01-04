@@ -34,7 +34,7 @@ const SpaceCreateCalendarModal = ({ modalClick, setModalClick, setDate }: SpaceC
       style={{ backgroundColor: 'rgba( 0, 0, 0, 0.6 )' }}>
       <div className="w-[790px] pt-[32px] pb-[81px] flex justify-center items-center flex-col bg-white z-20 gap-[40px] rounded-2xl">
         <div className="flex flex-row items-center pl-[205px] pr-[44px]">
-          <div className="font-normal font-Pretendard text-font_black text-h3">모임날짜를 선택해주세요</div>
+          <div className="font-bold font-Pretendard text-font_black text-h3">모임날짜를 선택해주세요</div>
           <div onClick={onCloseClick} className="pl-[133px]">
             <CloseBtn />
           </div>
