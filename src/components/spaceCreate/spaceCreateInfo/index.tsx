@@ -7,13 +7,14 @@ import SpaceCreateName from '../spaceCreateName';
 import CalendarImg from '@assets/create/web_icon_calendar.svg';
 import { useState } from 'react';
 import NextButton from '@/components/common/button/next/NextButton';
+import SpaceCreateCalendarModal from '../SpaceCreateCalendarModal';
 
-const DEFAULT_DATE = '모임날짜를 선택해주세요.';
+const DEFAULT_DATE: string = '모임날짜를 선택해주세요.';
 
 const SpaceCreateInfo = () => {
   const router = useRouter();
   const [name, setName] = useState('');
-  const [date, setDate] = useState(DEFAULT_DATE);
+  const [date, setDate] = useState<string>(DEFAULT_DATE);
   const [active, setActive] = useState(false);
   const [portalElement, setPortalElement] = useState<Element | null>(null);
   const [modalClick, setModalClick] = useState(false);
@@ -42,7 +43,8 @@ const SpaceCreateInfo = () => {
       setActive(true);
     }
   };
-  const onDateChange = () => {
+  const onDateClick = () => {
+    console.log('date Click');
     setDate(date);
     setModalClick(!modalClick);
     if (name != '' && date != DEFAULT_DATE) {
@@ -86,9 +88,18 @@ const SpaceCreateInfo = () => {
         </div>
         <div className="w-full h-[72px] pt-[20px] pb-[20px] pl-[24px] pr-[24px] rounded-lg bg-bg_orange flex flex-row items-center justify-between">
           <div className="font-normal font-Pretendard text-b3 text-font_gray">{date}</div>
-          <div onChange={onDateChange}>
-            <CalendarImg />
-          </div>
+          {modalClick && portalElement ? (
+            <SpaceCreateCalendarModal
+              setModalClick={setModalClick}
+              modalClick={modalClick}
+              setDate={setDate}
+              date={date}
+            />
+          ) : (
+            <div onClick={onDateClick}>
+              <CalendarImg />
+            </div>
+          )}
         </div>
       </div>
       <div className="pt-[185px]">
