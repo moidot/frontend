@@ -7,9 +7,8 @@ const SpaceCreate = () => {
   return (
     <div>
       <Funnel>
-        <SpaceCreateName />
         <SpaceCreateInfo />
-ㄴ
+        <SpaceCreateName />
         <SpaceCreateMoveInfo />
       </Funnel>
     </div>
