@@ -34,6 +34,7 @@ const config: Config = {
         icon_gray: '#DEDEDE',
         alert_delete: '#FF5555',
         light_orange: '#FFF9F5',
+        default_disabled: '#A1A1A1',
       },
       boxShadow: {
         card_shadow: '0px 19px 64px 8px rgba(0, 0, 0, 0.04)',
