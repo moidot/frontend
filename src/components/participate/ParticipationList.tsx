@@ -1,24 +1,22 @@
 import Master from '@assets/participate/icon_master.svg';
-import KakaoTalk from '@assets/participate/icon_kakao_talk.svg';
-import Copy from '@assets/participate/icon_copy.svg';
 import DeleteBtn from '@assets/participate/icon_delete.svg';
 import Car from '@assets/transportation/icon_circle_car.svg';
 import Sub from '@assets/transportation/icon_circle_sub.svg';
 import { ParticipantsByRegionProps, ParticipationDataProps, ParticipationsProps } from '@/types/ParticipateType';
-import { handleCopyClipBoard } from '@/utils/copyUrl';
 import api from '@/services/TokenService';
 import { useState } from 'react';
 import CommonPopupBackground from '../common/popup/CommonPopupBackground';
 import CommonPopupBox from '../common/popup/CommonPopupBox';
 import { useMutation } from '@tanstack/react-query';
 import { deleteGroupParticipateRemoval } from '@/apis/deleteGroupParticipateRemoval';
+
+import UrlButton from '../common/button/url';
 import { useRouter } from 'next/router';
 
 const ParticipationList = ({ data, mode, setMode }: ParticipationDataProps) => {
   const [isClickedRemoval, setIsClickedRemoval] = useState(false);
   const [userName, setUserName] = useState<string>('');
-  const location = { pathname: 'https://www.moidot.kr' }; // 배포 url로 변경하기
-  const router = useRouter();
+  const locationUrl = useRouter();
   const token = api.getToken();
   const currentUserEmail = api.getEmail(); // 로그인한 유저 정보 가져오기
   const removalMemeberTitle: string = "정말 모임원  '" + userName + "'을(를) 삭제하시겠어요?";
@@ -27,7 +25,7 @@ const ParticipationList = ({ data, mode, setMode }: ParticipationDataProps) => {
   const removalMutation = useMutation((participantId: number) => deleteGroupParticipateRemoval(token, participantId), {
     onSuccess: () => {
       alert('내보내기 성공');
-      router.push('/participate');
+      location.reload();
     },
     onError: () => {
       console.log('내보내기 error');
@@ -43,19 +41,7 @@ const ParticipationList = ({ data, mode, setMode }: ParticipationDataProps) => {
       {/* URL 복사 & 카톡 공유 박스 */}
       <div className="w-[555px] bg-bg_orange rounded-2xl text-center mx-auto mt-[30px] mb-[48px] p-[15px]">
         <div className="text-main_orange text-b1 font-bold mb-[15px]">모임원을 초대해보세요!</div>
-        <div className="flex w-[440px] justify-between items-center text-b3 text-font_black mx-auto">
-          <div
-            className="flex items-center cursor-pointer text-b2"
-            onClick={() => handleCopyClipBoard(`${location.pathname}`)}>
-            URL 복사하기
-            <Copy className="ml-2" />
-          </div>
-          <div className="w-[1px] h-[26px] bg-bg_light_gray"></div>
-          <div className="flex items-center cursor-pointer text-b2">
-            카카오톡 공유하기
-            <KakaoTalk className="ml-2" />
-          </div>
-        </div>
+        <UrlButton pathname={locationUrl?.asPath} />
       </div>
       <div className="relative">
         {/* 내보내기 버튼 */}

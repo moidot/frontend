@@ -14,7 +14,7 @@ const VotePopup = () => {
         <div className="w-[790px] h-[367px] rounded-2xl bg-white ">
           <div className="text-h3 my-[33px] text-center text-font_black font-bold whitespace-pre">{title}</div>
           <div className="w-[585px] h-[68px] rounded-2xl bg-bg_orange mx-auto flex items-center mb-[16px]">
-            <UrlButton />
+            <UrlButton pathname={router?.asPath} />
           </div>
           <div onClick={closeExitPopup}>
             <div className="cursor-pointer flex w-[585px] h-[78px] items-center justify-center bg-main_orange rounded-2xl mx-auto mb-[92px] text-white text-b1 font-bold">
