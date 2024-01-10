@@ -1,8 +1,10 @@
 import api from '@/services/TokenService';
 import VoteIcon from '@assets/vote/icon_before_vote.svg';
 import UrlButton from '../common/button/url';
+import { useRouter } from 'next/router';
 
 const VoteBox = ({ admin }: any) => {
+  const locationUrl = useRouter();
   const currentUserEmail = api.getEmail();
   const leaderMent = '모두 정보를 입력하였다면 투표로 장소를 정할 수 있어요.\n투표를 시작할 준비, 되셨나요?';
   const memberMent =
@@ -16,7 +18,7 @@ const VoteBox = ({ admin }: any) => {
       <div className="text-main_orange text-b1 font-bold text-center whitespace-pre">
         {currentUserEmail === admin ? leaderMent : memberMent}
       </div>
-      <div className="mt-[30px]">{currentUserEmail !== admin && <UrlButton />}</div>
+      <div className="mt-[30px]">{currentUserEmail !== admin && <UrlButton pathname={locationUrl?.asPath} />}</div>
     </div>
   );
 };

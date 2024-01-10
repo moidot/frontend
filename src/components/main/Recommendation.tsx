@@ -18,7 +18,7 @@ const Recommendation = (props: GetGroupBestRegionListRes) => {
               setSlideIndex(data.indexOf(item));
             }}
             style={{
-              marginLeft: data.indexOf(item) === 0 ? '350px' : '',
+              marginLeft: data.indexOf(item) === 0 ? '18vw' : '',
               transform: `translateX(${-100 * slideIndex}%)`,
               transition: 'all 0.5s ease-in-out',
             }}>
