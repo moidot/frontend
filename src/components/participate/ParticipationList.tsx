@@ -13,7 +13,7 @@ import { deleteGroupParticipateRemoval } from '@/apis/deleteGroupParticipateRemo
 import UrlButton from '../common/button/url';
 import { useRouter } from 'next/router';
 
-const ParticipationList = ({ data, mode, setMode }: ParticipationDataProps) => {
+const ParticipationList = ({ data, mode = false, setMode = () => {} }: ParticipationDataProps) => {
   const [isClickedRemoval, setIsClickedRemoval] = useState(false);
   const [userName, setUserName] = useState<string>('');
   const locationUrl = useRouter();
