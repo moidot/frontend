@@ -23,7 +23,9 @@ const SpaceCreateInfo = () => {
   useEffect(() => {
     setPortalElement(document.getElementById('root-modal'));
   }, [modalClick]);
+  console.log(name);
   console.log(active);
+  console.log(date);
 
   const onBackClick = () => {
     router.push('/user');
@@ -44,16 +46,14 @@ const SpaceCreateInfo = () => {
     }
   };
   const onDateClick = () => {
-    console.log('date Click');
     setDate(date);
     setModalClick(!modalClick);
+  };
+  useEffect(() => {
     if (name != '' && date != DEFAULT_DATE) {
       setActive(true);
     }
-  };
-  useEffect(() => {
-    console.log(data);
-  }, []);
+  }, [name, date]);
 
   return (
     <div className="flex justify-center items-center flex-col">
