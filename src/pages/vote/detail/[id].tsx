@@ -17,10 +17,12 @@ import { VoteSelectData, postGroupVoteSelect } from '@/apis/postGroupVoteSelect'
 import { useMutation } from '@tanstack/react-query';
 import { groupIdAtom } from '@/states/groupIdAtom';
 import { handleDateFormat } from '@/utils/changeDateFormat';
+import { useRouter } from 'next/router';
 
 const VoteDetailPage = () => {
   RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
   let votePlaceIds: any = [];
+  const locationUrl = useRouter();
   const [voteData, setVoteData] = useState<VoteData>(); // 투표 전체 데이터
   const [voteEndAt, setVoteEndAt] = useState<any>(''); // 투표 종료 시간 데이터
   const [clickedStartBtn, setClickedStartBtn] = useState<boolean>(false); // 투표하기 버튼 선택/미선택
@@ -83,7 +85,7 @@ const VoteDetailPage = () => {
       {/* url 박스 */}
       <div className="w-[555px] bg-bg_orange rounded-2xl text-center mx-auto mt-[30px] mb-[48px] p-[15px]">
         <div className="text-main_orange text-b1 font-bold mb-[15px]">모임원을 초대해보세요!</div>
-        <UrlButton />
+        <UrlButton pathname={locationUrl?.asPath} />
       </div>
       {/* 지도 자리 */}
       {voteData?.voteStatuses && <VoteKakaoMap locationInfo={voteData?.voteStatuses} />}

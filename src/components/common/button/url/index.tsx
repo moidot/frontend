@@ -1,19 +1,55 @@
 import KakaoTalk from '@assets/participate/icon_kakao_talk.svg';
 import Copy from '@assets/participate/icon_copy.svg';
 import { handleCopyClipBoard } from '@/utils/copyUrl';
+import { useEffect } from 'react';
 
-const UrlButton = () => {
-  const location = { pathname: 'https://www.moidot.kr' }; // 배포 url로 변경하기
+interface UrlProps {
+  pathname: string;
+}
+
+const UrlButton = ({ pathname }: UrlProps) => {
+  const baseURL = 'https://www.moidot.kr'; // 배포 url로 변경하기
+  useEffect(() => {
+    console.log(pathname.split('/').slice(-1)[0]);
+  }, [pathname]);
+
+  const onShare = async () => {
+    await window.Kakao.Share.sendDefault({
+      objectType: 'feed',
+      content: {
+        title: '모이닷 팀 프로젝트에서 함께 해요!',
+        description: '모이닷 팀 프로젝트에서 모임원으로\n초대했어요. 참여해보세요!',
+        imageUrl:
+          'https://moidot-bucket.s3.ap-northeast-2.amazonaws.com/image/kakao-message/feed_%E1%84%8E%E1%85%A9%E1%84%83%E1%85%A2_png.png',
+        link: {
+          // [내 애플리케이션] > [플랫폼] 에서 등록한 사이트 도메인과 일치해야 함
+          mobileWebUrl: 'https://developers.kakao.com',
+          webUrl: 'https://developers.kakao.com',
+        },
+      },
+
+      buttons: [
+        {
+          title: '모이닷으로 가기',
+          link: {
+            mobileWebUrl: 'https://developers.kakao.com',
+            webUrl: `http://localhost:3000/invite/${pathname.split('/').slice(-1)[0]}`,
+          },
+        },
+      ],
+    });
+  };
+
   return (
     <div className="flex w-[440px] justify-between items-center text-b3 text-font_black mx-auto">
       <div
         className="flex items-center cursor-pointer text-b2"
-        onClick={() => handleCopyClipBoard(`${location.pathname}`)}>
+        onClick={() => handleCopyClipBoard(`${baseURL}${pathname}`)}>
         URL 복사하기
         <Copy className="ml-2" />
       </div>
       <div className="w-[1px] h-[26px] bg-bg_light_gray"></div>
-      <div className="flex items-center cursor-pointer text-b2">
+      <div className="flex items-center cursor-pointer text-b2" onClick={onShare}>
         카카오톡 공유하기
         <KakaoTalk className="ml-2" />
       </div>
