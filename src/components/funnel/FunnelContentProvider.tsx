@@ -1,9 +1,16 @@
 import { createContext, useContext, useReducer } from 'react';
 
+interface DataProps {
+  name?: string;
+  date?: string;
+  nickname?: string;
+  moveInfo?: string;
+}
+
 interface FunnelContextProps {
   children: React.ReactNode[];
   current: React.ReactNode;
-  data: object | null;
+  data: DataProps | null;
   setChildren: (value: React.ReactNode[]) => void;
   setCurrent: (value: React.ReactNode) => void;
   setData: (value: object) => void;

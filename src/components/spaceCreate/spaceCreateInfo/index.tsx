@@ -18,7 +18,7 @@ const SpaceCreateInfo = () => {
   const [active, setActive] = useState(false);
   const [portalElement, setPortalElement] = useState<Element | null>(null);
   const [modalClick, setModalClick] = useState(false);
-  const { data, setCurrent, setData } = useFunnelContext();
+  const { setCurrent, setData } = useFunnelContext();
 
   useEffect(() => {
     setPortalElement(document.getElementById('root-modal'));
@@ -32,7 +32,7 @@ const SpaceCreateInfo = () => {
   };
   const onNextClick = () => {
     setCurrent(<SpaceCreateName />);
-    setData({ name: '' });
+    setData({ name: name, date: date });
   };
   const onNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.currentTarget.value);

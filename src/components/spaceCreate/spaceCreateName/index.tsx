@@ -10,12 +10,13 @@ const SpaceCreateName = () => {
   const [name, setName] = useState('');
   const [active, setActive] = useState(false);
   const [error, setError] = useState<string>('');
+
   const onBackClick = () => {
     setCurrent(<SpaceCreateInfo />);
   };
   const onNextClick = () => {
     setCurrent(<SpaceCreateMoveInfo />);
-    setData({ name: '' });
+    setData({ name: data?.name, date: data?.date, nickname: name });
   };
   const onNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.currentTarget.value);
@@ -45,7 +46,7 @@ const SpaceCreateName = () => {
       <Step activeStep="NAME" />
       <div className="pt-[34px] flex justify-center items-center flex-col">
         <div className="flex flex-row">
-          <div className="font-normal font-Pretendard text-b1 text-main_orange">모이닷 팀 프로젝트</div>
+          <div className="font-normal font-Pretendard text-b1 text-main_orange">{data?.name}</div>
           <div className="font-normal font-Pretendard text-b1 text-bg_light_gray">에서 사용할</div>
         </div>
         <div className="font-bold font-Pretendard text-h3 text-black">닉네임을 알려주세요</div>
