@@ -1,32 +1,29 @@
-import { useEffect } from 'react';
+import { useState } from 'react';
 import StarOnIcon from '@assets/create/star_on.svg';
 import StarOffIcon from '@assets/create/start_off.svg';
+import { useRecoilState } from 'recoil';
+import { locationSearchAtom } from '@/states/locationSearchAtom';
+
 interface SearchLocationItemProps {
-  location: string;
-  setLocation: React.Dispatch<React.SetStateAction<string>>;
-  starLocation: string;
-  setStarLocation: React.Dispatch<React.SetStateAction<string>>;
   locationTitle: string;
   detailLocation: string;
-  onStarClick: (val: string) => void;
-  starClick: boolean;
-  setStarClick: React.Dispatch<React.SetStateAction<boolean>>;
+  lng: string;
+  lat: string;
 }
 
-const SearchLocationItem = ({
-  location,
-  detailLocation,
-  locationTitle,
-  starLocation,
-  setStarClick,
-  starClick,
-  onStarClick,
-}: SearchLocationItemProps) => {
-  useEffect(() => {
-    if (location != starLocation) {
-      setStarClick(false);
+const SearchLocationItem = ({ detailLocation, locationTitle, lat, lng }: SearchLocationItemProps) => {
+  const [starClick, setStarClick] = useState<boolean>(false);
+  const [location, setLocation] = useRecoilState(locationSearchAtom);
+  console.log(location);
+  const onStarClick = (locationTitle: string) => {
+    setStarClick(!starClick);
+
+    if (!starClick) {
+      setLocation({ location: locationTitle, lat: lat, lng: lng });
+    } else {
+      setLocation({ location: '', lat: '', lng: '' });
     }
-  }, [starClick]);
+  };
 
   return (
     <div className="w-[586px] h-[72px] mt-[53px] rounded-lg p-[20px] bg-bg_orange flex flex-row items-center justify-between outline-none">

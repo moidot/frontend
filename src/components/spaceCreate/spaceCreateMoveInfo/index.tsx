@@ -12,20 +12,38 @@ import TransportOffIcon from '@assets/create/transport_off.svg';
 import TransportOnIcon from '@assets/create/transport_on.svg';
 import CheckBtn from '@assets/create/checkBtn.svg';
 import NonCheckBtn from '@assets/create/nonCheckBtn.svg';
+import { useRecoilState } from 'recoil';
+import { locationSearchAtom } from '@/states/locationSearchAtom';
+import SpaceCreateButton from '@/components/common/button/spaceCreatBtn';
+import { PostGroupReq } from '@/types/create';
+import { postGroup } from '@/apis/postGroup';
+import api from '@/services/TokenService';
+import { useRouter } from 'next/router';
 
 const SpaceCreateMoveInfo = () => {
+  const token = api.getToken();
+  const router = useRouter();
   const [portalElement, setPortalElement] = useState<Element | null>(null);
   const [modalClick, setModalClick] = useState(false);
   const { data, setCurrent } = useFunnelContext();
-  const [location, setLocation] = useState<string>('주소를 입력해주세요');
+  const [location, setLocation] = useRecoilState(locationSearchAtom);
   const [transportClick, setTransportClick] = useState<boolean>(false);
   const [carClick, setCarClick] = useState<boolean>(false);
   const [btnClick, setBtnClick] = useState<'CAR' | 'TRANSPORT'>();
+  const [active, setActive] = useState<boolean>(false);
 
   useEffect(() => {
     setPortalElement(document.getElementById('root-modal'));
   }, [modalClick]);
+  useEffect(() => {
+    setLocation({ location: '주소를 입력하세요', lng: '', lat: '' });
+  }, []);
 
+  useEffect(() => {
+    if (location != null && btnClick != undefined) {
+      setActive(true);
+    }
+  }, [location, btnClick]);
   const onBackClick = () => {
     setCurrent(<SpaceCreateName />);
   };
@@ -42,6 +60,23 @@ const SpaceCreateMoveInfo = () => {
       setBtnClick('TRANSPORT');
       setTransportClick(true);
       setCarClick(false);
+    }
+  };
+  const onNextClick = async () => {
+    const postData: PostGroupReq = {
+      name: data?.name as string,
+      date: data?.date as string,
+      userName: data?.nickname as string,
+      locationName: location.location,
+      latitude: parseFloat(location.lat),
+      longitude: parseFloat(location.lng),
+      transportationType: btnClick == 'CAR' ? 'PRIVATE' : 'PUBLIC',
+      password: '',
+    };
+    const res = await postGroup(token, postData);
+    const groupId = res.data.groupId;
+    if (res.code == 200) {
+      router.push(`/main/${groupId}`);
     }
   };
 
@@ -63,14 +98,9 @@ const SpaceCreateMoveInfo = () => {
             <div className="font-normal font-Pretendard text-b1 text-black">출발 위치</div>
           </div>
           <div className="w-full h-[72px] pt-[20px] pb-[20px] pl-[24px] pr-[24px] rounded-lg bg-bg_orange flex flex-row items-center justify-between">
-            <div className="font-normal font-Pretendard text-b3 text-font_gray">{location}</div>
+            <div className="font-normal font-Pretendard text-b3 text-font_gray">{location.location}</div>
             {modalClick && portalElement ? (
-              <SpaceCreateStartLocationModal
-                setModalClick={setModalClick}
-                modalClick={modalClick}
-                setLocation={setLocation}
-                location={location}
-              />
+              <SpaceCreateStartLocationModal setModalClick={setModalClick} modalClick={modalClick} />
             ) : (
               <div onClick={onLocationClick}>
                 <LocationIcon />
@@ -120,9 +150,18 @@ const SpaceCreateMoveInfo = () => {
           </div>
         </div>
       </div>
+      <div className="pt-[45px]">
+        <div className="font-normal font-Pretendard text-b3 text-font_gray">
+          입력하신 장소정보는 다른 모임원들에게 보여집니다.
+        </div>
+      </div>
 
-      <div className="pt-[185px]">
-        {/* {active ? <NextButton isActive={active} onClick={onNextClick} /> : <NextButton isActive={active} />} */}
+      <div className="pt-[8px]">
+        {active ? (
+          <SpaceCreateButton isActive={active} onClick={onNextClick} />
+        ) : (
+          <SpaceCreateButton isActive={active} />
+        )}
       </div>
     </div>
   );

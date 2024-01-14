@@ -12,32 +12,14 @@ import { GetKakaoLocationSearchData } from '@/types/create';
 interface SpaceCreateStartLocationModalProps {
   modalClick: boolean;
   setModalClick: React.Dispatch<React.SetStateAction<boolean>>;
-  location: string;
-  setLocation: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const SpaceCreateStartLocationModal = ({
-  modalClick,
-  setModalClick,
-  location,
-  setLocation,
-}: SpaceCreateStartLocationModalProps) => {
+const SpaceCreateStartLocationModal = ({ modalClick, setModalClick }: SpaceCreateStartLocationModalProps) => {
   const [searchLocationVal, setSearchLocationVal] = useState<string>('');
   const [loadCurrentLocation, setLoadCurrentLocation] = useState<boolean>(false);
-  const [starLocation, setStarLocation] = useState<string>('');
   const geolocationInfo = useGeolocation();
   const [searchDataList, setSearchDataList] = useState<GetKakaoLocationSearchData[]>([]);
-  const [starClick, setStarClick] = useState<boolean>(false);
-  const onStarClick = (locationTitle: string) => {
-    setStarClick(!starClick);
-    if (starClick) {
-      setLocation(location);
-      setStarLocation(locationTitle);
-    }
-  };
-  console.log(searchLocationVal);
-  console.log(location);
-  console.log(starLocation);
+
   useEffect(() => {
     const mapScript = document.createElement('script');
 
@@ -114,15 +96,10 @@ const SpaceCreateStartLocationModal = ({
             searchDataList.map((item) => (
               <div key={item.id}>
                 <SearchLocationItem
-                  onStarClick={onStarClick}
-                  location={location}
-                  setLocation={setLocation}
-                  starLocation={starLocation}
-                  setStarLocation={setStarLocation}
                   locationTitle={item.place_name}
                   detailLocation={item.road_address_name}
-                  starClick={starClick}
-                  setStarClick={setStarClick}
+                  lat={item.y}
+                  lng={item.x}
                 />
               </div>
             ))}
