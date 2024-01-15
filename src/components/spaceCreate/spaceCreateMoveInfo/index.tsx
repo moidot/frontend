@@ -70,8 +70,7 @@ const SpaceCreateMoveInfo = () => {
       locationName: location.location,
       latitude: parseFloat(location.lat),
       longitude: parseFloat(location.lng),
-      //transportationType: btnClick == 'CAR' ? 'PRIVATE' : 'PUBLIC',
-      transportationType: 'PUBLIC',
+      transportationType: btnClick == 'CAR' ? 'PERSONAL' : 'PUBLIC',
       password: '',
     };
     const res = await postGroup(token, postData);
