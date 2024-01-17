@@ -18,19 +18,21 @@ const SpaceCreateInfo = () => {
   const [active, setActive] = useState(false);
   const [portalElement, setPortalElement] = useState<Element | null>(null);
   const [modalClick, setModalClick] = useState(false);
-  const { data, setCurrent, setData } = useFunnelContext();
+  const { setCurrent, setData } = useFunnelContext();
 
   useEffect(() => {
     setPortalElement(document.getElementById('root-modal'));
   }, [modalClick]);
+  console.log(name);
   console.log(active);
+  console.log(date);
 
   const onBackClick = () => {
     router.push('/user');
   };
   const onNextClick = () => {
     setCurrent(<SpaceCreateName />);
-    setData({ name: '' });
+    setData({ name: name, date: date });
   };
   const onNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.currentTarget.value);
@@ -44,16 +46,14 @@ const SpaceCreateInfo = () => {
     }
   };
   const onDateClick = () => {
-    console.log('date Click');
     setDate(date);
     setModalClick(!modalClick);
+  };
+  useEffect(() => {
     if (name != '' && date != DEFAULT_DATE) {
       setActive(true);
     }
-  };
-  useEffect(() => {
-    console.log(data);
-  }, []);
+  }, [name, date]);
 
   return (
     <div className="flex justify-center items-center flex-col">
