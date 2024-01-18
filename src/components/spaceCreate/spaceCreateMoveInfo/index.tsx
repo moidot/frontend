@@ -38,6 +38,7 @@ const SpaceCreateMoveInfo = () => {
   useEffect(() => {
     setLocation({ location: '주소를 입력하세요', lng: '', lat: '' });
   }, []);
+  console.log(location.lat, location.lng);
 
   useEffect(() => {
     if (location != null && btnClick != undefined) {
@@ -63,9 +64,12 @@ const SpaceCreateMoveInfo = () => {
     }
   };
   const onNextClick = async () => {
+    const date = data?.date as string;
+    const formattedDate = date.replace(/\./g, '-');
+
     const postData: PostGroupReq = {
       name: data?.name as string,
-      date: data?.date as string,
+      date: formattedDate,
       userName: data?.nickname as string,
       locationName: location.location,
       latitude: parseFloat(location.lat),
@@ -74,8 +78,9 @@ const SpaceCreateMoveInfo = () => {
       password: '',
     };
     const res = await postGroup(token, postData);
+    console.log(res);
     const groupId = res.data.groupId;
-    if (res.code == 200) {
+    if (res.code == 0) {
       router.push(`/main/${groupId}`);
     }
   };
