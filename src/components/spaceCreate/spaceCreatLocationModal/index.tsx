@@ -19,6 +19,7 @@ const SpaceCreateStartLocationModal = ({ modalClick, setModalClick }: SpaceCreat
   const [loadCurrentLocation, setLoadCurrentLocation] = useState<boolean>(false);
   const geolocationInfo = useGeolocation();
   const [searchDataList, setSearchDataList] = useState<GetKakaoLocationSearchData[]>([]);
+  const [selectedItemId, setSelectedItemId] = useState<string | null>(null);
 
   useEffect(() => {
     const mapScript = document.createElement('script');
@@ -94,7 +95,12 @@ const SpaceCreateStartLocationModal = ({ modalClick, setModalClick }: SpaceCreat
           <div className="w-[586px] h-[8px] bg-bg_orange mt-[22px] mb-[16px]"></div>
           {searchDataList &&
             searchDataList.map((item) => (
-              <div key={item.id}>
+              <div
+                key={item.id}
+                onClick={() => setSelectedItemId(item.id)}
+                className={`w-[586px] h-[72px] mt-[53px] rounded-lg p-[20px]  flex flex-row items-center justify-between outline-none ${
+                  selectedItemId === item.id ? 'bg-bg_orange' : ''
+                }`}>
                 <SearchLocationItem
                   locationTitle={item.place_name}
                   detailLocation={item.road_address_name}

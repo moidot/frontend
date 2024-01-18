@@ -26,7 +26,7 @@ const SearchLocationItem = ({ detailLocation, locationTitle, lat, lng }: SearchL
   };
 
   return (
-    <div className="w-[586px] h-[72px] mt-[53px] rounded-lg p-[20px] bg-bg_orange flex flex-row items-center justify-between outline-none">
+    <div className="w-[586px]   flex flex-row items-center justify-between outline-none">
       <div>
         <div className="font-normal font-Pretendard text-font_black text-b2">{locationTitle}</div>
         <div className="font-normal font-Pretendard text-b3 text-font_gray">{detailLocation}</div>
