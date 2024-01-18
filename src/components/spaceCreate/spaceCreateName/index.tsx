@@ -54,7 +54,7 @@ const SpaceCreateName = () => {
       <div className="pt-[83px] w-[590px] gap-[32px]">
         <div className="flex flex-row items-center justify-between mb-[12px]">
           <div className="font-normal font-Pretendard text-b1 text-black">닉네임</div>
-          <div className="font-normal font-Pretendard text-b3 text-font_gray">공백포함 {name.length - 1} / 8자</div>
+          <div className="font-normal font-Pretendard text-b3 text-font_gray">공백포함 {name.length} / 8자</div>
         </div>
         <input
           className="w-full h-[72px] pt-[20px] pb-[20px] pl-[24px] pr-[24px] rounded-lg bg-bg_orange"

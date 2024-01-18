@@ -21,7 +21,7 @@ export interface PostGroupData {
   locationName: string;
   latitude: number;
   longitude: number;
-  transportationType: 'PUBLIC' | 'PRIVATE';
+  transportationType: 'PUBLIC' | 'PERSONAL';
   password: string;
 }
 
