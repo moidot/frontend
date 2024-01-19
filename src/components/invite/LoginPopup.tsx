@@ -1,0 +1,20 @@
+import CommonPopupBackground from '../common/popup/CommonPopupBackground';
+import CloseBtn from '@assets/vote/icon_close_popup.svg';
+import Home1 from '../home/Home1';
+
+const LoginPopup = ({ setClickPlus }: any) => {
+  return (
+    <div className="relative">
+      <CommonPopupBackground>
+        <div className="w-[790px] h-[921px] absolute bg-white -translate-x-1/2 left-[50%] bottom-0 border-2 rounded-t-2xl">
+          <div className="absolute top-10 right-10" onClick={() => setClickPlus(false)}>
+            <CloseBtn />
+          </div>
+          <Home1 />
+        </div>
+      </CommonPopupBackground>
+    </div>
+  );
+};
+
+export default LoginPopup;
