@@ -1,6 +1,6 @@
 import CommonPopupBackground from '../common/popup/CommonPopupBackground';
 import CloseBtn from '@assets/vote/icon_close_popup.svg';
-import Home1 from '../home/Home1';
+import LoginBox from './socialLogin/LoginBox';
 
 const LoginPopup = ({ setClickPlus }: any) => {
   return (
@@ -10,7 +10,7 @@ const LoginPopup = ({ setClickPlus }: any) => {
           <div className="absolute top-10 right-10" onClick={() => setClickPlus(false)}>
             <CloseBtn />
           </div>
-          <Home1 />
+          <LoginBox />
         </div>
       </CommonPopupBackground>
     </div>

@@ -3,10 +3,9 @@ import { useState } from 'react';
 import NextButton from '@/components/common/button/next/NextButton';
 import SpaceCreateMoveInfo from '../spaceCreateMoveInfo';
 import InviteStep from '../InviteStep';
-import { useRecoilValue } from 'recoil';
-import { groupNameAtom } from '@/states/groupNameAtom';
+
 const SpaceCreateName = () => {
-  const teamName = useRecoilValue(groupNameAtom);
+  const teamName = sessionStorage.getItem('groupName');
   const { data, setCurrent, setData } = useFunnelContext();
   const [name, setName] = useState('');
   const [active, setActive] = useState(false);

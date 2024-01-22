@@ -5,13 +5,13 @@ import ParticipationList from '../participate/ParticipationList';
 import Navbar from '../common/navbar';
 import { NAV_LIST } from '../common/navbar/Navigation';
 import { getInviteGroup } from '@/apis/getInviteGroup';
-// import LoginPopup from './LoginPopup';
+import LoginPopup from './LoginPopup';
 import { useSetRecoilState } from 'recoil';
 import { groupNameAtom } from '@/states/groupNameAtom';
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/router';
 
 const InviteSpaceInvite = ({ router }: any) => {
-  const rut = useRouter();
+  // const rut = useRouter();
   const response = getInviteGroup(router.query.id);
   const [partData, setPartData] = useState<ParticipationProps>();
   const [clickPlus, setClickPlus] = useState<boolean>(false);
@@ -25,6 +25,7 @@ const InviteSpaceInvite = ({ router }: any) => {
       });
     };
     getData();
+    sessionStorage.setItem('groupId', router.query.id);
   }, [response]);
 
   useEffect(() => {
@@ -39,12 +40,13 @@ const InviteSpaceInvite = ({ router }: any) => {
       </div>
       <div
         onClick={() => {
-          setClickPlus(true), rut.push('/inviteCreate');
+          setClickPlus(true);
+          // rut.push('/inviteCreate');
         }}
         className="flex cursor-pointer w-[585px] h-[78px] mx-auto mt-[100px] mb-[150px] items-center justify-center bg-main_orange rounded-2xl text-white text-b1 font-bold font-Pretendard">
         내 정보 추가하기
       </div>
-      {/* {clickPlus && <LoginPopup setClickPlus={setClickPlus} />} */}
+      {clickPlus && <LoginPopup setClickPlus={setClickPlus} />}
     </section>
   );
 };

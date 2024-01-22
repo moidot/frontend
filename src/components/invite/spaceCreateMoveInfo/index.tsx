@@ -10,7 +10,7 @@ import TransportOffIcon from '@assets/create/transport_off.svg';
 import TransportOnIcon from '@assets/create/transport_on.svg';
 import CheckBtn from '@assets/create/checkBtn.svg';
 import NonCheckBtn from '@assets/create/nonCheckBtn.svg';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { locationSearchAtom } from '@/states/locationSearchAtom';
 import api from '@/services/TokenService';
 import { useRouter } from 'next/router';
@@ -19,10 +19,10 @@ import SpaceParticipateButton from '@/components/common/spaceParticipateBtn';
 import SpaceCreateName from '../spaceCreateName';
 import { PostGroupParticipateReq } from '@/types/invite';
 import { postGroupParticipate } from '@/apis/postGroupParticipate';
-import { groupNameAtom } from '@/states/groupNameAtom';
 
 const SpaceCreateMoveInfo = () => {
-  const teamName = useRecoilValue(groupNameAtom);
+  const [id, setId] = useState<any>();
+  const teamName = sessionStorage.getItem('groupName');
   const token = api.getToken();
   const router = useRouter();
   const [portalElement, setPortalElement] = useState<Element | null>(null);
@@ -34,6 +34,11 @@ const SpaceCreateMoveInfo = () => {
   const [btnClick, setBtnClick] = useState<'CAR' | 'TRANSPORT'>();
   const [active, setActive] = useState<boolean>(false);
 
+  useEffect(() => {
+    const i = sessionStorage.getItem('groupId');
+    if (i !== null) setId(parseInt(i));
+    console.log('으아아아아아아 i', i);
+  }, [id]);
   useEffect(() => {
     setPortalElement(document.getElementById('root-modal'));
   }, [modalClick]);
@@ -67,7 +72,7 @@ const SpaceCreateMoveInfo = () => {
   };
   const onNextClick = async () => {
     const postData: PostGroupParticipateReq = {
-      groupId: 8,
+      groupId: id,
       userName: data?.nickname as string,
       locationName: location.location,
       latitude: parseFloat(location.lat),
