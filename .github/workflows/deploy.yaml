@@ -55,17 +55,9 @@ jobs:
           ECR_REPOSITORY: moidot-fe
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          # 이미지 빌드 및 푸시
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-
-          # 현재 이미지 태그를 파일에 기록
-          echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_ENV
-
-          # 이전 이미지 삭제
-          aws ecr batch-delete-image --repository-name $ECR_REPOSITORY --image-ids imageTag=$IMAGE_TAG
-
-          # 로컬에서 사용된 이미지 삭제
+          echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
           docker rmi $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
       - name: Deploy to EC2
