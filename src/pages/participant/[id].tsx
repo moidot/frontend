@@ -75,7 +75,7 @@ const ParticipatePage = () => {
     {
       onSuccess: () => {
         alert('스페이스 나가기 성공');
-        router.push('/'); // 내 모이닷 스페이스로 수정하기
+        router.push('/user'); // 내 모이닷 스페이스로 이동
       },
       onError: () => {
         console.log('스페이스 나가기 error');
@@ -123,7 +123,8 @@ const ParticipatePage = () => {
                     deleteGroupParticipateMutation.mutate(
                       partData?.participantsByRegion.filter((i: any) =>
                         i.participations.find((e: any) => e.userEmail === currentUserEmail),
-                      )[0].participations[0].participantId,
+                      )[0].participations[0].participationId,
+
                     )
                 : () => deleteGroupMutation.mutate(group.groupId) // 테스트 해보기
             }
