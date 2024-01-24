@@ -1,18 +1,23 @@
-//내 참여 정보 수정 API
-import { MyInfoData } from '@/types/MyInfoType';
+//스페이스 참여 API
+
+import { PostGroupParticipateReq, PostGroupParticipateRes } from '@/types/invite';
 import customedAxios from './customedAxios';
 
-export const patchGroupParticipate = async (token: string, data: MyInfoData) => {
+export const postGroupParticipate = async (
+  token: string,
+  data: PostGroupParticipateReq,
+): Promise<PostGroupParticipateRes> => {
   try {
-    const res = await customedAxios.patch(
-      '/group/participate',
+    const res = await customedAxios.post(
+      `/group/participate`,
       {
-        participateId: data.participateId,
+        groupId: data.groupId,
         userName: data.userName,
         locationName: data.locationName,
         latitude: data.latitude,
         longitude: data.longitude,
         transportationType: data.transportationType,
+        password: data.password,
       },
       {
         headers: {

@@ -8,6 +8,7 @@ const KakaoLoginRedirect = () => {
   const router = useRouter();
   const params = useSearchParams();
   const codeParam: string = params.get('code') as string;
+  const groupId = typeof window !== 'undefined' ? sessionStorage.getItem('groupId') : null;
   useEffect(() => {
     const fetchData = async () => {
       const response = await getAuthLogin(codeParam, 'KAKAO');
@@ -19,7 +20,7 @@ const KakaoLoginRedirect = () => {
         api.setEmail(email);
         api.setName(name);
       }
-      router.push('/user');
+      groupId !== null ? router.push('/inviteCreate') : router.push('/user');
     };
     if (codeParam != null) {
       fetchData();

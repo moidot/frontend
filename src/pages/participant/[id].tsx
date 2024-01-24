@@ -47,7 +47,7 @@ const ParticipatePage = () => {
   const deleteGroupMutation = useMutation((groupId: number) => deleteGroup(token, groupId), {
     onSuccess: () => {
       alert('스페이스 삭제 성공');
-      router.push('/participate'); // 내 모이닷 스페이스로 수정하기
+      router.push('/user'); // 내 모이닷 스페이스로 수정하기
     },
     onError: () => {
       console.log('스페이스 삭제 error');
@@ -60,6 +60,9 @@ const ParticipatePage = () => {
       nickname: partData?.participantsByRegion.filter((i: any) =>
         i.participations.find((e: any) => e.userEmail === currentUserEmail),
       )[0].participations[0].userName,
+      address: partData?.participantsByRegion.filter((i: any) =>
+        i.participations.find((e: any) => e.userEmail === currentUserEmail),
+      )[0].participations[0].locationName,
       transportation: partData?.participantsByRegion.filter((i: any) =>
         i.participations.find((e: any) => e.userEmail === currentUserEmail),
       )[0].participations[0].transportation,
@@ -72,7 +75,7 @@ const ParticipatePage = () => {
     {
       onSuccess: () => {
         alert('스페이스 나가기 성공');
-        router.push('/'); // 내 모이닷 스페이스로 수정하기
+        router.push('/user'); // 내 모이닷 스페이스로 이동
       },
       onError: () => {
         console.log('스페이스 나가기 error');
@@ -116,13 +119,14 @@ const ParticipatePage = () => {
             desc={role === 'member' ? deleteMemeberDesc : deleteLeaderDesc}
             operateFunction={
               role === 'member'
-                ? () => deleteGroupParticipateMutation.mutate(group.groupId)
-                : () =>
-                    deleteGroupMutation.mutate(
+                ? () =>
+                    deleteGroupParticipateMutation.mutate(
                       partData?.participantsByRegion.filter((i: any) =>
                         i.participations.find((e: any) => e.userEmail === currentUserEmail),
-                      )[0].participations[0].participantId,
-                    ) // 테스트 해보기
+                      )[0].participations[0].participationId,
+
+                    )
+                : () => deleteGroupMutation.mutate(group.groupId) // 테스트 해보기
             }
             setFunction={setIsClickDelete}
           />

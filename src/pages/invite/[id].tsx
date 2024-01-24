@@ -1,4 +1,4 @@
-import SpaceInvite from '@/components/invite/SpaceInvite';
+import SpaceInvite from '@/components/invite/InviteSpaceInvite';
 import { useRouter } from 'next/router';
 
 const InvitePage = () => {

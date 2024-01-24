@@ -6,5 +6,5 @@ export const NAV_LIST = {
 export const NAV_URL_LIST = {
   [NAV_LIST.MAIN]: '/main',
   [NAV_LIST.PARTICIPANT]: '/participant',
-  [NAV_LIST.VOTE]: '/vote/detail',
+  [NAV_LIST.VOTE]: '/vote',
 } as const;
