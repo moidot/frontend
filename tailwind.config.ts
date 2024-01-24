@@ -25,19 +25,21 @@ const config: Config = {
         font_dark_gray: '#7E7E7E',
         bg_light_gray: '#B1B1B1',
         font_black: '#393939',
+        divider: '#E2E2E2',
         main_orange: '#FB7E23',
         bg_orange: '#FFF9F5',
         disabled_orange: '#FFEADB',
+        accent_orange: '#F9CFB2',
         btn_disabled: '#E9E9E9',
         icon_gray: '#DEDEDE',
         alert_delete: '#FF5555',
         light_orange: '#FFF9F5',
+        default_disabled: '#A1A1A1',
       },
       boxShadow: {
         card_shadow: '0px 19px 64px 8px rgba(0, 0, 0, 0.04)',
       },
     },
   },
-  plugins: [require('daisyui'), require('tailwind-scrollbar-hide')],
 };
 export default config;

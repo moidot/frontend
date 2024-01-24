@@ -56,6 +56,10 @@ const KakaoMap = ({ lng, lat, user, otherUser }: KakaoMapProps) => {
         // 경로 표시
         const userPath: PathProps[] = [];
         const otherUserPath: PathProps[] = [];
+        const userMarkerImgSrc = 'https://jungminbucket2.s3.ap-northeast-2.amazonaws.com/user_marking.svg',
+          userImageSize = new window.kakao.maps.Size(33, 43);
+        const othersMarkerImgSrc = 'https://jungminbucket2.s3.ap-northeast-2.amazonaws.com/others_marking.svg',
+          othersImageSize = new window.kakao.maps.Size(33, 43);
 
         for (let i = 0; i < user.length; i++) {
           let list: any[] = [new window.kakao.maps.LatLng(user[i].path[0].y, user[i].path[0].x)];
@@ -81,6 +85,16 @@ const KakaoMap = ({ lng, lat, user, otherUser }: KakaoMapProps) => {
 
         for (let i = 0; i < otherUserPath.length; i++) {
           const item = otherUserPath[i].path;
+          let othersMarkerImage = new window.kakao.maps.MarkerImage(othersMarkerImgSrc, othersImageSize),
+            othersMarkerPosition = new window.kakao.maps.LatLng(item[0].Ma, item[0].La); // 마커가 표시될 위치입니다
+
+          // 마커를 생성합니다
+          let othersMarker = new window.kakao.maps.Marker({
+            position: othersMarkerPosition,
+            image: othersMarkerImage, // 마커이미지 설정
+          });
+
+          othersMarker.setMap(map);
           const polyline = new window.kakao.maps.Polyline({
             map: map,
             path: item,
@@ -94,6 +108,16 @@ const KakaoMap = ({ lng, lat, user, otherUser }: KakaoMapProps) => {
 
         for (let i = 0; i < userPath.length; i++) {
           const item = userPath[i].path;
+          let userMarkerImage = new window.kakao.maps.MarkerImage(userMarkerImgSrc, userImageSize),
+            userMarkerPosition = new window.kakao.maps.LatLng(item[0].Ma, item[0].La); // 마커가 표시될 위치입니다
+
+          // 마커를 생성합니다
+          let userMarker = new window.kakao.maps.Marker({
+            position: userMarkerPosition,
+            image: userMarkerImage, // 마커이미지 설정
+          });
+
+          userMarker.setMap(map);
           const polyline = new window.kakao.maps.Polyline({
             map: map,
             path: item,

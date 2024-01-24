@@ -10,6 +10,7 @@ const GoogleLoginRedirect = () => {
   const router = useRouter();
   const params = useSearchParams();
   const codeParam: string = params.get('code') as string;
+  const groupId = typeof window !== 'undefined' ? sessionStorage.getItem('groupId') : null;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,7 +28,7 @@ const GoogleLoginRedirect = () => {
         console.log(api.getToken());
       }
 
-      router.push('/user');
+      groupId !== null ? router.push('/inviteCreate') : router.push('/user');
     };
     if (codeParam != null) {
       fetchData();

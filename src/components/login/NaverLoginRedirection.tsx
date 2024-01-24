@@ -14,13 +14,15 @@ const NaverLoginRedirect = () => {
       const response = await getAuthLogin(codeParam, 'NAVER');
       console.log(response);
       const { userId, email, name, accessToken } = response.data;
+      const groupId = typeof window !== 'undefined' ? sessionStorage.getItem('groupId') : null;
+
       if (response.data) {
         api.setId(userId.toString());
         api.setToken(accessToken);
         api.setEmail(email);
         api.setName(name);
       }
-      router.push('/user');
+      groupId !== null ? router.push('/inviteCreate') : router.push('/user');
     };
     if (codeParam != null) {
       fetchData();

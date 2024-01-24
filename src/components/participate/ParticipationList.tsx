@@ -1,85 +1,46 @@
 import Master from '@assets/participate/icon_master.svg';
-import KakaoTalk from '@assets/participate/icon_kakao_talk.svg';
-import Copy from '@assets/participate/icon_copy.svg';
 import DeleteBtn from '@assets/participate/icon_delete.svg';
 import Car from '@assets/transportation/icon_circle_car.svg';
 import Sub from '@assets/transportation/icon_circle_sub.svg';
 import { ParticipantsByRegionProps, ParticipationDataProps, ParticipationsProps } from '@/types/ParticipateType';
-import { handleCopyClipBoard } from '@/utils/copyUrl';
 import api from '@/services/TokenService';
 import { useEffect, useState } from 'react';
 import CommonPopupBackground from '../common/popup/CommonPopupBackground';
 import CommonPopupBox from '../common/popup/CommonPopupBox';
 import { useMutation } from '@tanstack/react-query';
 import { deleteGroupParticipateRemoval } from '@/apis/deleteGroupParticipateRemoval';
+
+import UrlButton from '../common/button/url';
 import { useRouter } from 'next/router';
-import Link from 'next/link';
-import { deleteGroup } from '@/apis/deleteGroup';
-import { deleteGroupParticipate } from '@/apis/deleteGroupParticipate';
-// import { useDeleteGroupParticipateRemoval } from '@/hooks/useDeleteGroupParticipateRemoval';
+import { useSetRecoilState } from 'recoil';
+import { participateIdAtom } from '@/states/participateIdAtom';
 
-const ParticipationList = ({ data, mode, setMode }: ParticipationDataProps) => {
-  const [isClickDelete, setIsClickDelete] = useState<boolean>(false);
+const ParticipationList = ({ data, mode = false, setMode = () => {} }: ParticipationDataProps) => {
   const [isClickedRemoval, setIsClickedRemoval] = useState(false);
-  const [role, setRole] = useState<string>('member'); // 모임장 / 모임원 구분
   const [userName, setUserName] = useState<string>('');
-
-  const currentUser = useState<ParticipationsProps>({
-    participationId: 5,
-    userEmail: api.getEmail(),
-    userName: api.getName(),
-    locationName: '서울 성북구 보문로34다길 2',
-    transportation: 'PUBLIC',
-  });
-  const location = { pathname: 'https://www.moidot.kr' }; // 배포 url로 변경하기
-  const router = useRouter();
+  const setPartId = useSetRecoilState(participateIdAtom);
+  const locationUrl = useRouter();
   const token = api.getToken();
   const currentUserEmail = api.getEmail(); // 로그인한 유저 정보 가져오기
-  const deleteLeaderTitle: string = '정말 모이닷 스페이스를 삭제하시겠어요?';
-  const deleteLeaderDesc: string =
-    '모이닷스페이스에 등록된 모임원의 정보, 추천 장소 정보,\n투표 기록 등 모든 정보가 삭제됩니다!';
-  const deleteMemeberTitle: string = "정말 '" + data?.name + "'에서 나가시겠어요?";
-  const deleteMemeberDesc: string =
-    '모이닷 스페이스를 나가게 되면 입력하신 정보가 삭제되고\n스페이스 리스트에서 조회가 불가능합니다';
   const removalMemeberTitle: string = "정말 모임원  '" + userName + "'을(를) 삭제하시겠어요?";
   const removalMemeberDesc: string =
     '모임원을 삭제하시면 해당 모임원이 작성한\n모든 정보가 삭제되며 다시 불러올 수 없습니다.';
   const removalMutation = useMutation((participantId: number) => deleteGroupParticipateRemoval(token, participantId), {
     onSuccess: () => {
       alert('내보내기 성공');
-      router.push('/participate');
+      location.reload();
     },
     onError: () => {
       console.log('내보내기 error');
     },
   });
 
-  const deleteGroupMutation = useMutation((groupId: number) => deleteGroup(token, groupId), {
-    onSuccess: () => {
-      alert('스페이스 삭제 성공');
-      router.push('/participate'); // 내 모이닷 스페이스로 수정하기
-    },
-    onError: () => {
-      console.log('스페이스 삭제 error');
-    },
-  });
-
-  const deleteGroupParticipateMutation = useMutation(
-    (participateId: number) => deleteGroupParticipate(token, participateId),
-    {
-      onSuccess: () => {
-        alert('스페이스 내보내기 성공');
-        router.push('/'); // 내 모이닷 스페이스로 수정하기
-      },
-      onError: () => {
-        console.log('스페이스 내보내기 error');
-      },
-    },
-  );
-
   useEffect(() => {
-    data && currentUserEmail === data?.adminEmail ? setRole('leader') : setRole('member');
-  }, [currentUserEmail, data]);
+    const currentUserInfo = data.participantsByRegion.filter((item) =>
+      item.participations.find((part) => part.userEmail === currentUserEmail),
+    );
+    currentUserInfo[0]?.participations[0] && setPartId(currentUserInfo[0]?.participations[0]?.participationId);
+  }, []);
 
   return (
     <div className="max-w-[1200px]">
@@ -87,23 +48,13 @@ const ParticipationList = ({ data, mode, setMode }: ParticipationDataProps) => {
         <div className="text-h1 font-bold text-font_black">{data.name}</div>
         <div className="text-h3 font-bold text-font_gray">{data.date}</div>
       </div>
+      {/* URL 복사 & 카톡 공유 박스 */}
       <div className="w-[555px] bg-bg_orange rounded-2xl text-center mx-auto mt-[30px] mb-[48px] p-[15px]">
         <div className="text-main_orange text-b1 font-bold mb-[15px]">모임원을 초대해보세요!</div>
-        <div className="flex w-[440px] justify-between items-center text-b3 text-font_black mx-auto">
-          <div
-            className="flex items-center cursor-pointer text-b2"
-            onClick={() => handleCopyClipBoard(`${location.pathname}`)}>
-            URL 복사하기
-            <Copy className="ml-2" />
-          </div>
-          <div className="w-[1px] h-[26px] bg-bg_light_gray"></div>
-          <div className="flex items-center cursor-pointer text-b2">
-            카카오톡 공유하기
-            <KakaoTalk className="ml-2" />
-          </div>
-        </div>
+        <UrlButton pathname={locationUrl?.asPath} />
       </div>
       <div className="relative">
+        {/* 내보내기 버튼 */}
         {currentUserEmail === data.adminEmail && (
           <button
             type="button"
@@ -112,6 +63,7 @@ const ParticipationList = ({ data, mode, setMode }: ParticipationDataProps) => {
             내보내기
           </button>
         )}
+        {/* 참여중인 유저 정보 나열*/}
         {data.participantsByRegion &&
           data.participantsByRegion.map((item: ParticipantsByRegionProps, index: number) => (
             <div className="mt-[72px]" key={index}>
@@ -155,6 +107,7 @@ const ParticipationList = ({ data, mode, setMode }: ParticipationDataProps) => {
                         <Car className="mr-[24px]" />
                       )}
                     </div>
+                    {/* 내보내기 버튼 활성화 시 팝업 */}
                     {isClickedRemoval && (
                       <CommonPopupBackground>
                         <CommonPopupBox
@@ -171,45 +124,6 @@ const ParticipationList = ({ data, mode, setMode }: ParticipationDataProps) => {
             </div>
           ))}
       </div>
-      <div className="w-[585px] my-[100px] mx-auto">
-        <Link
-          className="cursor-pointer flex w-[585px] h-[78px] items-center justify-center bg-main_orange rounded-2xl text-white text-b1 font-bold"
-          href={{
-            pathname: '/participant/myInfo',
-            query: {
-              teamName: data.name,
-              date: data.date,
-              nickname: currentUser[0]?.userName,
-              address: currentUser[0]?.locationName,
-              transportation: currentUser[0]?.transportation,
-            },
-          }}
-          as="/participant/myInfo">
-          내 정보 수정하기
-        </Link>
-        <div
-          className="cursor-pointer mt-5 text-center text-font_gray text-[20px] underline"
-          onClick={() => setIsClickDelete(!isClickDelete)}>
-          {currentUserEmail === data.adminEmail ? (
-            <span>모이닷 스페이스 삭제하기</span>
-          ) : (
-            <span>모이닷 스페이스 나가기</span>
-          )}
-        </div>
-      </div>
-      {isClickDelete && (
-        <CommonPopupBackground>
-          <CommonPopupBox
-            role={role}
-            title={role === 'member' ? deleteMemeberTitle : deleteLeaderTitle}
-            desc={role === 'member' ? deleteMemeberDesc : deleteLeaderDesc}
-            operateFunction={
-              role === 'member' ? () => deleteGroupParticipateMutation.mutate(6) : () => deleteGroupMutation.mutate(7)
-            }
-            setFunction={setIsClickDelete}
-          />
-        </CommonPopupBackground>
-      )}
     </div>
   );
 };

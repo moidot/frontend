@@ -7,6 +7,7 @@ export interface VoteStatusData {
   latitude: number;
   longitude: number;
   isVoted: boolean;
+  isAnonymous: boolean;
 }
 
 export interface VoteData {

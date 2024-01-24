@@ -1,0 +1,86 @@
+name: Deploy to Amazon EC2
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  AWS_REGION: ap-northeast-2
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Cleanup Unused ECR Images
+        id: cleanup-images
+        env:
+          ECR_REPOSITORY: moidot
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          # AWS CLI를 사용하여 ECR 이미지 삭제
+          aws ecr batch-delete-image --repository-name $ECR_REPOSITORY --image-ids imageTag=$IMAGE_TAG
+
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build, tag, and push image to Amazon ECR
+        id: build-image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: moidot-fe
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          # 이미지 빌드 및 푸시
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+          # 현재 이미지 태그를 파일에 기록
+          echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_ENV
+
+          # 이전 이미지 삭제
+          aws ecr batch-delete-image --repository-name $ECR_REPOSITORY --image-ids imageTag=$IMAGE_TAG
+
+          # 로컬에서 사용된 이미지 삭제
+          docker rmi $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+      - name: Deploy to EC2
+        env:
+          IMAGE_TAG: ${{ github.sha }}
+          EC2_IP: ${{ secrets.EC2_IP_ADDRESS }}
+        run: |
+          echo "${{ secrets.EC2_SSH_PRIVATE_KEY }}" > private_key.pem
+          chmod 600 private_key.pem
+          ssh -i private_key.pem -o StrictHostKeyChecking=no ubuntu@$EC2_IP "
+          aws ecr get-login-password --region ap-northeast-2 |
+          sudo docker login --username AWS --password-stdin 637423378629.dkr.ecr.ap-northeast-2.amazonaws.com/moidot-fe &&
+          if [ \$(sudo docker ps -q -f name=moidot) ]; then
+              sudo docker stop moidot &&
+              sudo docker rm moidot
+          fi &&
+          sudo docker image pull 637423378629.dkr.ecr.ap-northeast-2.amazonaws.com/moidot-fe:$IMAGE_TAG &&
+          sudo docker container run --name moidot -d -p 3000:3000 637423378629.dkr.ecr.ap-northeast-2.amazonaws.com/moidot-fe:$IMAGE_TAG"
