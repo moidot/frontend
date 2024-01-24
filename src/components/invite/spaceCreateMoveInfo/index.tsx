@@ -1,3 +1,4 @@
+// 2단계: 출발 장소 및 이동수단 설정
 import { useFunnelContext } from '@/components/funnel/FunnelContentProvider';
 import { useEffect } from 'react';
 import BackButtonBar from '@/components/common/backButtonBar';
@@ -37,7 +38,6 @@ const SpaceCreateMoveInfo = () => {
   useEffect(() => {
     const i = sessionStorage.getItem('groupId');
     if (i !== null) setId(parseInt(i));
-    console.log('으아아아아아아 i', i);
   }, [id]);
   useEffect(() => {
     setPortalElement(document.getElementById('root-modal'));

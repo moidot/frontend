@@ -9,14 +9,14 @@ const InviteSpaceCreate = () => {
   const token = api.getToken();
   const [groupId, setGroupId] = useState<any>();
   const response = useGetGroup(token, groupId);
+  const gId = typeof window !== 'undefined' ? sessionStorage.getItem('groupId') : null;
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      if (sessionStorage.getItem('groupId') !== null) {
-        setGroupId(sessionStorage.getItem('groupId'));
-        response.data?.data.name !== undefined && sessionStorage.setItem('groupName', response.data?.data.name);
-        response.data?.data.date !== undefined && sessionStorage.setItem('date', response.data?.data.date);
-      }
+    if (gId !== null) {
+      setGroupId(gId);
+      response.data?.data.name !== undefined &&
+        (sessionStorage.setItem('groupName', response.data?.data.name),
+        sessionStorage.setItem('date', response.data?.data.date));
     }
   }, [groupId]);
 

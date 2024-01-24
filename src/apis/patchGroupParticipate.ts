@@ -4,11 +4,9 @@ import customedAxios from './customedAxios';
 
 export const patchGroupParticipate = async (token: string, data: MyInfoData) => {
   try {
-    const res = await customedAxios.patch('/group/participate', {
-      headers: {
-        Authorization: 'Bearer ' + token,
-      },
-      params: {
+    const res = await customedAxios.patch(
+      '/group/participate',
+      {
         participateId: data.participateId,
         userName: data.userName,
         locationName: data.locationName,
@@ -16,7 +14,12 @@ export const patchGroupParticipate = async (token: string, data: MyInfoData) => 
         longitude: data.longitude,
         transportationType: data.transportationType,
       },
-    });
+      {
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+      },
+    );
     return res.data;
   } catch (error) {
     throw error;
