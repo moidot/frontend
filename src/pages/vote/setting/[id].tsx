@@ -1,4 +1,3 @@
-import SimpleNav from '@/components/common/navbar/SimpleNav';
 import VotePopup from '@/components/vote/VotePopup';
 import VoteStartBtn from '@/components/vote/VoteStartBtn';
 import VoteOptionBtn from '@/components/vote/setting/VoteOptionBtn';
@@ -12,6 +11,8 @@ import api from '@/services/TokenService';
 import { useRecoilValue } from 'recoil';
 import { groupIdAtom } from '@/states/groupIdAtom';
 import { handleDateFormat } from '@/utils/changeDateFormat';
+import BackButtonBar from '@/components/common/backButtonBar';
+import { useRouter } from 'next/router';
 
 const VoteSettingPage = () => {
   const [endTime, setEndTime] = useState<boolean>(false);
@@ -21,6 +22,7 @@ const VoteSettingPage = () => {
   const [openPicker, setOpenPicker] = useState<boolean>(false);
   const [voteEndDate, setVoteEndDate] = useState<any>('');
   const [voteEndAt, setVoteEndAt] = useState<any>('');
+  const router = useRouter();
   const token = api.getToken();
   const groupIdValue = useRecoilValue(groupIdAtom);
   const voteData = {
@@ -31,8 +33,6 @@ const VoteSettingPage = () => {
   };
 
   useEffect(() => {
-    // setVoteEndAt(changeDate);
-    console.log(voteEndAt, 'voteEndAt');
     const changeDate = handleDateFormat(voteEndAt);
     setVoteEndDate(changeDate);
   }, [voteEndAt]);
@@ -40,16 +40,21 @@ const VoteSettingPage = () => {
   const postGroupVoteMutation = useMutation((data: VoteStartData) => postGroupVote(token, data), {
     onSuccess: () => {
       alert('투표 생성 완료!');
-      // router.push('/participate'); // 내 모이닷 스페이스로 수정하기
+      router.push(`/vote/detail/${groupIdValue.groupId}`); // 내 모이닷 스페이스로 수정하기
+      router.reload();
     },
     onError: () => {
       console.log('투표 생성 error');
     },
   });
 
+  const onBackClick = () => {
+    router.push(`/vote/wait/${groupIdValue.groupId}`);
+  };
+
   return (
     <section className="font-Pretendard">
-      <SimpleNav />
+      <BackButtonBar onClick={onBackClick} />
       <div className="my-[60px]">
         <div className="text-center">
           <div className="text-h2 font-bold text-font_black">투표로 장소를 확정해 보세요.</div>

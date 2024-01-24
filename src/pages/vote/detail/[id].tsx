@@ -41,7 +41,6 @@ const VoteDetailPage = () => {
 
   //투표 데이터 voteData 변수에 저장하기
   useEffect(() => {
-    console.log('엥?????', groupIdData.groupId);
     if (response.data?.message === '성공') setVoteData(response.data?.data);
     console.log('vote data', voteData);
   }, [response]);
@@ -60,9 +59,10 @@ const VoteDetailPage = () => {
 
   useEffect(() => {
     setVoteMax(
-      voteData?.voteStatuses.reduce((prev, value) => {
-        return prev.votes >= value.votes ? prev : value;
-      }),
+      voteData?.voteStatuses &&
+        voteData?.voteStatuses.reduce((prev, value) => {
+          return prev.votes >= value.votes ? prev : value;
+        }),
     );
     console.log('voteMax is...', voteMax);
   }, [voteData?.isClosed, voteData?.voteStatuses, voteMax]);

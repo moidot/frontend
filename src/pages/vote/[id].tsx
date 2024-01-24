@@ -1,25 +1,23 @@
 import { useGetGroupVote } from '@/hooks/useGetGroupVote';
 import api from '@/services/TokenService';
 import { groupIdAtom } from '@/states/groupIdAtom';
-import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
+import VoteWaitPage from './wait/[id]';
+import VoteDetailPage from './detail/[id]';
 
 const VotePage = () => {
-  const router = useRouter();
   const token = api.getToken();
   const group = useRecoilValue(groupIdAtom);
   const response = useGetGroupVote(token, group.groupId);
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [voteData, setVoteData] = useState<any>(null);
+
   useEffect(() => {
-    response && response.data?.message == '성공' && setIsOpen(true);
-    console.log('vote resopnse..', response.data);
-    isOpen ? router.push(`/vote/detail/${group.groupId}`) : router.push(`/vote/wait/${group.groupId}`);
+    if (response.data?.message === '성공') setVoteData(response.data?.data);
   }, [response]);
 
-  useEffect(() => {}, [group.groupId, isOpen, router]);
-
-  return <div></div>;
+  return <div>{voteData && voteData.voteId === -1 ? <VoteWaitPage /> : <VoteDetailPage />}</div>;
+  // return <></>;
 };
 
 export default VotePage;

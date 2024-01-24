@@ -28,8 +28,11 @@ class TokenService {
     return this.cookie.get('email');
   }
   logout() {
-    this.cookie.remove('token');
-    this.cookie.remove('id');
+    this.cookie.remove('token', { path: '/' });
+    this.cookie.remove('email', { path: '/' });
+    this.cookie.remove('name', { path: '/' });
+    this.cookie.remove('id', { path: '/' });
+    console.log('로그아웃 끝!');
   }
   get headers() {
     return {
