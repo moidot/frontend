@@ -1,3 +1,4 @@
+// 1단계: 닉네임 설정
 import { useFunnelContext } from '@/components/funnel/FunnelContentProvider';
 import { useState } from 'react';
 import NextButton from '@/components/common/button/next/NextButton';

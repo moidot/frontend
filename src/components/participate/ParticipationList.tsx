@@ -4,7 +4,7 @@ import Car from '@assets/transportation/icon_circle_car.svg';
 import Sub from '@assets/transportation/icon_circle_sub.svg';
 import { ParticipantsByRegionProps, ParticipationDataProps, ParticipationsProps } from '@/types/ParticipateType';
 import api from '@/services/TokenService';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CommonPopupBackground from '../common/popup/CommonPopupBackground';
 import CommonPopupBox from '../common/popup/CommonPopupBox';
 import { useMutation } from '@tanstack/react-query';
@@ -12,10 +12,13 @@ import { deleteGroupParticipateRemoval } from '@/apis/deleteGroupParticipateRemo
 
 import UrlButton from '../common/button/url';
 import { useRouter } from 'next/router';
+import { useSetRecoilState } from 'recoil';
+import { participateIdAtom } from '@/states/participateIdAtom';
 
 const ParticipationList = ({ data, mode = false, setMode = () => {} }: ParticipationDataProps) => {
   const [isClickedRemoval, setIsClickedRemoval] = useState(false);
   const [userName, setUserName] = useState<string>('');
+  const setPartId = useSetRecoilState(participateIdAtom);
   const locationUrl = useRouter();
   const token = api.getToken();
   const currentUserEmail = api.getEmail(); // 로그인한 유저 정보 가져오기
@@ -31,6 +34,13 @@ const ParticipationList = ({ data, mode = false, setMode = () => {} }: Participa
       console.log('내보내기 error');
     },
   });
+
+  useEffect(() => {
+    const currentUserInfo = data.participantsByRegion.filter((item) =>
+      item.participations.find((part) => part.userEmail === currentUserEmail),
+    );
+    currentUserInfo[0]?.participations[0] && setPartId(currentUserInfo[0]?.participations[0]?.participationId);
+  }, []);
 
   return (
     <div className="max-w-[1200px]">

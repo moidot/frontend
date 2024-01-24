@@ -41,6 +41,7 @@ const VoteDetailPage = () => {
 
   //투표 데이터 voteData 변수에 저장하기
   useEffect(() => {
+    console.log('엥?????', groupIdData.groupId);
     if (response.data?.message === '성공') setVoteData(response.data?.data);
     console.log('vote data', voteData);
   }, [response]);

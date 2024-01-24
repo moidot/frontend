@@ -1,7 +1,7 @@
 import LogoComponent from '@assets/home/logo_.svg';
-import InviteGoogleLoginButton from './iconBtn/InviteGoogleLoginButton';
-import InviteKakaoLoginButton from './iconBtn/InviteKakaoLoginButton';
-import InviteNaverLoginButton from './iconBtn/InviteNaverLoginButton';
+import GoogleLoginButton from '@/components/common/button/google/GoogleButton';
+import KakaoLoginButton from '@/components/common/button/kakao/KakaoButton';
+import NaverLoginButton from '@/components/common/button/naver/NaverButton';
 
 const LoginBox = () => {
   return (
@@ -9,9 +9,9 @@ const LoginBox = () => {
       {/* part1 : logo 및 소셜로그인 */}
       <LogoComponent />
       <div className="flex flex-col gap-3">
-        <InviteGoogleLoginButton />
-        <InviteKakaoLoginButton />
-        <InviteNaverLoginButton />
+        <GoogleLoginButton />
+        <KakaoLoginButton />
+        <NaverLoginButton />
       </div>
       <div className="flex flex-col items-center justify-center w-[585px] h-[137px] bg-light_orange rounded-2xl gap-8">
         <div className="font-Pretendard text-main_orange text-b2 font-bold">왜 소셜로그인으로 로그인하나요?</div>
