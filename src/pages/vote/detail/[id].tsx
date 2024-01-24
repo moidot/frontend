@@ -60,9 +60,10 @@ const VoteDetailPage = () => {
 
   useEffect(() => {
     setVoteMax(
-      voteData?.voteStatuses.reduce((prev, value) => {
-        return prev.votes >= value.votes ? prev : value;
-      }),
+      voteData?.voteStatuses &&
+        voteData?.voteStatuses.reduce((prev, value) => {
+          return prev.votes >= value.votes ? prev : value;
+        }),
     );
     console.log('voteMax is...', voteMax);
   }, [voteData?.isClosed, voteData?.voteStatuses, voteMax]);
