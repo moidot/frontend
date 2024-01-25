@@ -55,17 +55,9 @@ jobs:
           ECR_REPOSITORY: moidot-fe
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          # 이미지 빌드 및 푸시
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-
-          # 현재 이미지 태그를 파일에 기록
-          echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_ENV
-
-          # 이전 이미지 삭제
-          aws ecr batch-delete-image --repository-name $ECR_REPOSITORY --image-ids imageTag=$IMAGE_TAG
-
-          # 로컬에서 사용된 이미지 삭제
+          echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
           docker rmi $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
       - name: Deploy to EC2
@@ -77,10 +69,11 @@ jobs:
           chmod 600 private_key.pem
 
           ssh -i private_key.pem -o StrictHostKeyChecking=no ubuntu@$EC2_IP "
-          aws ecr get-login-password --region ap-northeast-2 --include-email | docker login -u AWS --password-stdin $ECR_REGISTRY &&
-          if [ \$(sudo docker ps -q -f name=moidot) ]; then
-              sudo docker stop moidot &&
-              sudo docker rm moidot
+          aws ecr get-login-password --region ap-northeast-2 | 
+          sudo docker login --username AWS --password-stdin 637423378629.dkr.ecr.ap-northeast-2.amazonaws.com/moidot-fe &&
+          if [ \$(sudo docker ps -q -f name=moidotfe) ]; then
+              sudo docker stop moidotfe &&
+              sudo docker rm moidotfe
           fi &&
-          sudo docker pull $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG &&
-          sudo docker run --name moidot -d -p 3000:3000 $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+          sudo docker pull 637423378629.dkr.ecr.ap-northeast-2.amazonaws.com/moidot-fe:$IMAGE_TAG &&
+          sudo docker container run --name moidotfe -d -p 3000:3000 637423378629.dkr.ecr.ap-northeast-2.amazonaws.com/moidot-fe:$IMAGE_TAG"
