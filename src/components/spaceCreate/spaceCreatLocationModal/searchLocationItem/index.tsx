@@ -3,6 +3,7 @@ import StarOnIcon from '@assets/create/star_on.svg';
 import StarOffIcon from '@assets/create/start_off.svg';
 import { useRecoilState } from 'recoil';
 import { locationSearchAtom } from '@/states/locationSearchAtom';
+import { useRouter } from 'next/router';
 
 interface SearchLocationItemProps {
   locationTitle: string;
@@ -14,7 +15,6 @@ interface SearchLocationItemProps {
 const SearchLocationItem = ({ detailLocation, locationTitle, lat, lng }: SearchLocationItemProps) => {
   const [starClick, setStarClick] = useState<boolean>(false);
   const [location, setLocation] = useRecoilState(locationSearchAtom);
-  console.log(location);
   const onStarClick = (locationTitle: string) => {
     setStarClick(!starClick);
 
