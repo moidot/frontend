@@ -23,7 +23,7 @@ jobs:
       - name: Cleanup Unused ECR Images
         id: cleanup-images
         env:
-          ECR_REPOSITORY: moidot
+          ECR_REPOSITORY: moidot-fe
           IMAGE_TAG: ${{ github.sha }}
         run: |
           # AWS CLI를 사용하여 ECR 이미지 삭제
