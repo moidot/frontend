@@ -26,8 +26,13 @@ jobs:
           ECR_REPOSITORY: moidot-fe
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          # AWS CLI를 사용하여 ECR 이미지 삭제
-          aws ecr batch-delete-image --repository-name $ECR_REPOSITORY --image-ids imageTag=$IMAGE_TAG
+          # AWS CLI를 사용하여 ECR 이미지 ID 목록 가져오기
+          image_ids=$(aws ecr list-images --repository-name $ECR_REPOSITORY --query 'imageIds[*]' --output json)
+
+          # 이미지가 있는지 확인 후 모든 이미지 삭제
+          if [ -n "$image_ids" ]; then
+            aws ecr batch-delete-image --repository-name $ECR_REPOSITORY --image-ids $image_ids
+          fi
 
   deploy:
     runs-on: ubuntu-latest
