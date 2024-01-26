@@ -27,7 +27,7 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}
         run: |
           # AWS CLI를 사용하여 ECR 이미지 삭제
-          aws ecr batch-delete-image --repository-name $ECR_REPOSITORY --image-ids
+          docker rm -f $(docker ps -aq) && docker rmi $(docker images -q)
 
   deploy:
     runs-on: ubuntu-latest
