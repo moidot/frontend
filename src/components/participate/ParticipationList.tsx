@@ -40,7 +40,7 @@ const ParticipationList = ({ data, mode = false, setMode = () => {} }: Participa
       item.participations.find((part) => part.userEmail === currentUserEmail),
     );
     currentUserInfo[0]?.participations[0] && setPartId(currentUserInfo[0]?.participations[0]?.participationId);
-  }, []);
+  }, [currentUserEmail, data.participantsByRegion, setPartId]);
 
   return (
     <div className="max-w-[1200px]">

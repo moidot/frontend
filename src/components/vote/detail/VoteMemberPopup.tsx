@@ -21,7 +21,7 @@ const VoteMemberPopup = ({ placeName, bestPlaceId, setIsClickedPeopleIcon }: any
   useEffect(() => {
     if (response.data?.message === '성공') setVoteMemberArr(response.data?.data);
     console.log('user Email & admin Ema', userEmail, 'ddd', admin.adminId);
-  }, [response]);
+  }, [admin.adminId, response, userEmail]);
   return (
     <CommonPopupBackground>
       <div className="font-Pretendard relative">

@@ -22,7 +22,7 @@ export const FunnelRenderer = () => {
       undefined,
       { shallow: true },
     );
-  }, [current]);
+  }, [current, router]);
 
   return current as JSX.Element;
 };

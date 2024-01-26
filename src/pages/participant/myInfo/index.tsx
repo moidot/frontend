@@ -36,7 +36,7 @@ const MyInfoUpdatePage = () => {
 
   useEffect(() => {
     setLocation({ location: userData.address, lng: '', lat: '' });
-  }, []);
+  }, [setLocation, userData.address]);
 
   useEffect(() => {
     setPortalElement(document.getElementById('root-modal'));

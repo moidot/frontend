@@ -21,6 +21,7 @@ import { useRouter } from 'next/router';
 
 const VoteDetailPage = () => {
   RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   let votePlaceIds: any = [];
   const locationUrl = useRouter();
   const [voteData, setVoteData] = useState<VoteData>(); // 투표 전체 데이터

@@ -25,7 +25,7 @@ const KakaoLoginRedirect = () => {
     if (codeParam != null) {
       fetchData();
     }
-  }, [codeParam]);
+  }, [codeParam, groupId, router]);
   return <></>;
 };
 
