@@ -26,8 +26,15 @@ jobs:
           ECR_REPOSITORY: moidot-fe
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          # AWS CLI를 사용하여 ECR 이미지 삭제
-          docker rm -f $(docker ps -aq) && docker rmi $(docker images -q)
+
+          # 실행 중인 컨테이너 확인 후 강제로 중지하고 삭제
+           running_containers=$(docker ps -q)
+           if [ -n "$running_containers" ]; then
+             docker rm -f $running_containers
+           fi
+           
+           # 모든 Docker 이미지를 삭제
+           docker rmi $(docker images -q)
 
   deploy:
     runs-on: ubuntu-latest
