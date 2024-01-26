@@ -9,6 +9,9 @@ COPY package.json yarn.lock ./
 # Install dependencies
 RUN yarn install --frozen-lockfile
 
+# Debug: Output contents of node_modules/.bin
+RUN ls -la node_modules/.bin
+
 # Stage 2: Build the application
 FROM deps AS builder
 
@@ -17,6 +20,9 @@ COPY . .
 
 # Build the application
 RUN yarn build
+
+# Debug: Output contents of node_modules/.bin
+RUN ls -la node_modules/.bin
 
 # Stage 3: Create the final image
 FROM node:18-alpine AS final
@@ -28,8 +34,11 @@ COPY --from=builder /usr/app/package.json /usr/app/yarn.lock ./
 COPY --from=builder /usr/app/.next ./.next
 COPY --from=builder /usr/app/public ./public
 
+# Debug: Output contents of node_modules/.bin
+RUN ls -la node_modules/.bin
+
 # Expose the port
 EXPOSE 3000
 
 # Command to run the application
-CMD ["yarn", "start"]
+CMD ["./node_modules/.bin/yarn", "start"]
