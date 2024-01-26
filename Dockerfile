@@ -1,25 +1,39 @@
-# 가져올 이미지를 정의
-FROM node:18.17.0-slim
-# 경로 설정하기
-WORKDIR /app
-# package.json 워킹 디렉토리에 복사 (.은 설정한 워킹 디렉토리를 뜻함)
-COPY package.json .
-# 명령어 실행 (의존성 설치)
-RUN npm install
-# 현재 디렉토리의 모든 파일을 도커 컨테이너의 워킹 디렉토리에 복사한다.
+FROM node:18-alpine AS base
+
+# Install dependencies only when needed
+FROM base AS deps
+RUN apk add --no-cache libc6-compat
+WORKDIR /usr/src/app
+
+# Install dependencies based on the preferred package manager
+COPY package.json yarn.lock ./
+RUN yarn --frozen-lockfile --production;
+RUN rm -rf ./.next/cache
+
+# Rebuild the source code only when needed
+FROM base AS builder
+WORKDIR /usr/src/app
+COPY --from=deps /usr/src/app/node_modules ./node_modules
 COPY . .
+RUN yarn build
 
-# 각각의 명령어들은 한줄 한줄씩 캐싱되어 실행된다.
-# package.json의 내용은 자주 바뀌진 않을 거지만
-# 소스 코드는 자주 바뀌는데
-# npm install과 COPY . . 를 동시에 수행하면
-# 소스 코드가 조금 달라질때도 항상 npm install을 수행해서 리소스가 낭비된다.
+# Production image, copy all the files and run next
+FROM base AS runner
+WORKDIR /usr/src/app
 
-# 3000번 포트 노출
+ENV NODE_ENV=production
+
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+
+COPY --from=builder /usr/src/app/public ./public
+COPY --from=builder --chown=nextjs:nodejs /usr/src/app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /usr/src/app/.next/static ./.next/static
+
+USER nextjs
+
 EXPOSE 3000
 
-# npm start 스크립트 실행
-CMD ["npm", "start"]
+ENV PORT 3000
 
-# 그리고 Dockerfile로 docker 이미지를 빌드해야한다.
-# $ docker build .
+CMD ["node", "server.js"]
