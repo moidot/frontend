@@ -26,7 +26,7 @@ const InviteSpaceInvite = ({ router }: any) => {
     };
     getData();
     sessionStorage.setItem('groupId', router.query.id);
-  }, [response]);
+  }, [response, router.query.id]);
 
   useEffect(() => {
     if (partData?.name !== undefined) setGroupName(partData?.name);

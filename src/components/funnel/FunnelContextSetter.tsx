@@ -7,7 +7,7 @@ export const FunnelContextSetter = ({ children }: { children: React.ReactNode[] 
   useEffect(() => {
     setChildren(children);
     setCurrent(children[0]);
-  }, []);
+  }, [children, setChildren, setCurrent]);
 
   return null;
 };

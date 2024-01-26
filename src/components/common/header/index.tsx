@@ -6,7 +6,7 @@ const Header = () => {
   const token = api.getToken();
   const router = useRouter();
   const onClick = () => {
-    if (token != null) {
+    if (token != undefined) {
       router.push('/user');
     } else {
       router.push('/');
