@@ -19,7 +19,7 @@ const Home5 = () => {
     if (data?.data.length != 0) {
       setEmptySpaceState(false);
     }
-  }, []);
+  }, [data?.data.length]);
   const onBoxClick = (groupId: number) => {
     router.push({
       pathname: `/main/${groupId}`,

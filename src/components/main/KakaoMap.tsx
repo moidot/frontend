@@ -132,7 +132,7 @@ const KakaoMap = ({ lng, lat, user, otherUser }: KakaoMapProps) => {
     };
     //script 완전히 로드된 후 지도 띄우는 코드
     mapScript.addEventListener('load', onLoadKakaoMap);
-  }, []);
+  }, [lat, lng, otherUser, user]);
 
   return (
     <>

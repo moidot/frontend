@@ -18,7 +18,7 @@ const InviteSpaceCreate = () => {
         (sessionStorage.setItem('groupName', response.data?.data.name),
         sessionStorage.setItem('date', response.data?.data.date));
     }
-  }, [groupId]);
+  }, [gId, response.data?.data.date, response.data?.data.name]);
 
   return (
     <div>
