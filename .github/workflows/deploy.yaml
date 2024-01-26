@@ -70,9 +70,9 @@ jobs:
           ssh -i private_key.pem -o StrictHostKeyChecking=no ubuntu@$EC2_IP "
           aws ecr get-login-password --region ap-northeast-2 | 
           sudo docker login --username AWS --password-stdin 637423378629.dkr.ecr.ap-northeast-2.amazonaws.com/moidot-fe &&
-          if [ \$(sudo docker ps -q -f name=moidotfe) ]; then
-              sudo docker stop moidotfe &&
-              sudo docker rm moidotfe
+          if [ \$(sudo docker ps -q -f name=moidot-fe) ]; then
+              sudo docker stop moidot-fe &&
+              sudo docker rm moidot-fe
           fi &&
           sudo docker pull 637423378629.dkr.ecr.ap-northeast-2.amazonaws.com/moidot-fe:$IMAGE_TAG &&
-          sudo docker container run --name moidotfe -d -p 3000:3000 637423378629.dkr.ecr.ap-northeast-2.amazonaws.com/moidot-fe:$IMAGE_TAG"
+          sudo docker container run --name moidot-fe -d -p 3000:3000 637423378629.dkr.ecr.ap-northeast-2.amazonaws.com/moidot-fe:$IMAGE_TAG"
