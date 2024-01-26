@@ -26,7 +26,7 @@ const SpaceCreateCalendarModal = ({ modalClick, setModalClick, setDate }: SpaceC
     const day = String(selectedDate.getDate()).padStart(2, '0');
     const newDateString = `${year}.${month}.${day}`;
     setDate(newDateString);
-  }, [selectedDate]);
+  }, [selectedDate, setDate]);
 
   return (
     <div

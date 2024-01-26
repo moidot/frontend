@@ -28,7 +28,7 @@ const VoteWaitPage = () => {
     if (response.data?.message === '성공') setVoteData(response.data?.data);
     if (getGroup.data?.message === '성공') setGroupData(getGroup.data?.data);
     setAdminEmail(groupData?.adminEmail);
-  }, [response]);
+  }, [getGroup.data?.data, getGroup.data?.message, groupData?.adminEmail, response]);
 
   return (
     <section>

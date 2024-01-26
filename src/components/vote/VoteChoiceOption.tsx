@@ -35,7 +35,7 @@ const VoteChoiceOption = ({
 
   useEffect(() => {
     checkedBox ? votePlaceIds.push(bestPlaceId) : votePlaceIds.splice(votePlaceIds.indexOf(bestPlaceId), 1);
-  }, [checkedBox]);
+  }, [bestPlaceId, checkedBox, votePlaceIds]);
 
   return (
     <div

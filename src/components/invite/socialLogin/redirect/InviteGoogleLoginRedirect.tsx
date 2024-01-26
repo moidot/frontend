@@ -32,7 +32,7 @@ const InviteGoogleLoginRedirect = () => {
     if (codeParam != null) {
       fetchData();
     }
-  }, [codeParam]);
+  }, [codeParam, router]);
   return <></>;
 };
 
