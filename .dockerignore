@@ -1,7 +1,11 @@
-.git
-Dockerfile
+## docker ignore
+
 node_modules
-.env.development
 .next
 .yarn
+.git
 .gitignore
+.github
+.dockerignore
+scripts
+Dockerfile
