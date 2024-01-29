@@ -1,44 +1,67 @@
-# Stage 1: Install dependencies
-FROM node:18-alpine AS deps
+FROM node:18-alpine AS base
 
-WORKDIR /usr/app
+# Install dependencies only when needed
+FROM base AS deps
+# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
+RUN apk add --no-cache libc6-compat
+WORKDIR /app
 
-# Copy only package.json and yarn.lock to leverage Docker cache
-COPY package.json yarn.lock ./
+# Install dependencies based on the preferred package manager
+COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
+RUN \
+  if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
+  elif [ -f package-lock.json ]; then npm ci; \
+  elif [ -f pnpm-lock.yaml ]; then yarn global add pnpm && pnpm i --frozen-lockfile; \
+  else echo "Lockfile not found." && exit 1; \
+  fi
 
-# Install dependencies
-RUN yarn install --frozen-lockfile
 
-# Debug: Output contents of node_modules/.bin
-RUN ls -la node_modules/.bin
-
-# Stage 2: Build the application
-FROM deps AS builder
-
-# Copy the rest of the application code
+# Rebuild the source code only when needed
+FROM base AS builder
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Build the application
+# Next.js collects completely anonymous telemetry data about general usage.
+# Learn more here: https://nextjs.org/telemetry
+# Uncomment the following line in case you want to disable telemetry during the build.
+# ENV NEXT_TELEMETRY_DISABLED 1
+
 RUN yarn build
 
-# Debug: Output contents of node_modules/.bin
-RUN ls -la node_modules/.bin
+# If using npm comment out above and use below instead
+# RUN npm run build
 
-# Stage 3: Create the final image
-FROM node:18-alpine AS final
+# Production image, copy all the files and run next
+FROM base AS runner
+WORKDIR /app
 
-WORKDIR /usr/app
+ENV NODE_ENV production
+# Uncomment the following line in case you want to disable telemetry during runtime.
+# ENV NEXT_TELEMETRY_DISABLED 1
 
-# Copy only necessary files from the builder stage
-COPY --from=builder /usr/app/package.json /usr/app/yarn.lock ./
-COPY --from=builder /usr/app/.next ./.next
-COPY --from=builder /usr/app/public ./public
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
 
-# Debug: Output contents of node_modules/.bin
-RUN ls -la node_modules/.bin
+COPY --from=builder /app/public ./public
 
-# Expose the port
+# Set the correct permission for prerender cache
+RUN mkdir .next
+RUN chown nextjs:nodejs .next
+
+# Automatically leverage output traces to reduce image size
+# https://nextjs.org/docs/advanced-features/output-file-tracing
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+USER nextjs
+
 EXPOSE 3000
 
-# Command to run the application
-CMD ["./node_modules/.bin/yarn", "start"]
+ENV PORT 3000
+# set hostname to localhost
+ENV HOSTNAME "0.0.0.0"
+
+# server.js is created by next build from the standalone output
+# https://nextjs.org/docs/pages/api-reference/next-config-js/output
+CMD ["node", "server.js"]
