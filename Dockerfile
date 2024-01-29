@@ -5,7 +5,7 @@ RUN apk add --no-cache libc6-compat
 
 #dpes의 app 디렉토리에 package.json 복붙 
 WORKDIR /app
-COPY package.json postcss.config.js tailwind.config.ts .env ./
+COPY package.json postcss.config.js tailwind.config.ts ./
 # yarn
 RUN yarn --prefer-offline --frozen-lockfile
 # 이미지 최적화
@@ -40,7 +40,7 @@ COPY --from=builder /app/public ./public
 COPY --from=builder /app/package.json ./package.json
 COPY --from=builder /app/postcss.config.ts ./postcss.config.ts
 COPY --from=builder /app/tailwind.config.ts ./tailwind.config.ts
-COPY --from=builder /app/.env ./.env
+
 
 # builder에서 빌드했던 결과물 중 static, standalone 복붙 소유자와 소유그룹도 변경
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
