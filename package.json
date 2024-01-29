@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && npx tailwindcss -i ./src/input.css -o ./src/output.css --watch",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "dev:tailwind": "next dev && npx tailwindcss -i ./src/input.css -o ./src/output.css --watch"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.1",
