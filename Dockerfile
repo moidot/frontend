@@ -38,7 +38,7 @@ RUN adduser -S nextjs -u 1001
 # builder에서 빌드했던 결과물 중 public, package.json 복붙
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/package.json ./package.json
-COPY --from=builder /app/postcss.config.ts ./postcss.config.ts
+COPY --from=builder /app/postcss.config.js ./postcss.config.js
 COPY --from=builder /app/tailwind.config.ts ./tailwind.config.ts
 
 
