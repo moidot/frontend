@@ -10,7 +10,6 @@ COPY package.json ./
 RUN yarn --prefer-offline --frozen-lockfile
 # 이미지 최적화
 RUN yarn add sharp 
-
 # multi-stage build as builder
 FROM node:18-alpine  AS builder
 
