@@ -25,7 +25,7 @@ RUN ls -a
 # 빌드
 RUN yarn build
 
-FROM node:16-alpine AS runner
+FROM node:18-alpine AS runner
 
 WORKDIR /app
 ENV NODE_ENV=production
