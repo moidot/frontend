@@ -1,5 +1,5 @@
 # multi-stage build as deps
-FROM node:16-alpine AS deps
+FROM node:18-alpine  AS deps
 
 RUN apk add --no-cache libc6-compat
 
@@ -12,7 +12,7 @@ RUN yarn --prefer-offline --frozen-lockfile
 RUN yarn add sharp 
 
 # multi-stage build as builder
-FROM node:16-alpine AS builder
+FROM node:18-alpine  AS builder
 
 # deps의 node_modules를 builder/app/node_modules로 복붙
 WORKDIR /app
