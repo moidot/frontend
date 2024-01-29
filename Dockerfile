@@ -1,35 +1,58 @@
-# Stage 1: Install dependencies
-FROM node:18-alpine AS deps
+# multi-stage build as deps
+FROM node:18-alpine  AS deps
 
-WORKDIR /usr/app
+RUN apk add --no-cache libc6-compat
 
-# Copy only package.json and yarn.lock to leverage Docker cache
-COPY package.json yarn.lock ./
+#dpes의 app 디렉토리에 package.json 복붙 
+WORKDIR /app
+COPY package.json postcss.config.js tailwind.config.ts yarn.lock ./
+# yarn
+RUN yarn --prefer-offline --frozen-lockfile
+# 이미지 최적화
+RUN yarn add sharp 
 
-# Install dependencies
-RUN yarn install --frozen-lockfile
+# multi-stage build as builder
+FROM node:18-alpine  AS builder
 
-# Stage 2: Build the application
-FROM deps AS builder
-
-# Copy the rest of the application code
+# deps의 node_modules를 builder/app/node_modules로 복붙
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Build the application
-RUN yarn build
+# 현재 디렉토리 확인
+RUN ls -a
 
-# Stage 3: Create the final image
-FROM node:18-alpine AS final
+# 빌드
+RUN  yarn build
 
-WORKDIR /usr/app
+FROM node:18-alpine AS runner
 
-# Copy only necessary files from the builder stage
-COPY --from=builder /usr/app/package.json /usr/app/yarn.lock ./
-COPY --from=builder /usr/app/.next ./.next
-COPY --from=builder /usr/app/public ./public
+WORKDIR /app
+ENV NODE_ENV=production
 
-# Expose the port
+# 사용자 그룹 nodejs 추가
+# nodejs에 유저 nextjs 추가
+RUN addgroup -g 1001 -S nodejs
+RUN adduser -S nextjs -u 1001
+
+# builder에서 빌드했던 결과물 중 public, package.json 복붙
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/package.json ./package.json
+COPY --from=builder /app/postcss.config.js ./postcss.config.js
+COPY --from=builder /app/tailwind.config.ts ./tailwind.config.ts
+
+
+# builder에서 빌드했던 결과물 중 static, standalone 복붙 소유자와 소유그룹도 변경
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+# nextjs
+USER nextjs
+
+# 열어둘 포트 설정
 EXPOSE 3000
 
-# Command to run the application
-CMD ["yarn", "start"]
+# 이미지 안 환경변수 설정
+ENV PORT 3000
+
+CMD ["node", "server.js"]
