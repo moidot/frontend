@@ -6,8 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "prebuild": "npx tailwindcss -i ./src/input.css -o ./src/output.css --watch"
+    "lint": "next lint"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.1",
