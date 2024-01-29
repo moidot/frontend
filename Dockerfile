@@ -5,7 +5,7 @@ RUN apk add --no-cache libc6-compat
 
 #dpes의 app 디렉토리에 package.json 복붙 
 WORKDIR /app
-COPY package.json postcss.config.js tailwind.config.ts ./
+COPY package.json postcss.config.js tailwind.config.ts yarn.lock ./
 # yarn
 RUN yarn --prefer-offline --frozen-lockfile
 # 이미지 최적화
