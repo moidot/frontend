@@ -23,7 +23,7 @@ COPY . .
 RUN ls -a
 
 # 빌드
-RUN  yarn build
+RUN  yarn dev
 
 FROM node:18-alpine AS runner
 

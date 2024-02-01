@@ -1,11 +1,11 @@
 import { Html, Head, Main, NextScript } from 'next/document';
-import Script from 'next/script';
+import Link from 'next/link';
 
 export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        <Script src="https://cdn.tailwindcss.com"></Script>
+        <Link href="../../src/input.css" rel="stylesheet" />
       </Head>
       <body>
         <Main />

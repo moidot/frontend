@@ -3,9 +3,9 @@ import { RecoilRoot } from 'recoil';
 import React from 'react';
 import Script from 'next/script';
 import type { AppProps } from 'next/app';
-import '@/styles/globals.css';
+import '../../src/output.css';
 import { CookiesProvider } from 'react-cookie';
-
+import '../../src/index.css';
 declare global {
   interface Window {
     Kakao: any;
