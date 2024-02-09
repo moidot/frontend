@@ -81,7 +81,7 @@ const SpaceCreateMoveInfo = () => {
     console.log(res);
     const groupId = res.data.groupId;
     if (res.code == 0) {
-      router.push(`/main/${groupId}`);
+      router.push('/main/[groupId]', `/main/${groupId}`);
     }
   };
 

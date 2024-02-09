@@ -23,9 +23,6 @@ const SpaceCreateInfo = () => {
   useEffect(() => {
     setPortalElement(document.getElementById('root-modal'));
   }, [modalClick]);
-  console.log(name);
-  console.log(active);
-  console.log(date);
 
   const onBackClick = () => {
     router.push('/user');

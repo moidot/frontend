@@ -48,7 +48,7 @@ const MyInfoUpdatePage = () => {
   };
 
   const closeTeamExitPopup = () => {
-    router.push(`/participant/${group.groupId}`); // 나의 모이닷 스페이스 url로 이동
+    router.push('/participant/[group.groupId]', `/participant/${group.groupId}`); // 나의 모이닷 스페이스 url로 이동
   };
 
   const onLocationClick = () => {
@@ -87,7 +87,7 @@ const MyInfoUpdatePage = () => {
   };
 
   const onBackClick = () => {
-    router.push(`/participant/${group.groupId}`);
+    router.push('/participant/[group.groupId]', `/participant/${group.groupId}`);
   };
   return (
     <div>

@@ -20,7 +20,7 @@
     "@types/react-dom": "18.2.7",
     "autoprefixer": "^10.4.17",
     "axios": "^1.5.0",
-    "daisyui": "^4.6.0",
+    "daisyui": "^4.6.1",
     "date-fns": "^3.0.6",
     "eslint": "^8.46.0",
     "eslint-config-next": "13.4.13",
