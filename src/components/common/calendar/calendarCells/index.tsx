@@ -26,7 +26,7 @@ const CalendarCells = ({ currentMonth, selectedDate, setSelectedDate }: Calendar
       day = addDays(day, 1);
     }
     return monthArray;
-  }, [startDate, endDate, selectedDate]);
+  }, [startDate, endDate]);
 
   return (
     <div className="grid grid-cols-7 gap-[24px]">

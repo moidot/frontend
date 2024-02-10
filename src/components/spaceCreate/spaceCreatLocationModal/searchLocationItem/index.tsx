@@ -13,8 +13,8 @@ interface SearchLocationItemProps {
 
 const SearchLocationItem = ({ detailLocation, locationTitle, lat, lng }: SearchLocationItemProps) => {
   const [starClick, setStarClick] = useState<boolean>(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [location, setLocation] = useRecoilState(locationSearchAtom);
-  console.log(location);
   const onStarClick = (locationTitle: string) => {
     setStarClick(!starClick);
 

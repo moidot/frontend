@@ -41,5 +41,7 @@ const config: Config = {
       },
     },
   },
+
+  plugins: [require('daisyui'), require('tailwindcss'), require('autoprefixer')],
 };
 export default config;

@@ -1,25 +1,58 @@
-# 가져올 이미지를 정의
-FROM node:14
-# 경로 설정하기
+# multi-stage build as deps
+FROM node:18-alpine  AS deps
+
+RUN apk add --no-cache libc6-compat
+
+#dpes의 app 디렉토리에 package.json 복붙 
 WORKDIR /app
-# package.json 워킹 디렉토리에 복사 (.은 설정한 워킹 디렉토리를 뜻함)
-COPY package.json .
-# 명령어 실행 (의존성 설치)
-RUN npm install
-# 현재 디렉토리의 모든 파일을 도커 컨테이너의 워킹 디렉토리에 복사한다.
+COPY package.json postcss.config.js tailwind.config.ts yarn.lock ./
+# yarn
+RUN yarn --prefer-offline --frozen-lockfile
+# 이미지 최적화
+RUN yarn add sharp 
+
+# multi-stage build as builder
+FROM node:18-alpine  AS builder
+
+# deps의 node_modules를 builder/app/node_modules로 복붙
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# 각각의 명령어들은 한줄 한줄씩 캐싱되어 실행된다.
-# package.json의 내용은 자주 바뀌진 않을 거지만
-# 소스 코드는 자주 바뀌는데
-# npm install과 COPY . . 를 동시에 수행하면
-# 소스 코드가 조금 달라질때도 항상 npm install을 수행해서 리소스가 낭비된다.
+# 현재 디렉토리 확인
+RUN ls -a
 
-# 3000번 포트 노출
+# 빌드
+RUN  yarn build
+
+FROM node:18-alpine AS runner
+
+WORKDIR /app
+ENV NODE_ENV=production
+
+# 사용자 그룹 nodejs 추가
+# nodejs에 유저 nextjs 추가
+RUN addgroup -g 1001 -S nodejs
+RUN adduser -S nextjs -u 1001
+
+# builder에서 빌드했던 결과물 중 public, package.json 복붙
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/package.json ./package.json
+COPY --from=builder /app/postcss.config.js ./postcss.config.js
+COPY --from=builder /app/tailwind.config.ts ./tailwind.config.ts
+
+
+# builder에서 빌드했던 결과물 중 static, standalone 복붙 소유자와 소유그룹도 변경
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+# nextjs
+USER nextjs
+
+# 열어둘 포트 설정
 EXPOSE 3000
 
-# npm start 스크립트 실행
-CMD ["npm", "start"]
+# 이미지 안 환경변수 설정
+ENV PORT 3000
 
-# 그리고 Dockerfile로 docker 이미지를 빌드해야한다.
-# $ docker build .
+CMD ["node", "server.js"]

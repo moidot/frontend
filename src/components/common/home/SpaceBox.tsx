@@ -2,13 +2,7 @@ import { GetParticipateProps } from '@/types/SpaceType';
 import LocationIcon from '../../../../public/assets/home/icons/location.svg';
 import PeopleIcon from '../../../../public/assets/home/icons/people.svg';
 
-const SpaceBox = ({
-  groupName,
-  groupDate,
-  groupParticipates,
-  bestPlaceName,
-  participantNames,
-}: GetParticipateProps) => {
+const SpaceBox = ({ groupName, groupDate, groupParticipates, participantNames }: GetParticipateProps) => {
   return (
     <div className="flex flex-col">
       <div className="flex flex-row justify-between rounded-tl-lg rounded-tr-lg p-3 bg-main_orange w-[585px] h-[86px] ">

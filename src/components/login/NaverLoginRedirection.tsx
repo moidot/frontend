@@ -27,7 +27,7 @@ const NaverLoginRedirect = () => {
     if (codeParam != null) {
       fetchData();
     }
-  }, [codeParam]);
+  }, [codeParam, router]);
   return <></>;
 };
 

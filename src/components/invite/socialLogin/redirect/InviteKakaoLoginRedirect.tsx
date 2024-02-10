@@ -25,7 +25,7 @@ const InviteKakaoLoginRedirect = () => {
     if (codeParam != null) {
       fetchData();
     }
-  }, [codeParam]);
+  }, [codeParam, router]);
   return <></>;
 };
 

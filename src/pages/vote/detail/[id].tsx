@@ -21,6 +21,7 @@ import { useRouter } from 'next/router';
 
 const VoteDetailPage = () => {
   RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   let votePlaceIds: any = [];
   const locationUrl = useRouter();
   const [voteData, setVoteData] = useState<VoteData>(); // 투표 전체 데이터
@@ -41,7 +42,6 @@ const VoteDetailPage = () => {
 
   //투표 데이터 voteData 변수에 저장하기
   useEffect(() => {
-    console.log('엥?????', groupIdData.groupId);
     if (response.data?.message === '성공') setVoteData(response.data?.data);
     console.log('vote data', voteData);
   }, [response]);

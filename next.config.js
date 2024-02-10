@@ -1,5 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  important: true,
+  experimental: {
+    appDir: false,
+    enableUndici: true,
+  },
+  reactStrictMode: true,
+  output: 'standalone', // 여기서 standalone 폴더를 사용한다고 해준다.
   webpack: (config) => {
     config.module.rules.push({
       test: /\.svg$/,

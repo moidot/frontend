@@ -19,7 +19,7 @@ const NavItem = ({ type, placeNav, setPlaceNav }: NavItemProps) => {
     } else if (type == 'PRICE') {
       setLabel('가격정보');
     }
-  }, [placeNav]);
+  }, [placeNav, type]);
   const onNavClick = (data: PLACE_NAV_LIST) => {
     setPlaceNav(data);
   };

@@ -13,7 +13,7 @@ interface SpaceCreateCalendarModal {
 const SpaceCreateCalendarModal = ({ modalClick, setModalClick, setDate }: SpaceCreateCalendarModal) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [activeState, setActiveState] = useState(false);
-  console.log('seletedDate', selectedDate);
+
   const onCloseClick = () => {
     setModalClick(!modalClick);
   };
@@ -26,7 +26,7 @@ const SpaceCreateCalendarModal = ({ modalClick, setModalClick, setDate }: SpaceC
     const day = String(selectedDate.getDate()).padStart(2, '0');
     const newDateString = `${year}.${month}.${day}`;
     setDate(newDateString);
-  }, [selectedDate]);
+  }, [selectedDate, setDate]);
 
   return (
     <div

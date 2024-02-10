@@ -15,11 +15,10 @@ const GoogleLoginRedirect = () => {
   useEffect(() => {
     const fetchData = async () => {
       const response = await getAuthLogin(codeParam, 'GOOGLE');
-      console.log(response);
+      console.log('response', response);
 
       const { userId, email, name, accessToken } = response.data;
 
-      console.log(response.data);
       if (response.message == '성공') {
         api.setId(userId.toString());
         api.setToken(accessToken);
@@ -33,7 +32,7 @@ const GoogleLoginRedirect = () => {
     if (codeParam != null) {
       fetchData();
     }
-  }, [codeParam]);
+  }, [codeParam, groupId, router]);
   return <></>;
 };
 

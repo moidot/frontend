@@ -124,7 +124,6 @@ const ParticipatePage = () => {
                       partData?.participantsByRegion.filter((i: any) =>
                         i.participations.find((e: any) => e.userEmail === currentUserEmail),
                       )[0].participations[0].participationId,
-
                     )
                 : () => deleteGroupMutation.mutate(group.groupId) // 테스트 해보기
             }
