@@ -18,6 +18,7 @@ const nextConfig = {
   watchOptions: { ignored: '/node_modules' },
   images: {
     domains: [
+      'blogfiles.naver.net',
       'ldb-phinf.pstatic.net',
       'naverbooking-phinf.pstatic.net',
       'ldb-phinf.pstatic.net',
