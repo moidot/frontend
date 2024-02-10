@@ -18,8 +18,8 @@ interface PlaceDetailProps {
   setModalClick: React.Dispatch<React.SetStateAction<boolean>>;
   detail: BestRegionPlaceDetailProps;
   category: keyof typeof ChipList;
-  lng: number;
-  lat: number;
+  lng: string;
+  lat: string;
   thumUrls: string[];
   menu: string[];
 }
