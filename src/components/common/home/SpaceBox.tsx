@@ -2,7 +2,13 @@ import { GetParticipateProps } from '@/types/SpaceType';
 import LocationIcon from '../../../../public/assets/home/icons/location.svg';
 import PeopleIcon from '../../../../public/assets/home/icons/people.svg';
 
-const SpaceBox = ({ groupName, groupDate, groupParticipates, participantNames }: GetParticipateProps) => {
+const SpaceBox = ({
+  groupName,
+  groupDate,
+  groupParticipates,
+  participantNames,
+  bestPlaceNames,
+}: GetParticipateProps) => {
   return (
     <div className="flex flex-col">
       <div className="flex flex-row justify-between items-center rounded-t-2xl px-10 py-5 bg-main_orange w-[585px] h-[86px] ">
@@ -13,13 +19,13 @@ const SpaceBox = ({ groupName, groupDate, groupParticipates, participantNames }:
         <div className="gap-[8px]">
           <div className="flex flex-row gap-[8px]">
             <LocationIcon />
-            <div className="font-Pretendard text-font_gray text-b2 font-thin">모임장소</div>
+            <div className="font-Pretendard text-font_gray text-b2 font-thin mb-[12px]">모임장소</div>
           </div>
-          {/* <div className="bg-light_orange rounded-[16px] flex flex-row p-2 gap-[12px]">
-            <div className="font-Pretendard text-main_orange text-h3 font-bold">{bestPlaceName[0]}</div>
-            <div className="font-Pretendard text-font_gray text-h3 font-bold">{bestPlaceName[1]}</div>
-            <div className="font-Pretendard text-font_gray text-h3 font-bold">{bestPlaceName[2]}</div>
-          </div> */}
+          <div className="bg-light_orange rounded-[16px] flex flex-row p-4 gap-[12px]">
+            <div className="font-Pretendard text-main_orange text-b2 font-bold">{bestPlaceNames[0]}</div>
+            <div className="font-Pretendard text-font_gray text-b2 font-bold">{bestPlaceNames[1]}</div>
+            <div className="font-Pretendard text-font_gray text-b2 font-bold">{bestPlaceNames[2]}</div>
+          </div>
         </div>
         <div className="flex flex-col gap-[10px]">
           <div className="flex flex-row gap-[8px]">
