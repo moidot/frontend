@@ -9,6 +9,7 @@ export const getKakaoSearchLocaton = async (locationQuery: string): Promise<GetK
         Authorization: `KakaoAK ${process.env.NEXT_PUBLIC_KAKAO_REST_APT_KEY} `,
       },
     });
+    console.log('kakaoSearch', res);
     return res.data;
   } catch (error) {
     throw error;

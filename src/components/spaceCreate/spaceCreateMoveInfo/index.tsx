@@ -38,7 +38,6 @@ const SpaceCreateMoveInfo = () => {
   useEffect(() => {
     setLocation({ location: '주소를 입력하세요', lng: '', lat: '' });
   }, [setLocation]);
-  console.log(location.lat, location.lng);
 
   useEffect(() => {
     if (location != null && btnClick != undefined) {
@@ -80,8 +79,9 @@ const SpaceCreateMoveInfo = () => {
     const res = await postGroup(token, postData);
     console.log(res);
     const groupId = res.data.groupId;
-    if (res.code == 0) {
-      router.push(`/main/${groupId}`);
+    console.log(groupId);
+    if (groupId != undefined) {
+      router.push(`/main/${groupId}`, undefined, { shallow: true });
     }
   };
 
