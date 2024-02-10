@@ -15,6 +15,7 @@ const GoogleLoginRedirect = () => {
   useEffect(() => {
     const fetchData = async () => {
       const response = await getAuthLogin(codeParam, 'GOOGLE');
+      console.log('response', response);
 
       const { userId, email, name, accessToken } = response.data;
 
