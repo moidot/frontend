@@ -57,7 +57,7 @@ const Home5 = () => {
                       groupId={item.groupId}
                       groupName={item.groupName}
                       groupParticipates={item.groupParticipates}
-                      bestPlaceName={item.bestPlaceName}
+                      bestPlaceNames={item.bestPlaceNames}
                       confirmPlace={item.confirmPlace}
                       participantNames={item.participantNames}
                     />
