@@ -42,6 +42,6 @@ const config: Config = {
     },
   },
 
-  plugins: [require('daisyui'), require('tailwindcss'), require('autoprefixer')],
+  plugins: [require('daisyui'), require('tailwindcss'), require('autoprefixer'), require('tailwind-scrollbar-hide')],
 };
 export default config;
