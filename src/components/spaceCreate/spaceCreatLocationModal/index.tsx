@@ -3,11 +3,12 @@ import CloseBtn from '@assets/calendar/close_btn.svg';
 import useGeolocation from '@/hooks/useGeolocation';
 import { useEffect } from 'react';
 import LocationIcon from '@assets/create/web_icon_location.svg';
-
+import { useRecoilState } from 'recoil';
 import SearchIcon from '@assets/create/search_btn.svg';
 import { getKakaoSearchLocaton } from '@/apis/getKakaoSearchLocation';
 import SearchLocationItem from './searchLocationItem';
 import { GetKakaoLocationSearchData } from '@/types/create';
+import { locationSearchAtom } from '@/states/locationSearchAtom';
 
 interface SpaceCreateStartLocationModalProps {
   modalClick: boolean;
@@ -20,6 +21,8 @@ const SpaceCreateStartLocationModal = ({ modalClick, setModalClick }: SpaceCreat
   const geolocationInfo = useGeolocation();
   const [searchDataList, setSearchDataList] = useState<GetKakaoLocationSearchData[]>([]);
   const [selectedItemId, setSelectedItemId] = useState<string | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [location, setLocation] = useRecoilState(locationSearchAtom);
 
   useEffect(() => {
     const mapScript = document.createElement('script');
@@ -97,7 +100,10 @@ const SpaceCreateStartLocationModal = ({ modalClick, setModalClick }: SpaceCreat
             searchDataList.map((item) => (
               <div
                 key={item.id}
-                onClick={() => setSelectedItemId(item.id)}
+                onClick={() => {
+                  setSelectedItemId(item.id);
+                  setLocation({ location: item.place_name, lat: item.y, lng: item.x });
+                }}
                 className={`w-[586px] h-[72px] mt-[53px] rounded-lg p-[20px]  flex flex-row items-center justify-between outline-none ${
                   selectedItemId === item.id ? 'bg-bg_orange' : ''
                 }`}>
