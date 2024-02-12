@@ -9,6 +9,7 @@ import { getKakaoSearchLocaton } from '@/apis/getKakaoSearchLocation';
 import SearchLocationItem from './searchLocationItem';
 import { GetKakaoLocationSearchData } from '@/types/create';
 import { locationSearchAtom } from '@/states/locationSearchAtom';
+import { string } from 'yup';
 
 interface SpaceCreateStartLocationModalProps {
   modalClick: boolean;
@@ -41,6 +42,10 @@ const SpaceCreateStartLocationModal = ({ modalClick, setModalClick }: SpaceCreat
         const coord = new window.kakao.maps.LatLng(geolocationInfo.coordinates?.lat, geolocationInfo.coordinates?.lng);
         let callback = function (result: any, status: any) {
           if (status === window.kakao.maps.services.Status.OK && loadCurrentLocation) {
+            const location = result[0].address.address_name;
+            const lat = geolocationInfo.coordinates?.lat.toString() as string;
+            const lng = geolocationInfo.coordinates?.lng.toString() as string;
+            setLocation({ location: location, lat: lat, lng: lng });
             setSearchLocationVal(result[0].address.address_name);
           }
         };
@@ -70,7 +75,7 @@ const SpaceCreateStartLocationModal = ({ modalClick, setModalClick }: SpaceCreat
     <div
       className="fixed flex justify-center items-center flex-row top-0 right-0 left-0 w-[100vw] h-[100vh] z-10 "
       style={{ backgroundColor: 'rgba( 0, 0, 0, 0.6 )' }}>
-      <div className="w-[790px] max-h-[90vh] pt-[32px] pb-[81px] flex flex-col bg-white z-20 gap-[40px] rounded-2xl overflow-scroll">
+      <div className="w-[790px] max-h-[90vh] pt-[32px] pb-[81px] flex flex-col bg-white z-20 gap-[40px] rounded-2xl overflow-auto scrollbar-hide">
         <div className="flex flex-row justify-center items-center pl-[205px] pr-[44px]">
           <div className="font-bold font-Pretendard text-font_black text-h3">출발 위치를 등록해주세요</div>
           <div onClick={onCloseClick} className="pl-[133px]">

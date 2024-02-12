@@ -57,7 +57,7 @@ const PlaceItem = ({ title, thumUrl, distance, openTime, tel, category }: PlaceI
               </div>
               <div className="font-Pretendard text-font_gray text-b2 font-bold">{openTime}</div>
             </div>
-            <div className="flex flex-row gap-[12px] items-center">
+            <div className="flex flex-row gap-[12px] items-center pb-[16px]">
               <div className="flex flex-row gap-[4px]">
                 <PhoneIcon />
                 <div className="font-Pretendard text-font_gray text-b3 font-regular">연락처</div>

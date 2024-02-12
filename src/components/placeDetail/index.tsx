@@ -49,7 +49,7 @@ const PlaceDetail = ({
       className="fixed flex justify-center items-center flex-row top-0 right-0 left-0 w-[100vw] h-[100vh] z-10  "
       style={{ backgroundColor: 'rgba( 0, 0, 0, 0.6 )' }}>
       <div className="display block p-[32px]">
-        <div className="rounded-xl w-[1200px] max-h-[90vh] bg-white z-20 pt-[400px] pb-[100px] overflow-scroll flex justify-center items-center flex-col ">
+        <div className="rounded-xl w-[1200px] max-h-[90vh] bg-white z-20 pt-[400px] pb-[100px] overflow-scroll flex justify-center items-center flex-col scrollbar-hide ">
           <PlaceDetailInfo
             title={title}
             thumUrl={thumUrl}
@@ -60,7 +60,7 @@ const PlaceDetail = ({
             detail={detail}
             category={category}
           />
-          <div>{``}</div>
+
           <PlaceNavBar placeNav={placeNav} setPlaceNav={setPlaceNav} />
           {placeNav == 'LOCATION' && (
             <div className="flex justify-center items-center flex-col">
