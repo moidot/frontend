@@ -7,6 +7,7 @@ import PlaceDetailLocation from './PlaceDetailLocation';
 import PlaceDetailPhoto from './PlaceDetailPhoto';
 import PlaceDetailPrice from './PlaceDetailPrice';
 import MapMore from '../common/button/map';
+import { useRouter } from 'next/router';
 
 export type PLACE_NAV_LIST = 'LOCATION' | 'PRICE' | 'PHOTO';
 interface PlaceDetailProps {
@@ -18,8 +19,8 @@ interface PlaceDetailProps {
   setModalClick: React.Dispatch<React.SetStateAction<boolean>>;
   detail: BestRegionPlaceDetailProps;
   category: keyof typeof ChipList;
-  lng: number;
-  lat: number;
+  lng: string;
+  lat: string;
   thumUrls: string[];
   menu: string[];
 }
@@ -38,13 +39,17 @@ const PlaceDetail = ({
   menu,
 }: PlaceDetailProps) => {
   const [placeNav, setPlaceNav] = useState<PLACE_NAV_LIST>('LOCATION');
+  const router = useRouter();
+  const handleMapMoreClick = () => {
+    router.push(`https://m.map.naver.com/search2/search.naver?query=${title}#/map/1`);
+  };
 
   return (
     <div
-      className="fixed flex justify-center items-center flex-row top-0 right-0 left-0 w-[100vw] h-[100vh] z-10 "
+      className="fixed flex justify-center items-center flex-row top-0 right-0 left-0 w-[100vw] h-[100vh] z-10  "
       style={{ backgroundColor: 'rgba( 0, 0, 0, 0.6 )' }}>
       <div className="display block p-[32px]">
-        <div className="rounded-xl w-[1200px] max-h-[90vh] bg-white z-20 pt-[400px] pb-[100px] overflow-scroll flex justify-center items-center flex-col ">
+        <div className="rounded-xl w-[1200px] max-h-[90vh] bg-white z-20 pt-[400px] pb-[100px] overflow-scroll flex justify-center items-center flex-col scrollbar-hide ">
           <PlaceDetailInfo
             title={title}
             thumUrl={thumUrl}
@@ -55,12 +60,15 @@ const PlaceDetail = ({
             detail={detail}
             category={category}
           />
+
           <PlaceNavBar placeNav={placeNav} setPlaceNav={setPlaceNav} />
           {placeNav == 'LOCATION' && (
             <div className="flex justify-center items-center flex-col">
               <PlaceDetailLocation lng={lng} lat={lat} />
               <div className="p-[40px]"></div>
-              <MapMore />
+              <div onClick={handleMapMoreClick}>
+                <MapMore />
+              </div>
             </div>
           )}
           {placeNav == 'PHOTO' && (

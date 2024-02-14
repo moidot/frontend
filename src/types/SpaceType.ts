@@ -27,7 +27,7 @@ export interface GetParticipateProps {
   groupDate: string;
   groupParticipates: number;
   confirmPlace: string;
-  bestPlaceName: string[];
+  bestPlaceNames: string[];
   participantNames: string[];
 }
 // 스페이스 추천역 조회 API

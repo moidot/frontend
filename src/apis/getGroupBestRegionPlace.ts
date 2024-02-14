@@ -11,6 +11,7 @@ export const getGroupBestRegionPlace = async (
   local: string,
   keyword: KeywordType,
 ): Promise<GetGroupBestRegionPlaceRes> => {
+  console.log(x, y, local, keyword);
   try {
     const res = await customedAxios.get(
       `${process.env.NEXT_PUBLIC_BASE_URL}/group/best-region/place?x=${x}&y=${y}&local=${local}&keyword=${keyword}`,

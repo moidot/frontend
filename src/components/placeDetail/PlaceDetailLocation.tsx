@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 
 interface KakaoMapProps {
-  lng: number;
-  lat: number;
+  lng: string;
+  lat: string;
 }
 
 const PlaceDetailLocation = ({ lng, lat }: KakaoMapProps) => {

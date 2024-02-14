@@ -1,4 +1,4 @@
-import More from '../common/button/more';
+// import More from '../common/button/more';
 import PlaceItem from './PlaceItem';
 import { useState, useEffect } from 'react';
 import ChipCafeOff from '@assets/chip/chip_cafe_off.svg';
@@ -156,8 +156,8 @@ const Place = ({ lng, lat, local }: PlaceProps) => {
               setModalClick={setModalClick}
               detail={data?.detail as BestRegionPlaceDetailProps}
               category={category}
-              lng={parseInt(lng)}
-              lat={parseInt(lat)}
+              lng={lng}
+              lat={lat}
               thumUrls={data?.detail.thumUrls as string[]}
               menu={data?.detail.menuInfo as string[]}
             />
@@ -205,9 +205,7 @@ const Place = ({ lng, lat, local }: PlaceProps) => {
           </div>
         )}
 
-        <div className="flex justify-center items-center pt-[140px]">
-          <More />
-        </div>
+        <div className="flex justify-center items-center pt-[140px]">{/* <More /> */}</div>
       </div>
     </div>
   );
