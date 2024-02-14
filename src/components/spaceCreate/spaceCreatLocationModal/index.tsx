@@ -9,7 +9,6 @@ import { getKakaoSearchLocaton } from '@/apis/getKakaoSearchLocation';
 import SearchLocationItem from './searchLocationItem';
 import { GetKakaoLocationSearchData } from '@/types/create';
 import { locationSearchAtom } from '@/states/locationSearchAtom';
-import { string } from 'yup';
 
 interface SpaceCreateStartLocationModalProps {
   modalClick: boolean;
