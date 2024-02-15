@@ -2,11 +2,15 @@ import CommonPopupBackground from '../common/popup/CommonPopupBackground';
 import UrlButton from '../common/button/url';
 import { useRouter } from 'next/router';
 
-const VotePopup = () => {
+interface VotePopupProps {
+  groupId: number;
+}
+
+const VotePopup = ({ groupId }: VotePopupProps) => {
   const title = '투표가 시작되었어요!\n공유하여 모두에게 알려주세요.';
   const router = useRouter();
   const closeExitPopup = () => {
-    router.push('/vote/detail'); // 나의 모이닷 스페이스 url로 이동
+    location.replace(`/vote/detail/${groupId}`); // 내 모이닷 스페이스로 수정하기
   };
   return (
     <CommonPopupBackground>

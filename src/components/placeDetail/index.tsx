@@ -78,7 +78,7 @@ const PlaceDetail = ({
           )}
           {placeNav == 'PRICE' && (
             <div className="pb-[23px]">
-              <PlaceDetailPrice menu={menu} />
+              <PlaceDetailPrice />
             </div>
           )}
         </div>

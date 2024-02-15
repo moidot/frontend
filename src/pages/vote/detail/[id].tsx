@@ -75,7 +75,7 @@ const VoteDetailPage = () => {
       location.reload();
     },
     onError: () => {
-      console.log('투표 참여 error');
+      alert('투표에 실패했습니다.');
     },
   });
 
