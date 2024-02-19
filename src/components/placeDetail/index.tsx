@@ -36,7 +36,6 @@ const PlaceDetail = ({
   lng,
   lat,
   thumUrls,
-  menu,
 }: PlaceDetailProps) => {
   const [placeNav, setPlaceNav] = useState<PLACE_NAV_LIST>('LOCATION');
   const router = useRouter();

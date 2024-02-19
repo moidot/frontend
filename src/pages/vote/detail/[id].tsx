@@ -44,7 +44,7 @@ const VoteDetailPage = () => {
   useEffect(() => {
     if (response.data?.message === '성공') setVoteData(response.data?.data);
     console.log('vote data', voteData);
-  }, [response]);
+  }, [response, voteData]);
 
   // 투표 종료일 포맷 변경
   useEffect(() => {
