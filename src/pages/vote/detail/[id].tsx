@@ -44,7 +44,7 @@ const VoteDetailPage = () => {
   useEffect(() => {
     if (response.data?.message === '성공') setVoteData(response.data?.data);
     console.log('vote data', voteData);
-  }, [response]);
+  }, [response, voteData]);
 
   // 투표 종료일 포맷 변경
   useEffect(() => {
@@ -75,7 +75,7 @@ const VoteDetailPage = () => {
       location.reload();
     },
     onError: () => {
-      console.log('투표 참여 error');
+      alert('투표에 실패했습니다.');
     },
   });
 

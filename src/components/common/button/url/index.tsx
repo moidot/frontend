@@ -11,6 +11,7 @@ const UrlButton = ({ pathname }: UrlProps) => {
   const baseURL = 'https://www.moidot.co.kr'; // 배포 url로 변경하기
   useEffect(() => {
     console.log(pathname.split('/').slice(-1)[0]);
+    console.log('yayayay', pathname);
   }, [pathname]);
 
   const onShare = async () => {

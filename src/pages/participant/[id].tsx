@@ -47,7 +47,7 @@ const ParticipatePage = () => {
   const deleteGroupMutation = useMutation((groupId: number) => deleteGroup(token, groupId), {
     onSuccess: () => {
       alert('모이닷 스페이스를 삭제했습니다.');
-      router.push('/user'); // 내 모이닷 스페이스로 수정하기
+      location.replace('/user'); // 내 모이닷 스페이스로 수정하기
     },
     onError: () => {
       console.log('스페이스 삭제 error');
@@ -75,7 +75,7 @@ const ParticipatePage = () => {
     {
       onSuccess: () => {
         alert('모이닷 스페이스를 나갔습니다.');
-        router.push('/user'); // 내 모이닷 스페이스로 이동
+        location.replace('/user'); // 내 모이닷 스페이스로 이동
       },
       onError: () => {
         console.log('스페이스 나가기 error');

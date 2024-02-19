@@ -36,7 +36,6 @@ const PlaceDetail = ({
   lng,
   lat,
   thumUrls,
-  menu,
 }: PlaceDetailProps) => {
   const [placeNav, setPlaceNav] = useState<PLACE_NAV_LIST>('LOCATION');
   const router = useRouter();
@@ -78,7 +77,7 @@ const PlaceDetail = ({
           )}
           {placeNav == 'PRICE' && (
             <div className="pb-[23px]">
-              <PlaceDetailPrice menu={menu} />
+              <PlaceDetailPrice />
             </div>
           )}
         </div>
