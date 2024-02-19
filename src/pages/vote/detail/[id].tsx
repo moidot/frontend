@@ -12,7 +12,6 @@ import { useGetGroupVote } from '@/hooks/useGetGroupVote';
 import { VoteStatusData } from '@/types/VoteType';
 import api from '@/services/TokenService';
 import { useRecoilValue, RecoilEnv } from 'recoil';
-import { groupAdminIdAtom } from '@/states/groupAdminIdAtom';
 import { VoteSelectData, postGroupVoteSelect } from '@/apis/postGroupVoteSelect';
 import { useMutation } from '@tanstack/react-query';
 import { groupIdAtom } from '@/states/groupIdAtom';
@@ -23,6 +22,7 @@ const VoteDetailPage = () => {
   RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
   // eslint-disable-next-line react-hooks/exhaustive-deps
   let votePlaceIds: any = [];
+  // const [voteIds, setVoteIds] = useState<any>();
   const locationUrl = useRouter();
   const [voteData, setVoteData] = useState<VoteData>(); // 투표 전체 데이터
   const [voteEndAt, setVoteEndAt] = useState<any>(''); // 투표 종료 시간 데이터
@@ -32,14 +32,19 @@ const VoteDetailPage = () => {
   const [voteMax, setVoteMax] = useState<any>();
   const token = api.getToken();
   const groupIdData = useRecoilValue(groupIdAtom);
-  const groupAdminId = useRecoilValue(groupAdminIdAtom);
+  // const groupAdminId = useRecoilValue(groupAdminIdAtom);
+  const groupAdminId = typeof window !== 'undefined' ? sessionStorage.getItem('adminId') : null;
+
   const response = useGetGroupVote(token, groupIdData.groupId);
   const currentId = api.getEmail();
   const voteP: voteSelectPlaceData = {
     groupId: groupIdData.groupId,
     bestPlaceIds: votePlaceIds,
   };
-
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    votePlaceIds = [];
+  }, []);
   //투표 데이터 voteData 변수에 저장하기
   useEffect(() => {
     if (response.data?.message === '성공') setVoteData(response.data?.data);
@@ -52,7 +57,7 @@ const VoteDetailPage = () => {
     setVoteEndAt(changeDate);
   }, [voteData?.endAt]);
 
-  //재투표 버튼 눌렀을 때 체크한 데이터 저장하기
+  //보류 --- 재투표 버튼 눌렀을 때 체크한 데이터 저장하기
   useEffect(() => {
     const temp = voteData?.voteStatuses.filter((item) => item.isVoted);
     temp?.map((item) => votePlaceIds.push(item.bestPlaceId));
@@ -68,6 +73,9 @@ const VoteDetailPage = () => {
     console.log('voteMax is...', voteMax);
   }, [voteData?.isClosed, voteData?.voteStatuses, voteMax]);
 
+  useEffect(() => {
+    console.log('voteIDS... : ', votePlaceIds);
+  }, [votePlaceIds]);
   //투표 참여 API react-query mutation
   const postGroupVoteSelectMutation = useMutation((data: VoteSelectData) => postGroupVoteSelect(token, data), {
     onSuccess: () => {
