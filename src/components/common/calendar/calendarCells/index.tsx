@@ -29,7 +29,7 @@ const CalendarCells = ({ currentMonth, selectedDate, setSelectedDate }: Calendar
   }, [startDate, endDate]);
 
   return (
-    <div className="grid grid-cols-7 gap-[24px]">
+    <div className="grid grid-cols-7 gap-[24px] w-[23.75rem]">
       {createMonth.map((v, i) => (
         <div key={`date${i}`} className="flex justify-center items-center gap-[36px]">
           {isSameDay(v, selectedDate) ? (
