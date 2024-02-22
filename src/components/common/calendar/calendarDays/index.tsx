@@ -9,7 +9,7 @@ const CalendarDays = () => {
           </div>
         ))}
       </div>
-      <div className="w-[100%] h-[8px] bg-light_orange"></div>
+      <div className="w-[23.75rem] h-[8px] bg-light_orange"></div>
     </div>
   );
 };

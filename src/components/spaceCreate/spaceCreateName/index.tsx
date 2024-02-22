@@ -20,7 +20,7 @@ const SpaceCreateName = () => {
   };
   const onNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.currentTarget.value);
-    const regex = /^[a-zA-Z0-9가-힣]*$/;
+    const regex = /^[a-zA-Z0-9ㄱ-ㅣ가-힣]*$/;
 
     // regex처리
     if (regex.test(name) == false) {
