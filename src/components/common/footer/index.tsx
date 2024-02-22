@@ -9,9 +9,9 @@ const Footer = () => {
             <div className="flex flex-row items-center gap-[32px]">
               <div className="font-normal font-Pretendard text-white text-b2">이용약관</div>
               <div className="font-normal font-Pretendard text-white text-b2">|</div>
-              <div className="font-normal font-Pretendard text-white text-b2">개인정보처리방침</div>
+              <div className="font-normal font-Pretendard text-white text-b2">개인정보 수집 및 처리방침</div>
               <div className="font-normal font-Pretendard text-white text-b2">|</div>
-              <div className="font-normal font-Pretendard text-white text-b2">위치기반서비스이용약관</div>
+              <div className="font-normal font-Pretendard text-white text-b2">위치정보 수집 및 활용방침</div>
               <div className="font-normal font-Pretendard text-white text-b2">|</div>
               <div className="font-normal font-Pretendard text-white text-b2">소개</div>
               <div className="font-normal font-Pretendard text-white text-b2">|</div>

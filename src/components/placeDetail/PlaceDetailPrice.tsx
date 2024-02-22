@@ -1,7 +1,4 @@
-interface PlaceDetailPriceProps {
-  menu: string[];
-}
-const PlaceDetailPrice = ({ menu }: PlaceDetailPriceProps) => {
+const PlaceDetailPrice = () => {
   return (
     <div className="w-[1112px] h-[236px] bg-bg_orange flex justify-center items-center pt-[92px] pb-[92px] pl-[400px] pr-[400px]">
       <div className="font-thin font-Pretendard text-main_orange text-b4 ">

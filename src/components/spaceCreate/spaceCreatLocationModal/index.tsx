@@ -9,7 +9,6 @@ import { getKakaoSearchLocaton } from '@/apis/getKakaoSearchLocation';
 import SearchLocationItem from './searchLocationItem';
 import { GetKakaoLocationSearchData } from '@/types/create';
 import { locationSearchAtom } from '@/states/locationSearchAtom';
-import { string } from 'yup';
 
 interface SpaceCreateStartLocationModalProps {
   modalClick: boolean;
@@ -55,7 +54,7 @@ const SpaceCreateStartLocationModal = ({ modalClick, setModalClick }: SpaceCreat
     };
     //script 완전히 로드된 후 지도 띄우는 코드
     mapScript.addEventListener('load', onLoadKakaoMap);
-  }, [geolocationInfo.coordinates?.lat, geolocationInfo.coordinates?.lng, loadCurrentLocation]);
+  }, [geolocationInfo.coordinates?.lat, geolocationInfo.coordinates?.lng, loadCurrentLocation, setLocation]);
 
   const onCloseClick = () => {
     setModalClick(!modalClick);

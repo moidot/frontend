@@ -10,6 +10,7 @@ import api from '@/services/TokenService';
 import { useGetGroup } from '@/hooks/useGetGroup';
 import KakaoMap from './KakaoMap';
 import { groupIdAtom } from '@/states/groupIdAtom';
+
 interface MainProps {
   id: string;
 }
@@ -34,10 +35,15 @@ const Main = ({ id }: MainProps) => {
   // 0번째 추천 지역 대상으로 lat,lng 추출
 
   console.log(groupData);
+
   if (groupData) {
     lat = groupData?.data[0].latitude;
     lng = groupData?.data[0].longitude;
     local = groupData?.data[0].name;
+  }
+
+  if (groupNameData) {
+    sessionStorage.setItem('adminId', groupNameData?.data?.adminEmail);
   }
 
   // 현재 로그인된 유저의 path

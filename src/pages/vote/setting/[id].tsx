@@ -39,9 +39,7 @@ const VoteSettingPage = () => {
 
   const postGroupVoteMutation = useMutation((data: VoteStartData) => postGroupVote(token, data), {
     onSuccess: () => {
-      alert('투표 생성 완료!');
-      router.push(`/vote/detail/${groupIdValue.groupId}`); // 내 모이닷 스페이스로 수정하기
-      router.reload();
+      console.log(`/vote/detail/${groupIdValue.groupId}`); // 내 모이닷 스페이스로 수정하기
     },
     onError: () => {
       console.log('투표 생성 error');
@@ -89,7 +87,7 @@ const VoteSettingPage = () => {
         }}>
         <VoteStartBtn />
       </div>
-      {setting && <VotePopup />}
+      {setting && <VotePopup groupId={groupIdValue.groupId} />}
       {openPicker && <VoteTimePicker setOpenPicker={setOpenPicker} setVoteEndAt={setVoteEndAt} />}
     </section>
   );
