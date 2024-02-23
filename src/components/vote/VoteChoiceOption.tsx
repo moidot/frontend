@@ -29,7 +29,6 @@ const VoteChoiceOption = ({
   isVoted,
   isClosed,
   votePlaceIds,
-  isEnabledMultipleChoice,
   setVoteIds,
   isAnonymous,
   voteMax,
