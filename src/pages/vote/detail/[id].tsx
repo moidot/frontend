@@ -23,7 +23,7 @@ const VoteDetailPage = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   // let votePlaceIds: any = [];
   // (02/22) 테스트하기 - 변수로 관리해 제대로 반영이 안되던 투표 배열 state로 관리하게 수정
-  const [voteIds, setVoteIds] = useState<any>([]);
+
   const locationUrl = useRouter();
   const [voteData, setVoteData] = useState<VoteData>(); // 투표 전체 데이터
   const [voteEndAt, setVoteEndAt] = useState<any>(''); // 투표 종료 시간 데이터
@@ -33,8 +33,11 @@ const VoteDetailPage = () => {
   const [voteMax, setVoteMax] = useState<any>();
   const token = api.getToken();
   const groupIdData = useRecoilValue(groupIdAtom);
-  // const groupAdminId = useRecoilValue(groupAdminIdAtom);
   const groupAdminId = typeof window !== 'undefined' ? sessionStorage.getItem('adminId') : null;
+
+  const temp = voteData && voteData?.voteStatuses.filter((item) => item.isVoted);
+  const temp2 = temp && temp?.map((item) => item.bestPlaceId);
+  const [voteIds, setVoteIds] = useState<any>(temp2);
 
   const response = useGetGroupVote(token, groupIdData.groupId);
   const currentId = api.getEmail();
@@ -61,7 +64,8 @@ const VoteDetailPage = () => {
   useEffect(() => {
     // const temp = voteData?.voteStatuses.filter((item) => item.isVoted);
     // temp?.map((item) => votePlaceIds.push(item.bestPlaceId));
-    // temp?.map((item) => setVoteIds([...voteIds, item.bestPlaceId]));
+    // const temp2 = temp?.map((item) => item.bestPlaceId);
+    // setVoteIds(temp2);
   }, [voteData?.voteStatuses]);
 
   useEffect(() => {
