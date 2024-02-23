@@ -15,6 +15,7 @@ export interface VoteOptionProps {
   longitude: number;
   isVoted: boolean;
   isAnonymous: boolean;
+  isEnabledMultipleChoice: boolean;
   isClosed: boolean;
   voteMax: any;
   votePlaceIds: number[];
@@ -28,6 +29,7 @@ const VoteChoiceOption = ({
   isVoted,
   isClosed,
   votePlaceIds,
+  isEnabledMultipleChoice,
   setVoteIds,
   isAnonymous,
   voteMax,
@@ -37,8 +39,17 @@ const VoteChoiceOption = ({
 
   useEffect(() => {
     // checkedBox ? votePlaceIds.push(bestPlaceId) : votePlaceIds.splice(votePlaceIds.indexOf(bestPlaceId), 1);
-    checkedBox ? setVoteIds([...votePlaceIds, bestPlaceId]) : setVoteIds([...votePlaceIds]);
-  }, [bestPlaceId, checkedBox]);
+    // 체크박스 클릭 시 => 단일 선택이면 ? 현재 voteIds에 해당하는 변수만 체크되어야 함
+    // => 복수 선택이면
+    checkedBox
+      ? // 클릭한 경우
+        isEnabledMultipleChoice // 복수선택 여부
+        ? votePlaceIds.includes(bestPlaceId) // 복수선택 T, 기존 배열에 추가되어있을 경우
+          ? setVoteIds([...votePlaceIds]) // 기존 배열 리턴
+          : setVoteIds([...votePlaceIds, bestPlaceId]) // 기존 배열 + 추가
+        : setVoteIds(votePlaceIds.filter((item) => item === bestPlaceId)) // 복수 선택 F, 선택한 아이템만
+      : setVoteIds(votePlaceIds.filter((item) => item !== bestPlaceId)); // 클릭 해제, 지금 선택한 아이디 제외
+  }, [bestPlaceId, checkedBox, isEnabledMultipleChoice]);
 
   return (
     <div
@@ -46,7 +57,7 @@ const VoteChoiceOption = ({
       style={{
         backgroundColor: isClosed && voteMax?.bestPlaceId === bestPlaceId ? '#FFEADB' : '',
       }}>
-      {checkedBox ? (
+      {votePlaceIds.includes(bestPlaceId) ? (
         <div style={{ pointerEvents: isClosed ? 'none' : 'auto' }} onClick={() => setCheckedBox(!checkedBox)}>
           <CheckBox />
         </div>

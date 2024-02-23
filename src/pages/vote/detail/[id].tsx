@@ -131,6 +131,7 @@ const VoteDetailPage = () => {
                 bestPlaceId={item.bestPlaceId}
                 latitude={item.latitude}
                 longitude={item.longitude}
+                isEnabledMultipleChoice={voteData.isEnabledMultipleChoice}
                 isAnonymous={voteData.isAnonymous}
                 isClosed={voteData.isClosed}
                 voteMax={voteMax}
