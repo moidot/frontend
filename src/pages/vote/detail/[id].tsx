@@ -59,9 +59,9 @@ const VoteDetailPage = () => {
 
   //보류 --- 재투표 버튼 눌렀을 때 체크한 데이터 저장하기
   useEffect(() => {
-    const temp = voteData?.voteStatuses.filter((item) => item.isVoted);
+    // const temp = voteData?.voteStatuses.filter((item) => item.isVoted);
     // temp?.map((item) => votePlaceIds.push(item.bestPlaceId));
-    temp?.map((item) => setVoteIds([...voteIds, item.bestPlaceId]));
+    // temp?.map((item) => setVoteIds([...voteIds, item.bestPlaceId]));
   }, [clickedAgainBtn]);
 
   useEffect(() => {

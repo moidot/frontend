@@ -57,7 +57,7 @@ const VoteChoiceOption = ({
       style={{
         backgroundColor: isClosed && voteMax?.bestPlaceId === bestPlaceId ? '#FFEADB' : '',
       }}>
-      {votePlaceIds.includes(bestPlaceId) ? (
+      {checkedBox ? (
         <div style={{ pointerEvents: isClosed ? 'none' : 'auto' }} onClick={() => setCheckedBox(!checkedBox)}>
           <CheckBox />
         </div>
