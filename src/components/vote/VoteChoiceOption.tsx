@@ -43,13 +43,10 @@ const VoteChoiceOption = ({
     // => 복수 선택이면
     checkedBox
       ? // 클릭한 경우
-        isEnabledMultipleChoice // 복수선택 여부
-        ? votePlaceIds.includes(bestPlaceId) // 복수선택 T, 기존 배열에 추가되어있을 경우
-          ? setVoteIds([...votePlaceIds]) // 기존 배열 리턴
-          : setVoteIds([...votePlaceIds, bestPlaceId]) // 기존 배열 + 추가
-        : setVoteIds(votePlaceIds.filter((item) => item === bestPlaceId)) // 복수 선택 F, 선택한 아이템만
+        // !votePlaceIds.includes(bestPlaceId) && // 복수선택 T, 기존 배열에 추가되어있을 경우
+        setVoteIds([...votePlaceIds, bestPlaceId]) // 기존 배열 + 추가
       : setVoteIds(votePlaceIds.filter((item) => item !== bestPlaceId)); // 클릭 해제, 지금 선택한 아이디 제외
-  }, [bestPlaceId, checkedBox, isEnabledMultipleChoice]);
+  }, [bestPlaceId, checkedBox, isEnabledMultipleChoice, votePlaceIds]);
 
   return (
     <div

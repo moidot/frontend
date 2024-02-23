@@ -62,7 +62,7 @@ const VoteDetailPage = () => {
     // const temp = voteData?.voteStatuses.filter((item) => item.isVoted);
     // temp?.map((item) => votePlaceIds.push(item.bestPlaceId));
     // temp?.map((item) => setVoteIds([...voteIds, item.bestPlaceId]));
-  }, [clickedAgainBtn]);
+  }, [voteData?.voteStatuses]);
 
   useEffect(() => {
     setVoteMax(
