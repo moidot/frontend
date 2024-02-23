@@ -46,7 +46,7 @@ const VoteChoiceOption = ({
         // !votePlaceIds.includes(bestPlaceId) && // 복수선택 T, 기존 배열에 추가되어있을 경우
         setVoteIds([...votePlaceIds, bestPlaceId]) // 기존 배열 + 추가
       : setVoteIds(votePlaceIds.filter((item) => item !== bestPlaceId)); // 클릭 해제, 지금 선택한 아이디 제외
-  }, [bestPlaceId, checkedBox, isEnabledMultipleChoice]);
+  }, [checkedBox]);
 
   return (
     <div
