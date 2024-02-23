@@ -18,6 +18,7 @@ export interface VoteOptionProps {
   isClosed: boolean;
   voteMax: any;
   votePlaceIds: number[];
+  setVoteIds: any;
 }
 
 const VoteChoiceOption = ({
@@ -27,6 +28,7 @@ const VoteChoiceOption = ({
   isVoted,
   isClosed,
   votePlaceIds,
+  setVoteIds,
   isAnonymous,
   voteMax,
 }: VoteOptionProps) => {
@@ -34,8 +36,9 @@ const VoteChoiceOption = ({
   const [isClickedPeopleIcon, setIsClickedPeopleIcon] = useState<boolean>(false);
 
   useEffect(() => {
-    checkedBox ? votePlaceIds.push(bestPlaceId) : votePlaceIds.splice(votePlaceIds.indexOf(bestPlaceId), 1);
-  }, [bestPlaceId, checkedBox, votePlaceIds]);
+    // checkedBox ? votePlaceIds.push(bestPlaceId) : votePlaceIds.splice(votePlaceIds.indexOf(bestPlaceId), 1);
+    checkedBox ? setVoteIds([...votePlaceIds, bestPlaceId]) : setVoteIds([...votePlaceIds]);
+  }, [bestPlaceId, checkedBox]);
 
   return (
     <div

@@ -21,8 +21,9 @@ import { useRouter } from 'next/router';
 const VoteDetailPage = () => {
   RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  let votePlaceIds: any = [];
-  // const [voteIds, setVoteIds] = useState<any>();
+  // let votePlaceIds: any = [];
+  // (02/22) 테스트하기 - 변수로 관리해 제대로 반영이 안되던 투표 배열 state로 관리하게 수정
+  const [voteIds, setVoteIds] = useState<any>([]);
   const locationUrl = useRouter();
   const [voteData, setVoteData] = useState<VoteData>(); // 투표 전체 데이터
   const [voteEndAt, setVoteEndAt] = useState<any>(''); // 투표 종료 시간 데이터
@@ -39,11 +40,10 @@ const VoteDetailPage = () => {
   const currentId = api.getEmail();
   const voteP: voteSelectPlaceData = {
     groupId: groupIdData.groupId,
-    bestPlaceIds: votePlaceIds,
+    bestPlaceIds: voteIds,
   };
   useEffect(() => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    votePlaceIds = [];
   }, []);
   //투표 데이터 voteData 변수에 저장하기
   useEffect(() => {
@@ -60,8 +60,9 @@ const VoteDetailPage = () => {
   //보류 --- 재투표 버튼 눌렀을 때 체크한 데이터 저장하기
   useEffect(() => {
     const temp = voteData?.voteStatuses.filter((item) => item.isVoted);
-    temp?.map((item) => votePlaceIds.push(item.bestPlaceId));
-  }, [clickedAgainBtn, voteData?.voteStatuses, votePlaceIds]);
+    // temp?.map((item) => votePlaceIds.push(item.bestPlaceId));
+    temp?.map((item) => setVoteIds([...voteIds, item.bestPlaceId]));
+  }, [clickedAgainBtn]);
 
   useEffect(() => {
     setVoteMax(
@@ -74,8 +75,8 @@ const VoteDetailPage = () => {
   }, [voteData?.isClosed, voteData?.voteStatuses, voteMax]);
 
   useEffect(() => {
-    console.log('voteIDS... : ', votePlaceIds);
-  }, [votePlaceIds]);
+    console.log('voteIDS... : ', voteIds);
+  }, [voteIds]);
   //투표 참여 API react-query mutation
   const postGroupVoteSelectMutation = useMutation((data: VoteSelectData) => postGroupVoteSelect(token, data), {
     onSuccess: () => {
@@ -122,7 +123,8 @@ const VoteDetailPage = () => {
             {voteData?.voteStatuses.map((item: VoteStatusData) => (
               <VoteChoiceOption
                 key={item.bestPlaceId}
-                votePlaceIds={votePlaceIds}
+                votePlaceIds={voteIds}
+                setVoteIds={setVoteIds}
                 votes={item.votes}
                 placeName={item.placeName}
                 isVoted={item.isVoted}
