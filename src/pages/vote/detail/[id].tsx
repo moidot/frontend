@@ -59,10 +59,12 @@ const VoteDetailPage = () => {
 
   //보류 --- 재투표 버튼 눌렀을 때 체크한 데이터 저장하기
   useEffect(() => {
-    const temp = voteData?.voteStatuses.filter((item) => item.isVoted);
-    // temp?.map((item) => votePlaceIds.push(item.bestPlaceId));
-    const temp2 = temp?.map((item) => item.bestPlaceId);
-    setVoteIds(temp2);
+    if (voteData?.voteStatuses) {
+      const temp = voteData?.voteStatuses?.filter((item) => item.isVoted);
+      // temp?.map((item) => votePlaceIds.push(item.bestPlaceId));
+      const temp2 = temp?.map((item) => item.bestPlaceId);
+      setVoteIds(temp2);
+    }
   }, [voteData?.voteStatuses]);
 
   useEffect(() => {
