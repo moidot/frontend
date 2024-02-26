@@ -24,7 +24,7 @@ const Header = () => {
         <div className="w-36">
           <LogoComponent />
         </div>
-        {token !== null && (
+        {token !== undefined && (
           <div onClick={onClickLogout} className="font-normal font-Pretendard text-font_gray text-b2">
             로그아웃
           </div>
