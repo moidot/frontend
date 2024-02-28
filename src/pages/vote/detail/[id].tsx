@@ -182,7 +182,7 @@ const VoteDetailPage = () => {
             </div>
           ))}
         {/* 모임장일 때만 버튼 생성 */}
-        {currentId === groupAdminId ? (
+        {currentId === groupAdminId && voteData?.isClosed === false ? (
           <div
             onClick={() => setClickedEndVote(!clickedEndVote)}
             className="cursor-pointer flex w-[585px] h-[72px] mb-[150px] items-center justify-center border-2 border-main_orange rounded-2xl mx-auto text-main_orange text-b2 box-border">
