@@ -38,7 +38,7 @@ const VoteWaitPage = () => {
         <div className="mb-[90px]">
           <VoteTitle groupName={voteData?.groupName} groupDate={voteData?.groupDate} />
         </div>
-        <VoteBox admin={adminEmail} />
+        <VoteBox admin={adminEmail} groupName={voteData?.groupName} />
         <div onClick={() => router.push(`/vote/setting/${group.groupId}`)}>
           {currentUserEmail === adminEmail && <VoteStartBtn />}
         </div>

@@ -42,7 +42,7 @@ const InviteSpaceInvite = ({ router }: any) => {
         onClick={() => {
           setClickPlus(true);
         }}
-        className="flex cursor-pointer w-[585px] h-[78px] mx-auto mt-[100px] mb-[150px] items-center justify-center bg-main_orange rounded-2xl text-white text-b1 font-bold font-Pretendard">
+        className="flex cursor-pointer w-[90vw] desktop:w-[585px] h-[78px] mx-auto mt-[100px] mb-[150px] items-center justify-center bg-main_orange rounded-2xl text-white text-b1 font-bold font-Pretendard">
         내 정보 추가하기
       </div>
       {clickPlus && <LoginPopup setClickPlus={setClickPlus} />}

@@ -13,6 +13,7 @@ import { groupIdAtom } from '@/states/groupIdAtom';
 import { handleDateFormat } from '@/utils/changeDateFormat';
 import BackButtonBar from '@/components/common/backButtonBar';
 import { useRouter } from 'next/router';
+import { groupNameAtom } from '@/states/groupNameAtom';
 
 const VoteSettingPage = () => {
   const [endTime, setEndTime] = useState<boolean>(false);
@@ -25,6 +26,7 @@ const VoteSettingPage = () => {
   const router = useRouter();
   const token = api.getToken();
   const groupIdValue = useRecoilValue(groupIdAtom);
+  const groupNameValue = useRecoilValue(groupNameAtom);
   const voteData = {
     groupId: groupIdValue.groupId,
     isAnonymous: anonymous,
@@ -87,7 +89,7 @@ const VoteSettingPage = () => {
         }}>
         <VoteStartBtn />
       </div>
-      {setting && <VotePopup groupId={groupIdValue.groupId} />}
+      {setting && <VotePopup groupId={groupIdValue.groupId} groupName={groupNameValue} />}
       {openPicker && <VoteTimePicker setOpenPicker={setOpenPicker} setVoteEndAt={setVoteEndAt} />}
     </section>
   );

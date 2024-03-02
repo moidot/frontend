@@ -65,7 +65,7 @@ const Main = ({ id }: MainProps) => {
             <div className="font-Pretendard text-font_gray text-h3 font-bold">{groupNameData?.data.date}</div>
           </div>
           <div className="p-10">
-            <ShareButton />
+            <ShareButton teamname={groupNameData?.data.name} />
           </div>
 
           {userPath && otherUserPath ? (

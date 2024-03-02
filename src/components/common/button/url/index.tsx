@@ -5,9 +5,10 @@ import { useEffect } from 'react';
 
 interface UrlProps {
   pathname: string;
+  teamname: string;
 }
 
-const UrlButton = ({ pathname }: UrlProps) => {
+const UrlButton = ({ pathname, teamname }: UrlProps) => {
   const baseURL = 'https://www.moidot.co.kr'; // 배포 url로 변경하기
   useEffect(() => {
     console.log(pathname.split('/').slice(-1)[0]);
@@ -18,8 +19,8 @@ const UrlButton = ({ pathname }: UrlProps) => {
     await window.Kakao.Share.sendDefault({
       objectType: 'feed',
       content: {
-        title: '모이닷 팀 프로젝트에서 함께 해요!',
-        description: '모이닷 팀 프로젝트에서 모임원으로\n초대했어요. 참여해보세요!',
+        title: `${teamname}에서 함께 해요!`,
+        description: `${teamname}에서 모임원으로\n초대했어요. 참여해보세요!`,
         imageUrl:
           'https://moidot-bucket.s3.ap-northeast-2.amazonaws.com/image/kakao-message/feed_%E1%84%8E%E1%85%A9%E1%84%83%E1%85%A2_png.png',
         link: {
