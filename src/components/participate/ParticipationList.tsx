@@ -49,9 +49,9 @@ const ParticipationList = ({ data, mode = false, setMode = () => {} }: Participa
         <div className="text-h3 font-bold text-font_gray">{data.date}</div>
       </div>
       {/* URL 복사 & 카톡 공유 박스 */}
-      <div className="w-[555px] bg-bg_orange rounded-2xl text-center mx-auto mt-[30px] mb-[48px] p-[15px]">
+      <div className="w-[90vw] desktop:w-[555px] bg-bg_orange rounded-2xl text-center mx-auto mt-[30px] mb-[48px] p-[15px]">
         <div className="text-main_orange text-b1 font-bold mb-[15px]">모임원을 초대해보세요!</div>
-        <UrlButton pathname={locationUrl?.asPath} />
+        <UrlButton pathname={locationUrl?.asPath} teamname={data?.name} />
       </div>
       <div className="relative">
         {/* 내보내기 버튼 */}

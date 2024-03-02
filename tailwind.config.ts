@@ -39,6 +39,9 @@ const config: Config = {
       boxShadow: {
         card_shadow: '0px 19px 64px 8px rgba(0, 0, 0, 0.04)',
       },
+      screens: {
+        desktop: '480px',
+      },
     },
   },
 

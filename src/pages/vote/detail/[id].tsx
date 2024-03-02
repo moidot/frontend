@@ -97,10 +97,12 @@ const VoteDetailPage = () => {
       <Navbar focusType={NAV_LIST.VOTE} />
       <VoteTitle groupName={voteData?.groupName} groupDate={voteData?.groupDate} />
       {/* url 박스 */}
-      <div className="w-[555px] bg-bg_orange rounded-2xl text-center mx-auto mt-[30px] mb-[48px] p-[15px]">
-        <div className="text-main_orange text-b1 font-bold mb-[15px]">모임원을 초대해보세요!</div>
-        <UrlButton pathname={locationUrl?.asPath} />
-      </div>
+      {voteData && (
+        <div className="w-[90vw] desktop:w-[555px] bg-bg_orange rounded-2xl text-center mx-auto mt-[30px] mb-[48px] p-[15px]">
+          <div className="text-main_orange text-b1 font-bold mb-[15px]">모임원을 초대해보세요!</div>
+          <UrlButton pathname={locationUrl?.asPath} teamname={voteData?.groupName} />
+        </div>
+      )}
       {/* 지도 자리 */}
       {voteData?.voteStatuses && <VoteKakaoMap locationInfo={voteData?.voteStatuses} />}
       {/* 투표 탭 */}
