@@ -1,12 +1,12 @@
 import EmptyState from '@assets/home/illust_empty_state.svg';
 import api from '@/services/TokenService';
-import { useEffect, useState } from 'react';
+// import { useEffect, useState } from 'react';
 import { useGetParticipate } from '@/hooks/useGetGroupParticipate';
 import SpaceBox from '../common/home/SpaceBox';
 import { useRouter } from 'next/router';
 
 const Home5 = () => {
-  const [emptySpaceState, setEmptySpaceState] = useState(true);
+  // const [emptySpaceState, setEmptySpaceState] = useState(true);
   const token = api.getToken();
   console.log(api.getToken());
   const { data, isLoading } = useGetParticipate(token);
@@ -14,11 +14,11 @@ const Home5 = () => {
 
   console.log(data);
 
-  useEffect(() => {
-    if (data?.data.length !== undefined) {
-      setEmptySpaceState(false);
-    }
-  }, [data?.data.length]);
+  // useEffect(() => {
+  //   if (data?.data.length !== undefined) {
+  //     setEmptySpaceState(false);
+  //   }
+  // }, [data?.data.length]);
   const onBoxClick = (groupId: number) => {
     router.push({
       pathname: `/main/${groupId}`,
@@ -37,7 +37,7 @@ const Home5 = () => {
                 과거에 진행되었던 모임장소 조율이에요.
               </div>
             </div>
-            {emptySpaceState == true ? (
+            {data && data?.data.length === 0 ? (
               <div>
                 <EmptyState />
                 <div className="flex flex-col justify-center items-center gap-[4px] mb-24">
