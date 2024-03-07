@@ -5,7 +5,7 @@ import { GetGroupBestRegionProps, GetUserInfoProps } from '@/types/SpaceType';
 const RecommendationItem = ({ name, moveUserInfo }: GetGroupBestRegionProps) => {
   console.log(moveUserInfo);
   const adminUser: GetUserInfoProps[] = moveUserInfo.filter((item) => item.isAdmin);
-  console.log(adminUser);
+  // console.log(adminUser);
   const defaultUser: GetUserInfoProps[] = moveUserInfo.filter((item) => !item.isAdmin);
   return (
     <div className="flex flex-col justify-center items-center">

@@ -15,7 +15,7 @@ const Home5 = () => {
   console.log(data);
 
   useEffect(() => {
-    if (data?.data.length != 0) {
+    if (data?.data.length !== undefined) {
       setEmptySpaceState(false);
     }
   }, [data?.data.length]);

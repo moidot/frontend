@@ -49,7 +49,7 @@ const Place = ({ lng, lat, local }: PlaceProps) => {
   const [chip, setChip] = useState<keyof typeof ChipList>(ChipList.LIBRARY);
   const [data, setData] = useState<PlaceDetailProps>();
   const [category, setCategory] = useState<keyof typeof ChipList>(ChipList.CAFE);
-  console.log(data);
+  // console.log(data);
   useEffect(() => {
     if (chip == 'CAFE') {
       setKeyword('카페');
