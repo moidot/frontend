@@ -21,8 +21,6 @@ const InviteSpaceInvite = ({ router }: any) => {
   const [partData, setPartData] = useState<ParticipationProps>();
   const [clickPlus, setClickPlus] = useState<boolean>(false);
   const setGroupName = useSetRecoilState(groupNameAtom);
-
-  console.log(currentUserEmail, 'currentEmaul');
   const [isParticipateCurrentUser, setIsParticipateCurrentUser] = useState<any>('');
   useEffect(() => {
     const promise = response;
