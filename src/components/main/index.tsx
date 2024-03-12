@@ -49,20 +49,19 @@ const Main = ({ id }: MainProps) => {
   useEffect(() => {
     console.log(gData, 'gData');
     groupData !== gData && setGroupData(gData);
+    if (groupData) {
+      setLat(groupData?.data[0].latitude);
+      setLng(groupData?.data[0].longitude);
+      setLocal(groupData?.data[0].name);
+      setUserPath(groupData?.data[0].moveUserInfo.filter((item: any) => item.userId === userId));
+      setOtherUserPath(groupData?.data[0].moveUserInfo.filter((item: any) => item.userId != userId));
+    }
   }, [gData, groupData]);
 
   useEffect(() => {
     console.log(gNameData, 'gNameData');
     groupNameData !== gNameData && setGroupNameData(gNameData);
   }, [gNameData, groupNameData]);
-
-  if (groupData) {
-    setLat(groupData?.data[0].latitude);
-    setLng(groupData?.data[0].longitude);
-    setLocal(groupData?.data[0].name);
-    setUserPath(groupData?.data[0].moveUserInfo.filter((item: any) => item.userId === userId));
-    setOtherUserPath(groupData?.data[0].moveUserInfo.filter((item: any) => item.userId != userId));
-  }
 
   if (groupNameData) {
     sessionStorage.setItem('adminId', groupNameData?.data?.adminEmail);

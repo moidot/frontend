@@ -6,9 +6,11 @@ const MainPage = (props: any) => {
   console.log(props, 'props');
   return (
     <>
-      <DefaultLayout>
-        <Main id={props.id} />
-      </DefaultLayout>
+      {props && (
+        <DefaultLayout>
+          <Main id={props.id} />
+        </DefaultLayout>
+      )}
     </>
   );
 };
