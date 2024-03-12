@@ -1,5 +1,5 @@
 import { userNavAtom } from '@/states/userNavAtom';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { NAV_LIST } from '../common/navbar/Navigation';
 import ShareButton from '../common/button/share';
@@ -30,12 +30,21 @@ const Main = ({ id }: MainProps) => {
 
   const setUserAtom = useSetRecoilState(userNavAtom);
   setUserAtom({ activeNavType: NAV_LIST.MAIN });
+  const [groupData, setGroupData] = useState<any>();
+  const [groupNameData, setGroupNameData] = useState<any>();
 
-  const { data: groupData, isLoading } = useGetGroupBestRegion(token, parseInt(id));
-  const { data: groupNameData } = useGetGroup(token, parseInt(id));
+  const { data: gData, isLoading } = useGetGroupBestRegion(token, parseInt(id));
+  const { data: gNameData } = useGetGroup(token, parseInt(id));
   // 0번째 추천 지역 대상으로 lat,lng 추출
+  useEffect(() => {
+    console.log(gData, 'gData');
+    groupData !== gData && setGroupData(gData);
+  }, [gData, groupData]);
 
-  console.log(groupData);
+  useEffect(() => {
+    console.log(gNameData, 'gNameData');
+    groupNameData !== gNameData && setGroupNameData(gNameData);
+  }, [gNameData, groupNameData]);
 
   if (groupData) {
     lat = groupData?.data[0].latitude;
@@ -48,9 +57,9 @@ const Main = ({ id }: MainProps) => {
   }
 
   // 현재 로그인된 유저의 path
-  const userPath = groupData?.data[0].moveUserInfo.filter((item) => item.userId === userId);
+  const userPath = groupData?.data[0].moveUserInfo.filter((item: any) => item.userId === userId);
   // 유저 이외의 사람들의 path
-  const otherUserPath = groupData?.data[0].moveUserInfo.filter((item) => item.userId != userId);
+  const otherUserPath = groupData?.data[0].moveUserInfo.filter((item: any) => item.userId != userId);
 
   // 위도,경도 전역 상태로 관리
   return (
