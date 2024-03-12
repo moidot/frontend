@@ -69,14 +69,14 @@ const Main = ({ id }: MainProps) => {
             <ShareButton teamname={groupNameData?.data.name} />
           </div>
 
-          {userPath && otherUserPath ? (
+          {userPath && otherUserPath && (
             <KakaoMap
               lat={parseFloat(groupData?.data[0].latitude.toString() as string)}
               lng={parseFloat(groupData?.data[0].longitude.toString() as string)}
               user={userPath}
               otherUser={otherUserPath}
             />
-          ) : null}
+          )}
 
           {groupData ? (
             <Recommendation code={groupData.code} message={groupData.message} data={groupData.data} />

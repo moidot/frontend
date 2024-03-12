@@ -1,14 +1,22 @@
 import DefaultLayout from '@/components/common/layout/defaultLayout';
 import Main from '@/components/main';
 import { GetServerSideProps } from 'next';
+import { useEffect, useState } from 'react';
 
 const MainPage = (props: any) => {
-  console.log(props);
+  const [id, setId] = useState<any>('');
+  useEffect(() => {
+    props && setId(props.id);
+  }, []);
+
+  console.log(props, 'props');
   return (
     <>
-      <DefaultLayout>
-        <Main id={props.id} />
-      </DefaultLayout>
+      {props && (
+        <DefaultLayout>
+          <Main id={id} />
+        </DefaultLayout>
+      )}
     </>
   );
 };
