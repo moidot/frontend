@@ -24,12 +24,26 @@ const VoteWaitPage = () => {
   const group = useRecoilValue(groupIdAtom);
   const response = useGetGroupVote(token, group.groupId);
   const getGroup = useGetGroup(token, group.groupId);
+  const [sumParticipant, setSumParticipant] = useState<number>(0);
   useEffect(() => {
     if (response.data?.message === '성공') setVoteData(response.data?.data);
     if (getGroup.data?.message === '성공') setGroupData(getGroup.data?.data);
     setAdminEmail(groupData?.adminEmail);
   }, [getGroup.data?.data, getGroup.data?.message, groupData?.adminEmail, response]);
 
+  useEffect(() => {
+    let count = 0;
+    groupData?.participantsByRegion.map((item: any) => item.participations.map((i: any) => i && count++));
+    setSumParticipant(count);
+  }, [groupData?.participantsByRegion]);
+
+  const handleClickVoteStartBtn = () => {
+    if (sumParticipant < 2) {
+      alert('투표 생성은 모임원이 2인 이상일 경우에만 가능합니다.');
+    } else {
+      router.push(`/vote/setting/${group.groupId}`);
+    }
+  };
   return (
     <section>
       <Header />
@@ -39,9 +53,7 @@ const VoteWaitPage = () => {
           <VoteTitle groupName={voteData?.groupName} groupDate={voteData?.groupDate} />
         </div>
         <VoteBox admin={adminEmail} groupName={voteData?.groupName} />
-        <div onClick={() => router.push(`/vote/setting/${group.groupId}`)}>
-          {currentUserEmail === adminEmail && <VoteStartBtn />}
-        </div>
+        <div onClick={handleClickVoteStartBtn}> {currentUserEmail === adminEmail && <VoteStartBtn />}</div>
       </div>
     </section>
   );
