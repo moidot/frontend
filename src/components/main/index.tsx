@@ -64,7 +64,7 @@ const Main = ({ id }: MainProps) => {
   // 위도,경도 전역 상태로 관리
   return (
     <>
-      {groupData ? (
+      {groupData === undefined ? (
         <>
           <LoadingPage />
         </>
