@@ -33,7 +33,6 @@ const SpaceCreateInfo = () => {
     setData({ name: name, date: date });
   };
   const onNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // console.log()
     setName(event.currentTarget.value);
 
     if (name.length === 15) {

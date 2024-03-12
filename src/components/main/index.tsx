@@ -23,10 +23,20 @@ const Main = ({ id }: MainProps) => {
   setGroupId({
     groupId: parseInt(id),
   });
+  // 새로고침 test => let 변수 state로 관리
+  // let lat = 0;
+  // let lng = 0;
+  // let local = '';
+  // // 현재 로그인된 유저의 path
+  // const userPath = groupData?.data[0].moveUserInfo.filter((item: any) => item.userId === userId);
+  // // 유저 이외의 사람들의 path
+  // const otherUserPath = groupData?.data[0].moveUserInfo.filter((item: any) => item.userId != userId);
 
-  let lat = 0;
-  let lng = 0;
-  let local = '';
+  const [lat, setLat] = useState<number>(0);
+  const [lng, setLng] = useState<number>(0);
+  const [local, setLocal] = useState<any>('');
+  const [userPath, setUserPath] = useState<any>([]);
+  const [otherUserPath, setOtherUserPath] = useState<any>([]);
 
   const setUserAtom = useSetRecoilState(userNavAtom);
   setUserAtom({ activeNavType: NAV_LIST.MAIN });
@@ -47,19 +57,16 @@ const Main = ({ id }: MainProps) => {
   }, [gNameData, groupNameData]);
 
   if (groupData) {
-    lat = groupData?.data[0].latitude;
-    lng = groupData?.data[0].longitude;
-    local = groupData?.data[0].name;
+    setLat(groupData?.data[0].latitude);
+    setLng(groupData?.data[0].longitude);
+    setLocal(groupData?.data[0].name);
+    setUserPath(groupData?.data[0].moveUserInfo.filter((item: any) => item.userId === userId));
+    setOtherUserPath(groupData?.data[0].moveUserInfo.filter((item: any) => item.userId != userId));
   }
 
   if (groupNameData) {
     sessionStorage.setItem('adminId', groupNameData?.data?.adminEmail);
   }
-
-  // 현재 로그인된 유저의 path
-  const userPath = groupData?.data[0].moveUserInfo.filter((item: any) => item.userId === userId);
-  // 유저 이외의 사람들의 path
-  const otherUserPath = groupData?.data[0].moveUserInfo.filter((item: any) => item.userId != userId);
 
   // 위도,경도 전역 상태로 관리
   return (
