@@ -13,12 +13,17 @@ import api from '@/services/TokenService';
 
 const InviteSpaceInvite = ({ router }: any) => {
   // const rut = useRouter();
+  // test 코드...
+  // const data = require('/public/test/participate.json');
+  // const partData = data.data;
   const response = getInviteGroup(router.query.id);
-  const token = api.getToken();
+  const currentUserEmail = api.getEmail();
   const [partData, setPartData] = useState<ParticipationProps>();
   const [clickPlus, setClickPlus] = useState<boolean>(false);
   const setGroupName = useSetRecoilState(groupNameAtom);
 
+  console.log(currentUserEmail, 'currentEmaul');
+  const [isParticipateCurrentUser, setIsParticipateCurrentUser] = useState<any>('');
   useEffect(() => {
     const promise = response;
     const getData = () => {
@@ -33,6 +38,17 @@ const InviteSpaceInvite = ({ router }: any) => {
   useEffect(() => {
     if (partData?.name !== undefined) setGroupName(partData?.name);
   }, [partData?.name, setGroupName]);
+
+  useEffect(() => {
+    const findUser: any = partData?.participantsByRegion?.find((item: any) =>
+      item.participations.find((i: any) => currentUserEmail === i.userEmail),
+    );
+    findUser &&
+      setIsParticipateCurrentUser(
+        findUser?.participations?.find((i: any) => i.userEmail === currentUserEmail).userEmail,
+      );
+  }, [currentUserEmail, partData?.participantsByRegion]);
+
   return (
     <section>
       <Header />
@@ -40,7 +56,7 @@ const InviteSpaceInvite = ({ router }: any) => {
       <div className="max-w-[1200px] mx-auto font-Pretendard">
         {partData && <ParticipationList data={partData} mode={false} setMode={undefined} />}
       </div>
-      {token === undefined && (
+      {isParticipateCurrentUser === currentUserEmail && (
         <div
           onClick={() => {
             setClickPlus(true);
