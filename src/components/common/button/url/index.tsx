@@ -12,7 +12,7 @@ interface UrlProps {
 
 const UrlButton = ({ pathname, teamname }: UrlProps) => {
   const baseURL = 'https://www.moidot.co.kr'; // 배포 url로 변경하기
-  const groupIdAtom = useRecoilValue(groupIdAtom);
+  const id: any = useRecoilValue(groupIdAtom);
   useEffect(() => {
     console.log(pathname.split('/').slice(-1)[0]);
     console.log('yayayay', pathname);
@@ -49,7 +49,7 @@ const UrlButton = ({ pathname, teamname }: UrlProps) => {
     <div className="flex w-[90vw] desktop:w-[440px] justify-between items-center text-b3 text-font_black mx-auto">
       <div
         className="flex items-center cursor-pointer text-b2"
-        onClick={() => handleCopyClipBoard(`${baseURL}/invite/${groupIdAtom.groupId}`)}>
+        onClick={() => handleCopyClipBoard(`${baseURL}/invite/${id.groupId}`)}>
         URL 복사하기
         <Copy className="ml-2" />
       </div>
