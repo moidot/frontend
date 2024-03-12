@@ -60,7 +60,7 @@ const Main = ({ id }: MainProps) => {
 
   useEffect(() => {
     console.log(gNameData, 'gNameData');
-    groupNameData.data !== gNameData && setGroupNameData(gNameData.data);
+    groupNameData !== gNameData?.data && setGroupNameData(gNameData?.data);
   }, [gNameData, groupNameData]);
 
   if (groupNameData) {
