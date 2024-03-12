@@ -1,13 +1,9 @@
 import DefaultLayout from '@/components/common/layout/defaultLayout';
 import Main from '@/components/main';
 import { GetServerSideProps } from 'next';
-import { useEffect } from 'react';
 
 const MainPage = (props: any) => {
   console.log(props, 'props');
-  useEffect(() => {
-    location.reload();
-  }, []);
   return (
     <>
       {props && (

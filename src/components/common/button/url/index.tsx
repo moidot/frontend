@@ -2,6 +2,8 @@ import KakaoTalk from '@assets/participate/icon_kakao_talk.svg';
 import Copy from '@assets/participate/icon_copy.svg';
 import { handleCopyClipBoard } from '@/utils/copyUrl';
 import { useEffect } from 'react';
+import { useRecoilValue } from 'recoil';
+import { groupIdAtom } from '@/states/groupIdAtom';
 
 interface UrlProps {
   pathname: string;
@@ -10,6 +12,7 @@ interface UrlProps {
 
 const UrlButton = ({ pathname, teamname }: UrlProps) => {
   const baseURL = 'https://www.moidot.co.kr'; // 배포 url로 변경하기
+  const groupIdAtom = useRecoilValue(groupIdAtom);
   useEffect(() => {
     console.log(pathname.split('/').slice(-1)[0]);
     console.log('yayayay', pathname);
@@ -46,7 +49,7 @@ const UrlButton = ({ pathname, teamname }: UrlProps) => {
     <div className="flex w-[90vw] desktop:w-[440px] justify-between items-center text-b3 text-font_black mx-auto">
       <div
         className="flex items-center cursor-pointer text-b2"
-        onClick={() => handleCopyClipBoard(`${baseURL}${pathname}`)}>
+        onClick={() => handleCopyClipBoard(`${baseURL}/invite/${groupIdAtom.groupId}`)}>
         URL 복사하기
         <Copy className="ml-2" />
       </div>
