@@ -74,6 +74,7 @@ const Main = ({ id }: MainProps) => {
       {groupData === undefined ? (
         <>
           <LoadingPage />
+          {location.reload()}
         </>
       ) : (
         <div className="flex flex-col ">

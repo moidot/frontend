@@ -24,25 +24,25 @@ const SpaceCreateName = () => {
     const regex = /^[a-zA-Z0-9ㄱ-ㅣ가-힣]*$/;
 
     // regex처리
-    if (regex.test(name) == false) {
+    if (regex.test(event.currentTarget.value) === false) {
       setError('부적절한 닉네임입니다 (특수문자)');
+    } else if (event.currentTarget.value.length === 8) {
+      setError('닉네임 최대입력은 8자까지에요');
     } else {
       setError('');
     }
-    // 글자길이 에러
-    if (name.length === 8) {
-      setError('닉네임 최대입력은 8자까지에요');
-    } else if (name.length !== 8) {
-      setError('');
-    }
+
     // 글자길이
-    if (name.length > 8) {
+    if (event.currentTarget.value.length > 8) {
       setName('');
     }
-    if (name.length <= 8 && name.length >= 1 && regex.test(name) == true) {
+    if (
+      event.currentTarget.value.length <= 8 &&
+      event.currentTarget.value.length > 0 &&
+      regex.test(event.currentTarget.value) == true
+    ) {
       setActive(true);
-    }
-    if (name.length == 1) {
+    } else {
       setActive(false);
     }
   };

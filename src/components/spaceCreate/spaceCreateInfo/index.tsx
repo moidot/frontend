@@ -35,13 +35,13 @@ const SpaceCreateInfo = () => {
   const onNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.currentTarget.value);
 
-    if (name.length === 15) {
+    if (event.currentTarget.value.length === 15) {
       setError('모임명 최대입력은 15자까지에요');
-    } else if (name.length !== 15) {
+    } else if (event.currentTarget.value.length !== 15) {
       setError('');
     }
-    if (name.length > 15) setName('');
-    if (name != '' && date != DEFAULT_DATE) {
+    if (event.currentTarget.value.length > 15) setName('');
+    if (event.currentTarget.value != '' && date != DEFAULT_DATE) {
       setActive(true);
     }
   };
