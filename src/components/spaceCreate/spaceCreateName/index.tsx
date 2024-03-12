@@ -18,6 +18,7 @@ const SpaceCreateName = () => {
     setCurrent(<SpaceCreateMoveInfo />);
     setData({ name: data?.name, date: data?.date, nickname: name });
   };
+
   const onNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.currentTarget.value);
     const regex = /^[a-zA-Z0-9ㄱ-ㅣ가-힣]*$/;
@@ -28,8 +29,14 @@ const SpaceCreateName = () => {
     } else {
       setError('');
     }
+    // 글자길이 에러
+    if (name.length === 8) {
+      setError('닉네임 최대입력은 8자까지에요');
+    } else if (name.length !== 8) {
+      setError('');
+    }
     // 글자길이
-    if (name.length >= 8) {
+    if (name.length > 8) {
       setName('');
     }
     if (name.length <= 8 && name.length >= 1 && regex.test(name) == true) {

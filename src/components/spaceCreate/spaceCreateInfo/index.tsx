@@ -15,6 +15,7 @@ const SpaceCreateInfo = () => {
   const router = useRouter();
   const [name, setName] = useState('');
   const [date, setDate] = useState<string>(DEFAULT_DATE);
+  const [error, setError] = useState<string>('');
   const [active, setActive] = useState(false);
   const [portalElement, setPortalElement] = useState<Element | null>(null);
   const [modalClick, setModalClick] = useState(false);
@@ -32,12 +33,15 @@ const SpaceCreateInfo = () => {
     setData({ name: name, date: date });
   };
   const onNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    // console.log()
     setName(event.currentTarget.value);
-    if (name.length == 15) {
-      setName('모임명 최대입력은 15자까지에요');
-    } else if (name.length >= 16) {
-      setName('');
+
+    if (name.length === 15) {
+      setError('모임명 최대입력은 15자까지에요');
+    } else if (name.length !== 15) {
+      setError('');
     }
+    if (name.length > 15) setName('');
     if (name != '' && date != DEFAULT_DATE) {
       setActive(true);
     }
@@ -78,6 +82,7 @@ const SpaceCreateInfo = () => {
           value={name}
           onChange={onNameChange}
         />
+        <div className="font-normal font-Pretendard text-b3 text-alert_delete pt-[16px]">{error}</div>
       </div>
       <div className="pt-[83px] w-[590px] gap-[32px]">
         <div className="flex flex-row items-center mb-[12px]">
