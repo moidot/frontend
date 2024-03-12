@@ -33,7 +33,7 @@ const Main = ({ id }: MainProps) => {
   const [groupData, setGroupData] = useState<any>();
   const [groupNameData, setGroupNameData] = useState<any>();
 
-  const { data: gData, isLoading } = useGetGroupBestRegion(token, parseInt(id));
+  const { data: gData } = useGetGroupBestRegion(token, parseInt(id));
   const { data: gNameData } = useGetGroup(token, parseInt(id));
   // 0번째 추천 지역 대상으로 lat,lng 추출
   useEffect(() => {
@@ -64,7 +64,7 @@ const Main = ({ id }: MainProps) => {
   // 위도,경도 전역 상태로 관리
   return (
     <>
-      {isLoading ? (
+      {groupData ? (
         <>
           <LoadingPage />
         </>
