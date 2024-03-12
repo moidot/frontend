@@ -47,11 +47,6 @@ const Main = ({ id }: MainProps) => {
   const { data: gNameData } = useGetGroup(token, parseInt(id));
   // 0번째 추천 지역 대상으로 lat,lng 추출
 
-  //임시 새로고침 ㅠ
-  useEffect(() => {
-    location.reload();
-  }, []);
-
   useEffect(() => {
     console.log(gData, 'gData');
     groupData !== gData && setGroupData(gData);
