@@ -44,7 +44,7 @@ const Main = ({ id }: MainProps) => {
   const [groupNameData, setGroupNameData] = useState<any>();
 
   const { data: gData } = useGetGroupBestRegion(token, parseInt(id));
-  const { data: gNameData } = useGetGroup(token, parseInt(id));
+  const gNameData = useGetGroup(token, parseInt(id));
   // 0번째 추천 지역 대상으로 lat,lng 추출
   useEffect(() => {
     console.log(gData, 'gData');
@@ -60,7 +60,7 @@ const Main = ({ id }: MainProps) => {
 
   useEffect(() => {
     console.log(gNameData, 'gNameData');
-    groupNameData !== gNameData && setGroupNameData(gNameData);
+    groupNameData.data !== gNameData && setGroupNameData(gNameData.data);
   }, [gNameData, groupNameData]);
 
   if (groupNameData) {
@@ -86,8 +86,8 @@ const Main = ({ id }: MainProps) => {
 
           {userPath && otherUserPath && (
             <KakaoMap
-              lat={parseFloat(groupData?.data[0].latitude.toString() as string)}
-              lng={parseFloat(groupData?.data[0].longitude.toString() as string)}
+              lat={parseFloat(lat.toString() as string)}
+              lng={parseFloat(lng.toString() as string)}
               user={userPath}
               otherUser={otherUserPath}
             />
