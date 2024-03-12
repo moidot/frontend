@@ -56,7 +56,7 @@ const InviteSpaceInvite = ({ router }: any) => {
       <div className="max-w-[1200px] mx-auto font-Pretendard">
         {partData && <ParticipationList data={partData} mode={false} setMode={undefined} />}
       </div>
-      {isParticipateCurrentUser === currentUserEmail && (
+      {isParticipateCurrentUser !== currentUserEmail && (
         <div
           onClick={() => {
             setClickPlus(true);
