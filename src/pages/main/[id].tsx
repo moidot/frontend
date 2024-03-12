@@ -6,13 +6,13 @@ import { useEffect, useState } from 'react';
 const MainPage = (props: any) => {
   const [id, setId] = useState<any>('');
   useEffect(() => {
-    props && setId(props.id);
-  }, []);
+    props.id !== id && setId(props.id);
+  }, [props]);
 
   console.log(props, 'props');
   return (
     <>
-      {props && (
+      {id && (
         <DefaultLayout>
           <Main id={id} />
         </DefaultLayout>
