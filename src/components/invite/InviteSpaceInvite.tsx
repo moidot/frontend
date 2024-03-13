@@ -11,27 +11,34 @@ import { groupNameAtom } from '@/states/groupNameAtom';
 import api from '@/services/TokenService';
 // import { useRouter } from 'next/router';
 
-const InviteSpaceInvite = ({ router }: any) => {
+const InviteSpaceInvite = ({ id }: any) => {
   // const rut = useRouter();
   // test 코드...
   // const data = require('/public/test/participate.json');
   // const partData = data.data;
-  const response = getInviteGroup(router.query.id);
+
+  const response: any = getInviteGroup(id);
   const currentUserEmail = api.getEmail();
   const [partData, setPartData] = useState<ParticipationProps>();
   const [clickPlus, setClickPlus] = useState<boolean>(false);
   const setGroupName = useSetRecoilState(groupNameAtom);
   const [isParticipateCurrentUser, setIsParticipateCurrentUser] = useState<any>('');
+
   useEffect(() => {
-    const promise = response;
-    const getData = () => {
-      promise.then((dummy) => {
-        setPartData(dummy.data);
-      });
-    };
-    getData();
-    sessionStorage.setItem('groupId', router.query.id);
-  }, [response, router.query.id]);
+    if (response?.data?.message === '성공') setPartData(response.data?.data);
+    sessionStorage.setItem('groupId', id);
+  }, [id, response]);
+
+  // useEffect(() => {
+  //   const promise = response;
+  //   const getData = () => {
+  //     promise.then((dummy) => {
+  //       setPartData(dummy.data);
+  //     });
+  //   };
+  //   getData();
+  //   sessionStorage.setItem('groupId', router.query.id);
+  // }, [response, router.query.id]);
 
   useEffect(() => {
     if (partData?.name !== undefined) setGroupName(partData?.name);
