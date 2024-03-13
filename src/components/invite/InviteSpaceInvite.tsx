@@ -17,7 +17,7 @@ const InviteSpaceInvite = ({ id }: any) => {
   // const data = require('/public/test/participate.json');
   // const partData = data.data;
 
-  const response: any = getInviteGroup(id);
+  const response: any = getInviteGroup(parseInt(id));
   const currentUserEmail = api.getEmail();
   const [partData, setPartData] = useState<ParticipationProps>();
   const [clickPlus, setClickPlus] = useState<boolean>(false);
