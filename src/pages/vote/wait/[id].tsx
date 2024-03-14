@@ -23,7 +23,7 @@ const VoteWaitPage = () => {
   const [adminEmail, setAdminEmail] = useState<string | undefined>('');
   const group = useRecoilValue(groupIdAtom);
   const response = useGetGroupVote(token, group.groupId);
-  const getGroup = useGetGroup(token, group.groupId);
+  const getGroup = useGetGroup(group.groupId);
   const [sumParticipant, setSumParticipant] = useState<number>(0);
   useEffect(() => {
     if (response.data?.message === '성공') setVoteData(response.data?.data);

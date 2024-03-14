@@ -26,7 +26,7 @@ const ParticipatePage = () => {
   const token = api.getToken();
   const currentUserEmail = api.getEmail();
   const group = useRecoilValue(groupIdAtom);
-  const response = useGetGroup(token, group.groupId);
+  const response = useGetGroup(group.groupId);
   const setCurrentUserData = useSetRecoilState(myInfoUserAtom);
 
   const deleteLeaderTitle: string = '정말 모이닷 스페이스를 삭제하시겠어요?';

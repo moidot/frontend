@@ -2,13 +2,12 @@ import { useEffect, useState } from 'react';
 import { Funnel } from '../funnel/Funnel';
 import SpaceCreateMoveInfo from './spaceCreateMoveInfo/index';
 import SpaceCreateName from './spaceCreateName/index';
-import api from '@/services/TokenService';
 import { useGetGroup } from '@/hooks/useGetGroup';
 
 const InviteSpaceCreate = () => {
-  const token = api.getToken();
+  // const token = api.getToken();
   const [groupId, setGroupId] = useState<any>();
-  const response = useGetGroup(token, groupId);
+  const response = useGetGroup(groupId);
   const gId = typeof window !== 'undefined' ? sessionStorage.getItem('groupId') : null;
 
   useEffect(() => {

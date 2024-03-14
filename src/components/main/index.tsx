@@ -44,7 +44,7 @@ const Main = ({ id }: MainProps) => {
   const [groupNameData, setGroupNameData] = useState<any>();
 
   const { data: gData } = useGetGroupBestRegion(token, parseInt(id));
-  const { data: gNameData } = useGetGroup(token, parseInt(id));
+  const { data: gNameData } = useGetGroup(parseInt(id));
   // 0번째 추천 지역 대상으로 lat,lng 추출
 
   useEffect(() => {

@@ -4,11 +4,11 @@ import Header from '../common/header';
 import ParticipationList from '../participate/ParticipationList';
 import Navbar from '../common/navbar';
 import { NAV_LIST } from '../common/navbar/Navigation';
-import { getInviteGroup } from '@/apis/getInviteGroup';
 import LoginPopup from './LoginPopup';
 import { useSetRecoilState } from 'recoil';
 import { groupNameAtom } from '@/states/groupNameAtom';
 import api from '@/services/TokenService';
+import { useGetGroup } from '@/hooks/useGetGroup';
 // import { useRouter } from 'next/router';
 
 const InviteSpaceInvite = ({ id }: any) => {
@@ -17,16 +17,17 @@ const InviteSpaceInvite = ({ id }: any) => {
   // const data = require('/public/test/participate.json');
   // const partData = data.data;
 
-  const response: any = getInviteGroup(parseInt(id));
+  const response = useGetGroup(parseInt(id));
   const currentUserEmail = api.getEmail();
   const [partData, setPartData] = useState<ParticipationProps>();
   const [clickPlus, setClickPlus] = useState<boolean>(false);
-  const setGroupName = useSetRecoilState(groupNameAtom);
   const [isParticipateCurrentUser, setIsParticipateCurrentUser] = useState<any>('');
+  const setGroupName = useSetRecoilState(groupNameAtom);
 
   useEffect(() => {
     if (response?.data?.message === '성공') setPartData(response.data?.data);
     sessionStorage.setItem('groupId', id);
+    console.log('id입니다: ', id);
   }, [id, response]);
 
   // useEffect(() => {
