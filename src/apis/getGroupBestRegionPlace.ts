@@ -5,7 +5,6 @@ import customedAxios from './customedAxios';
 export type KeywordType = '카페' | '스터디카페' | '식당' | '도서관' | '스터디룸';
 
 export const getGroupBestRegionPlace = async (
-  token: string,
   x: string,
   y: string,
   local: string,

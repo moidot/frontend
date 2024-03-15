@@ -42,7 +42,6 @@ interface PlaceDetailProps {
 }
 
 const Place = ({ lng, lat, local }: PlaceProps) => {
-  const token = api.getToken();
   const [modalClick, setModalClick] = useState(false);
   const [portalElement, setPortalElement] = useState<Element | null>(null);
   const [keyword, setKeyword] = useState<KeywordType>('카페');
@@ -68,7 +67,7 @@ const Place = ({ lng, lat, local }: PlaceProps) => {
       setCategory('STUDY_ROOM');
     }
   }, [chip]);
-  const { data: bestPlaceData } = useGetGroupBestRegionPlace(token, lat, lng, local, keyword);
+  const { data: bestPlaceData } = useGetGroupBestRegionPlace(lat, lng, local, keyword);
   console.log(local, '의 카테고리:', category, '키워드: ', keyword, '추천데이터:', bestPlaceData);
 
   const onChipClick = (chip: keyof typeof ChipList) => {
