@@ -33,7 +33,7 @@ const Main = ({ id }: MainProps) => {
 
   const [lat, setLat] = useState<number>(0);
   const [lng, setLng] = useState<number>(0);
-  const [local, setLocal] = useState<any>('');
+  const [local, setLocal] = useState<any>(null);
   const [userPath, setUserPath] = useState<any>([]);
   const [otherUserPath, setOtherUserPath] = useState<any>([]);
 
