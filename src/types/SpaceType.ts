@@ -37,7 +37,6 @@ export interface GetGroupBestRegionProps {
   latitude: number;
   longitude: number;
   moveUserInfo: GetUserInfoProps[];
-  index: number;
 }
 
 export interface GetUserInfoProps {
