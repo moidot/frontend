@@ -1,6 +1,6 @@
 import TaxiButton from '@assets/main/taxi.svg';
 import SubwayButton from '@assets/main/subway.svg';
-import OthersMore from '@assets/main/others_more.svg';
+// import OthersMore from '@assets/main/others_more.svg';
 
 export interface NaviProps {
   name: string;
@@ -31,7 +31,7 @@ const OthersBox = ({ name, transportCount, transportType, money, time }: NaviPro
           </div>
           <div className="flex items-center flex-row gap-4">
             {transportType == 'PUBLIC' ? <SubwayButton /> : <TaxiButton />}
-            <OthersMore />
+            {/* <OthersMore /> */}
           </div>
         </div>
       </div>

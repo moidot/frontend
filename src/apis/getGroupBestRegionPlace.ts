@@ -15,11 +15,6 @@ export const getGroupBestRegionPlace = async (
   try {
     const res = await customedAxios.get(
       `${process.env.NEXT_PUBLIC_BASE_URL}/group/best-region/place?x=${x}&y=${y}&local=${local}&keyword=${keyword}`,
-      {
-        headers: {
-          Authorization: 'Bearer ' + token,
-        },
-      },
     );
     return res.data;
   } catch (error) {

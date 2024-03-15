@@ -18,7 +18,6 @@ interface MainProps {
 
 const Main = ({ id }: MainProps) => {
   const userId = api.getId();
-  const token = api.getToken();
   const setGroupId = useSetRecoilState(groupIdAtom);
   setGroupId({
     groupId: parseInt(id),
@@ -43,7 +42,7 @@ const Main = ({ id }: MainProps) => {
   const [groupData, setGroupData] = useState<any>();
   const [groupNameData, setGroupNameData] = useState<any>();
 
-  const { data: gData } = useGetGroupBestRegion(token, parseInt(id));
+  const { data: gData } = useGetGroupBestRegion(parseInt(id));
   const { data: gNameData } = useGetGroup(parseInt(id));
   // 0번째 추천 지역 대상으로 lat,lng 추출
 
@@ -55,7 +54,7 @@ const Main = ({ id }: MainProps) => {
       setLng(groupData?.data[0].longitude);
       setLocal(groupData?.data[0].name);
       setUserPath(groupData?.data[0].moveUserInfo.filter((item: any) => item.userId === userId));
-      setOtherUserPath(groupData?.data[0].moveUserInfo.filter((item: any) => item.userId != userId));
+      setOtherUserPath(groupData?.data[0].moveUserInfo.filter((item: any) => item.userId !== userId));
     }
   }, [gData, groupData]);
 

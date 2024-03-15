@@ -46,7 +46,7 @@ const Place = ({ lng, lat, local }: PlaceProps) => {
   const [modalClick, setModalClick] = useState(false);
   const [portalElement, setPortalElement] = useState<Element | null>(null);
   const [keyword, setKeyword] = useState<KeywordType>('카페');
-  const [chip, setChip] = useState<keyof typeof ChipList>(ChipList.LIBRARY);
+  const [chip, setChip] = useState<keyof typeof ChipList>(ChipList.CAFE);
   const [data, setData] = useState<PlaceDetailProps>();
   const [category, setCategory] = useState<keyof typeof ChipList>(ChipList.CAFE);
   // console.log(data);

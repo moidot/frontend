@@ -41,7 +41,7 @@ const SpaceCreateStartLocationModal = ({ modalClick, setModalClick }: SpaceCreat
         const coord = new window.kakao.maps.LatLng(geolocationInfo.coordinates?.lat, geolocationInfo.coordinates?.lng);
         let callback = function (result: any, status: any) {
           if (status === window.kakao.maps.services.Status.OK && loadCurrentLocation) {
-            const location = result[0].address.address_name;
+            const location = result[0].road_address.address_name;
             const lat = geolocationInfo.coordinates?.lat.toString() as string;
             const lng = geolocationInfo.coordinates?.lng.toString() as string;
             setLocation({ location: location, lat: lat, lng: lng });
@@ -106,7 +106,11 @@ const SpaceCreateStartLocationModal = ({ modalClick, setModalClick }: SpaceCreat
                 key={item.id}
                 onClick={() => {
                   setSelectedItemId(item.id);
-                  setLocation({ location: item.place_name, lat: item.y, lng: item.x });
+                  setLocation({
+                    location: item.road_address_name,
+                    lat: item.y,
+                    lng: item.x,
+                  });
                 }}
                 className={`w-[586px] h-[72px] mt-[53px] rounded-lg p-[20px]  flex flex-row items-center justify-between outline-none ${
                   selectedItemId === item.id ? 'bg-bg_orange' : ''

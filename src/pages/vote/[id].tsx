@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import VoteWaitPage from './wait/[id]';
 import VoteDetailPage from './detail/[id]';
+import InviteVoteBeforeLogin from '@/components/invite/InviteVoteBeforeLogin';
 
 const VotePage = () => {
   const token = api.getToken();
@@ -16,7 +17,17 @@ const VotePage = () => {
     if (response.data?.message === '성공') setVoteData(response.data?.data);
   }, [response]);
 
-  return <div>{voteData && voteData.voteId === -1 ? <VoteWaitPage /> : <VoteDetailPage />}</div>;
+  return (
+    <div>
+      {token === undefined ? (
+        <InviteVoteBeforeLogin />
+      ) : voteData && voteData.voteId === -1 ? (
+        <VoteWaitPage />
+      ) : (
+        <VoteDetailPage />
+      )}
+    </div>
+  );
   // return <></>;
 };
 
