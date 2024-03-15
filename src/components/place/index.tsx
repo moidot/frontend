@@ -12,7 +12,6 @@ import ChipRoomOff from '@assets/chip/chip_room_off.svg';
 import ChipStudyOff from '@assets/chip/chip_study_off.svg';
 import ChipStudyOn from '@assets/chip/chip_study_on.svg';
 import { useGetGroupBestRegionPlace } from '@/hooks/useGetGroupBestRegionPlace';
-import api from '@/services/TokenService';
 import { KeywordType } from '@/apis/getGroupBestRegionPlace';
 import PlaceDetail from '../placeDetail';
 import { BestRegionPlaceDetailProps } from '@/types/SpaceType';
