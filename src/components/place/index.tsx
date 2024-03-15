@@ -69,10 +69,10 @@ const Place = ({ lng, lat, local }: PlaceProps) => {
     }
   }, [chip]);
   const { data: bestPlaceData } = useGetGroupBestRegionPlace(token, lat, lng, local, keyword);
-  console.log(bestPlaceData);
+  console.log(local, '의 카테고리:', category, '키워드: ', keyword, '추천데이터:', bestPlaceData);
 
   const onChipClick = (chip: keyof typeof ChipList) => {
-    console.log(chip);
+    console.log('chip', chip);
     setChip(chip);
   };
   useEffect(() => {

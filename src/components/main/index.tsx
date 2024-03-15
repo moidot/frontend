@@ -100,7 +100,11 @@ const Main = ({ id }: MainProps) => {
           )}
 
           <div className="w-full h-full bg-light_orange p-8">
-            <Place lat={lat.toString()} lng={lng.toString()} local={local} />
+            {groupData ? (
+              <Place lat={lat.toString()} lng={lng.toString()} local={local} />
+            ) : (
+              <div>데이터를 불러올 수 없습니다.</div>
+            )}
           </div>
         </div>
       )}
