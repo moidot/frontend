@@ -1,12 +1,19 @@
+import { useSetRecoilState } from 'recoil';
 import AdminBox from '../common/main/AdminBox';
 import OthersBox from '../common/main/OthersBox';
 import { GetGroupBestRegionProps, GetUserInfoProps } from '@/types/SpaceType';
+import { recommendIndexAtom } from '@/states/recommendIndexAtom';
+import { useEffect } from 'react';
 
-const RecommendationItem = ({ name, moveUserInfo }: GetGroupBestRegionProps) => {
+const RecommendationItem = ({ name, moveUserInfo, index }: GetGroupBestRegionProps) => {
   console.log(moveUserInfo);
+  const setRecommendIndex = useSetRecoilState(recommendIndexAtom);
   const adminUser: GetUserInfoProps[] = moveUserInfo.filter((item) => item.isAdmin);
   // console.log(adminUser);
   const defaultUser: GetUserInfoProps[] = moveUserInfo.filter((item) => !item.isAdmin);
+  useEffect(() => {
+    setRecommendIndex(index);
+  }, [index, setRecommendIndex]);
   return (
     <div className="flex flex-col justify-center items-center">
       <div className="rounded-tl-lg rounded-tr-lg pt-6 pl-10 bg-main_orange w-[1200px] h-[84px] ">

@@ -28,6 +28,7 @@ const Recommendation = (props: GetGroupBestRegionListRes) => {
               latitude={item.latitude}
               longitude={item.longitude}
               moveUserInfo={item.moveUserInfo}
+              index={data.indexOf(item)}
             />
           </div>
         ))}

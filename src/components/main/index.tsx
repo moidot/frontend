@@ -1,6 +1,6 @@
 import { userNavAtom } from '@/states/userNavAtom';
 import React, { useEffect, useState } from 'react';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { NAV_LIST } from '../common/navbar/Navigation';
 import ShareButton from '../common/button/share';
 import Recommendation from './Recommendation';
@@ -11,6 +11,7 @@ import { useGetGroup } from '@/hooks/useGetGroup';
 import KakaoMap from './KakaoMap';
 import { groupIdAtom } from '@/states/groupIdAtom';
 import LoadingPage from '@/pages/loading';
+import { recommendIndexAtom } from '@/states/recommendIndexAtom';
 
 interface MainProps {
   id: string;
@@ -39,6 +40,7 @@ const Main = ({ id }: MainProps) => {
 
   const setUserAtom = useSetRecoilState(userNavAtom);
   setUserAtom({ activeNavType: NAV_LIST.MAIN });
+  const recommendIndex = useRecoilValue(recommendIndexAtom);
   const [groupData, setGroupData] = useState<any>();
   const [groupNameData, setGroupNameData] = useState<any>();
 
@@ -49,14 +51,17 @@ const Main = ({ id }: MainProps) => {
   useEffect(() => {
     console.log(gData, 'gData');
     groupData !== gData && setGroupData(gData);
-    if (groupData) {
-      setLat(groupData?.data[0].latitude);
-      setLng(groupData?.data[0].longitude);
-      setLocal(groupData?.data[0].name);
-      setUserPath(groupData?.data[0].moveUserInfo.filter((item: any) => item.userId === userId));
-      setOtherUserPath(groupData?.data[0].moveUserInfo.filter((item: any) => item.userId !== userId));
-    }
   }, [gData, groupData]);
+
+  useEffect(() => {
+    if (groupData) {
+      setLat(groupData?.data[recommendIndex].latitude);
+      setLng(groupData?.data[recommendIndex].longitude);
+      setLocal(groupData?.data[recommendIndex].name);
+      setUserPath(groupData?.data[recommendIndex].moveUserInfo.filter((item: any) => item.userId === userId));
+      setOtherUserPath(groupData?.data[recommendIndex].moveUserInfo.filter((item: any) => item.userId !== userId));
+    }
+  }, [groupData, recommendIndex, userId]);
 
   useEffect(() => {
     console.log(gNameData, 'gNameData');
@@ -86,8 +91,8 @@ const Main = ({ id }: MainProps) => {
 
           {userPath && otherUserPath && (
             <KakaoMap
-              lat={parseFloat(groupData?.data[0].latitude.toString() as string)}
-              lng={parseFloat(groupData?.data[0].longitude.toString() as string)}
+              lat={parseFloat(groupData?.data[recommendIndex].latitude.toString() as string)}
+              lng={parseFloat(groupData?.data[recommendIndex].longitude.toString() as string)}
               user={userPath}
               otherUser={otherUserPath}
             />
