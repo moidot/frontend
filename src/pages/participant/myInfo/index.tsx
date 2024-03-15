@@ -35,7 +35,28 @@ const MyInfoUpdatePage = () => {
   const [isClickedPatch, setIsClickedPatch] = useState<boolean>(false);
 
   useEffect(() => {
-    setLocation({ location: userData.address, lng: '', lat: '' });
+    const mapScript = document.createElement('script');
+
+    mapScript.async = true;
+    mapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_JS_KEY}&autoload=false&libraries=services`;
+
+    document.head.appendChild(mapScript);
+
+    // script가 완전히 로드된 후 실행
+    const onLoadKakaoMap = () => {
+      window.kakao.maps.load(() => {
+        const geocoder = new window.kakao.maps.services.Geocoder();
+
+        geocoder.addressSearch(userData.address, function (result: any, status: any) {
+          // 정상적으로 검색이 완료됐으면
+          if (status === window.kakao.maps.services.Status.OK) {
+            setLocation({ location: userData.address, lng: result[0].x, lat: result[0].y });
+          }
+        });
+      });
+    };
+    //script 완전히 로드된 후 지도 띄우는 코드
+    mapScript.addEventListener('load', onLoadKakaoMap);
   }, [setLocation, userData.address]);
 
   useEffect(() => {

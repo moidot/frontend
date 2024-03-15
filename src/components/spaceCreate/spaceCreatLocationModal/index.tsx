@@ -41,7 +41,7 @@ const SpaceCreateStartLocationModal = ({ modalClick, setModalClick }: SpaceCreat
         const coord = new window.kakao.maps.LatLng(geolocationInfo.coordinates?.lat, geolocationInfo.coordinates?.lng);
         let callback = function (result: any, status: any) {
           if (status === window.kakao.maps.services.Status.OK && loadCurrentLocation) {
-            const location = result[0].road_address.address_name;
+            const location = result[0].address.address_name;
             const lat = geolocationInfo.coordinates?.lat.toString() as string;
             const lng = geolocationInfo.coordinates?.lng.toString() as string;
             setLocation({ location: location, lat: lat, lng: lng });
@@ -65,6 +65,15 @@ const SpaceCreateStartLocationModal = ({ modalClick, setModalClick }: SpaceCreat
   const onLoadCurrentLocation = () => {
     setLoadCurrentLocation(true);
   };
+
+  const onSearchEnterKey = async (event: any) => {
+    const key: any = event.code;
+    if (key === 'Enter') {
+      const data = (await getKakaoSearchLocaton(searchLocationVal)).documents.slice(0, 7);
+      setSearchDataList(data);
+    }
+  };
+
   const onSearchClick = async () => {
     const data = (await getKakaoSearchLocaton(searchLocationVal)).documents.slice(0, 7);
     setSearchDataList(data);
@@ -88,6 +97,7 @@ const SpaceCreateStartLocationModal = ({ modalClick, setModalClick }: SpaceCreat
               placeholder="위치를 입력해주세요"
               value={searchLocationVal}
               onChange={onSearchLocationValChange}
+              onKeyDown={onSearchEnterKey}
             />
             <div onClick={onSearchClick}>
               <SearchIcon />
