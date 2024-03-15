@@ -9,6 +9,7 @@ import { getKakaoSearchLocaton } from '@/apis/getKakaoSearchLocation';
 import SearchLocationItem from './searchLocationItem';
 import { GetKakaoLocationSearchData } from '@/types/create';
 import { locationSearchAtom } from '@/states/locationSearchAtom';
+import FailSearchLocation from './failSearchLocation';
 
 interface SpaceCreateStartLocationModalProps {
   modalClick: boolean;
@@ -23,6 +24,7 @@ const SpaceCreateStartLocationModal = ({ modalClick, setModalClick }: SpaceCreat
   const [selectedItemId, setSelectedItemId] = useState<string | null>(null);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [location, setLocation] = useRecoilState(locationSearchAtom);
+  const [searched, setSearched] = useState<string>('');
 
   useEffect(() => {
     const mapScript = document.createElement('script');
@@ -70,12 +72,14 @@ const SpaceCreateStartLocationModal = ({ modalClick, setModalClick }: SpaceCreat
     const key: any = event.code;
     if (key === 'Enter') {
       const data = (await getKakaoSearchLocaton(searchLocationVal)).documents.slice(0, 7);
+      data.length === 0 ? setSearched('fail') : setSearched('success');
       setSearchDataList(data);
     }
   };
 
   const onSearchClick = async () => {
     const data = (await getKakaoSearchLocaton(searchLocationVal)).documents.slice(0, 7);
+    data.length === 0 ? setSearched('fail') : setSearched('success');
     setSearchDataList(data);
   };
 
@@ -110,7 +114,9 @@ const SpaceCreateStartLocationModal = ({ modalClick, setModalClick }: SpaceCreat
             </div>
           </div>
           <div className="w-[586px] h-[8px] bg-bg_orange mt-[22px] mb-[16px]"></div>
-          {searchDataList &&
+          {searched === 'fail' ? (
+            <FailSearchLocation />
+          ) : (
             searchDataList.map((item) => (
               <div
                 key={item.id}
@@ -121,6 +127,7 @@ const SpaceCreateStartLocationModal = ({ modalClick, setModalClick }: SpaceCreat
                     lat: item.y,
                     lng: item.x,
                   });
+                  setModalClick(!modalClick);
                 }}
                 className={`w-[586px] h-[72px] mt-[53px] rounded-lg p-[20px]  flex flex-row items-center justify-between outline-none ${
                   selectedItemId === item.id ? 'bg-bg_orange' : ''
@@ -132,7 +139,8 @@ const SpaceCreateStartLocationModal = ({ modalClick, setModalClick }: SpaceCreat
                   lng={item.x}
                 />
               </div>
-            ))}
+            ))
+          )}
         </div>
       </div>
     </div>

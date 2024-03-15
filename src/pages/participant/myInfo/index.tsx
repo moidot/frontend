@@ -148,7 +148,9 @@ const MyInfoUpdatePage = () => {
             <div className="text-b1 text-font_black">출발 위치</div>
           </div>
           <div className="relative w-full h-[72px] pt-[20px] pb-[20px] pl-[24px] pr-[24px] rounded-2xl bg-bg_orange flex flex-row items-center justify-between">
-            <div className="font-Pretendard text-b2 text-font_black">{location.location}</div>
+            <div className="font-Pretendard text-b2 text-font_black">
+              {location.location === '' ? userData.address : location.location}
+            </div>
             {modalClick && portalElement ? (
               <SpaceCreateStartLocationModal setModalClick={setModalClick} modalClick={modalClick} />
             ) : (
