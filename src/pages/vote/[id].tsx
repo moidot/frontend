@@ -6,16 +6,27 @@ import { useRecoilValue } from 'recoil';
 import VoteWaitPage from './wait/[id]';
 import VoteDetailPage from './detail/[id]';
 import InviteVoteBeforeLogin from '@/components/invite/InviteVoteBeforeLogin';
+import NotFound from '../404';
 
 const VotePage = () => {
   const token = api.getToken();
   const group = useRecoilValue(groupIdAtom);
-  const response = useGetGroupVote(token, group.groupId);
+  const { data: response, isLoading, isError } = useGetGroupVote(token, group.groupId);
   const [voteData, setVoteData] = useState<any>(null);
 
   useEffect(() => {
-    if (response.data?.message === '성공') setVoteData(response.data?.data);
+    if (response?.message === '성공') setVoteData(response?.data);
   }, [response]);
+
+  if (isLoading) {
+    console.log('isLoading', isLoading);
+    return <InviteVoteBeforeLogin />;
+  }
+
+  if (isError) {
+    console.log('isError', isError);
+    return <NotFound />;
+  }
 
   return (
     <div>

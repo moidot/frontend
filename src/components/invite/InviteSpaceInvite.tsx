@@ -2,13 +2,13 @@ import { ParticipationProps } from '@/types/ParticipateType';
 import { useEffect, useState } from 'react';
 import Header from '../common/header';
 import ParticipationList from '../participate/ParticipationList';
-import Navbar from '../common/navbar';
 import { NAV_LIST } from '../common/navbar/Navigation';
 import LoginPopup from './LoginPopup';
 import { useSetRecoilState } from 'recoil';
 import { groupNameAtom } from '@/states/groupNameAtom';
 import api from '@/services/TokenService';
 import { useGetGroup } from '@/hooks/useGetGroup';
+import InviteNavbar from '../common/navbar/inviteIndex';
 // import { useRouter } from 'next/router';
 
 const InviteSpaceInvite = ({ id }: any) => {
@@ -58,7 +58,7 @@ const InviteSpaceInvite = ({ id }: any) => {
   return (
     <section>
       <Header />
-      <Navbar focusType={NAV_LIST.PARTICIPANT} />
+      <InviteNavbar focusType={NAV_LIST.INVITE} />
       <div className="max-w-[1200px] mx-auto font-Pretendard">
         {partData && <ParticipationList data={partData} mode={false} setMode={undefined} />}
       </div>

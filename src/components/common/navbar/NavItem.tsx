@@ -7,14 +7,14 @@ type NavListType = keyof typeof NAV_LIST;
 interface NavItemProps {
   type: NavListType;
   isFocused: boolean;
-  groupId: number;
+  groupId: string | null;
 }
 
 const NavItem = ({ type, isFocused, groupId }: NavItemProps) => {
   const { url, label } = NAV_INFO[type];
   return (
     <>
-      {isFocused ? (
+      {isFocused && groupId !== null ? (
         <Link href={`${url}/${groupId}`} className="w-[400px] h-[29px] text-center">
           <div className="font-thin font-Pretendard text-main_orange text-b2">{label}</div>
           <div className="mt-1.5 w-full h-0.5 bg-main_orange rounded-2xl"></div>
