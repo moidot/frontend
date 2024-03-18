@@ -8,8 +8,8 @@ import { useSetRecoilState } from 'recoil';
 import { groupNameAtom } from '@/states/groupNameAtom';
 import api from '@/services/TokenService';
 import { useGetGroup } from '@/hooks/useGetGroup';
-import InviteNavbar from '../common/navbar/inviteIndex';
 import { groupIdAtom } from '@/states/groupIdAtom';
+import Navbar from '../common/navbar';
 // import { useRouter } from 'next/router';
 
 const InviteSpaceInvite = ({ id }: any) => {
@@ -29,7 +29,9 @@ const InviteSpaceInvite = ({ id }: any) => {
   useEffect(() => {
     if (response?.data?.message === '성공') setPartData(response.data?.data);
     sessionStorage.setItem('groupId', id);
-    id !== null && setGroupId(id);
+    setGroupId({
+      groupId: parseInt(id),
+    });
     console.log('id입니다: ', id);
   }, [id, response, setGroupId]);
 
@@ -61,7 +63,7 @@ const InviteSpaceInvite = ({ id }: any) => {
   return (
     <section>
       <Header />
-      <InviteNavbar focusType={NAV_LIST.INVITE} />
+      <Navbar focusType={NAV_LIST.PARTICIPANT} />
       <div className="max-w-[1200px] mx-auto font-Pretendard">
         {partData && <ParticipationList data={partData} mode={false} setMode={undefined} />}
       </div>

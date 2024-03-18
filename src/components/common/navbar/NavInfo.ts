@@ -19,8 +19,4 @@ export const NAV_INFO = {
     label: '투표',
     url: NAV_URL_LIST.VOTE,
   },
-  [NAV_LIST.INVITE]: {
-    label: '초대',
-    url: NAV_URL_LIST.INVITE,
-  },
 } as const satisfies Record<(typeof NAV_LIST)[keyof typeof NAV_LIST], NavItemType>;
