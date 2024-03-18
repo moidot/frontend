@@ -9,6 +9,7 @@ import { groupNameAtom } from '@/states/groupNameAtom';
 import api from '@/services/TokenService';
 import { useGetGroup } from '@/hooks/useGetGroup';
 import InviteNavbar from '../common/navbar/inviteIndex';
+import { groupIdAtom } from '@/states/groupIdAtom';
 // import { useRouter } from 'next/router';
 
 const InviteSpaceInvite = ({ id }: any) => {
@@ -23,12 +24,14 @@ const InviteSpaceInvite = ({ id }: any) => {
   const [clickPlus, setClickPlus] = useState<boolean>(false);
   const [isParticipateCurrentUser, setIsParticipateCurrentUser] = useState<any>('');
   const setGroupName = useSetRecoilState(groupNameAtom);
+  const setGroupId = useSetRecoilState(groupIdAtom);
 
   useEffect(() => {
     if (response?.data?.message === '성공') setPartData(response.data?.data);
     sessionStorage.setItem('groupId', id);
+    id !== null && setGroupId(id);
     console.log('id입니다: ', id);
-  }, [id, response]);
+  }, [id, response, setGroupId]);
 
   // useEffect(() => {
   //   const promise = response;

@@ -7,7 +7,7 @@ type NavListType = keyof typeof NAV_LIST;
 interface NavItemProps {
   type: NavListType;
   isFocused: boolean;
-  groupId: string | null;
+  groupId: number;
 }
 
 const NavItem = ({ type, isFocused, groupId }: NavItemProps) => {
