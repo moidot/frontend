@@ -19,11 +19,13 @@ import { deleteGroupParticipate } from '@/apis/deleteGroupParticipate';
 import { deleteGroup } from '@/apis/deleteGroup';
 import LoadingPage from '@/pages/loading';
 import NotFound from '@/pages/404';
+import { useGetGroupVote } from '@/hooks/useGetGroupVote';
 
 const Participate = ({ id }: any) => {
   // const [partData, setPartData] = useState<ParticipationProps>();
 
   const { data: response, isLoading, isError } = useGetGroup(parseInt(id));
+  const { data: voteData } = useGetGroupVote(parseInt(id));
   const currentUserEmail = api.getEmail();
   const token = api.getToken();
   const [partData, setPartData] = useState<ParticipationProps>();
@@ -33,6 +35,7 @@ const Participate = ({ id }: any) => {
 
   const [updateMode, setUpdateMode] = useState<boolean>(false);
   const [isClickDelete, setIsClickDelete] = useState<boolean>(false);
+  const [voteId, setVoteId] = useState<any>(null);
   const [role, setRole] = useState<string>('member'); // 모임장 / 모임원 구분
   const router = useRouter();
   const group = useRecoilValue(groupIdAtom);
@@ -48,6 +51,10 @@ const Participate = ({ id }: any) => {
   useEffect(() => {
     if (response?.message === '성공') setPartData(response?.data);
   }, [response]);
+
+  useEffect(() => {
+    if (voteData?.data) setVoteId(voteData?.data?.voteId);
+  }, [voteData]);
 
   useEffect(() => {
     sessionStorage.setItem('groupId', id);
@@ -123,7 +130,7 @@ const Participate = ({ id }: any) => {
         {token === undefined ? (
           <div
             onClick={() => {
-              setClickPlus(true);
+              voteId === -1 ? setClickPlus(true) : alert('투표 시작 후에는 참여가 불가능합니다.');
             }}
             className="flex cursor-pointer w-[90vw] desktop:w-[585px] h-[78px] mx-auto mt-[100px] mb-[150px] items-center justify-center bg-main_orange rounded-2xl text-white text-b1 font-bold font-Pretendard">
             내 정보 추가하기
