@@ -36,7 +36,7 @@ const VoteDetailPage = () => {
   const groupAdminId = typeof window !== 'undefined' ? sessionStorage.getItem('adminId') : null;
   const [voteIds, setVoteIds] = useState<any>([]);
 
-  const response = useGetGroupVote(token, groupIdData.groupId);
+  const response = useGetGroupVote(groupIdData.groupId);
   const currentId = api.getEmail();
   const voteP: voteSelectPlaceData = {
     groupId: groupIdData.groupId,
@@ -80,8 +80,9 @@ const VoteDetailPage = () => {
   useEffect(() => {
     console.log('voteIDS... : ', voteIds);
   }, [voteIds]);
+
   //투표 참여 API react-query mutation
-  const postGroupVoteSelectMutation = useMutation((data: VoteSelectData) => postGroupVoteSelect(token, data), {
+  const postGroupVoteSelectMutation: any = useMutation((data: VoteSelectData) => postGroupVoteSelect(token, data), {
     onSuccess: () => {
       alert('투표 참여 완료!');
       location.reload();

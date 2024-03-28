@@ -11,7 +11,7 @@ import NotFound from '../404';
 const VotePage = () => {
   const token = api.getToken();
   const group = useRecoilValue(groupIdAtom);
-  const { data: response, isLoading, isError } = useGetGroupVote(token, group.groupId);
+  const { data: response, isLoading, isError } = useGetGroupVote(group.groupId);
   const [voteData, setVoteData] = useState<any>(null);
 
   useEffect(() => {

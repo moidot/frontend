@@ -17,12 +17,11 @@ import { useRecoilValue } from 'recoil';
 const VoteWaitPage = () => {
   const currentUserEmail = api.getEmail();
   const router = useRouter();
-  const token = api.getToken();
   const [voteData, setVoteData] = useState<VoteData>();
   const [groupData, setGroupData] = useState<ParticipationProps>();
   const [adminEmail, setAdminEmail] = useState<string | undefined>('');
   const group = useRecoilValue(groupIdAtom);
-  const response = useGetGroupVote(token, group.groupId);
+  const response = useGetGroupVote(group.groupId);
   const getGroup = useGetGroup(group.groupId);
   const [sumParticipant, setSumParticipant] = useState<number>(0);
   useEffect(() => {

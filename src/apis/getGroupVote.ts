@@ -1,12 +1,10 @@
 // 투표 현황 조회 API
 import customedAxios from './customedAxios';
 
-export const getGroupVote = async (token: string, groupId: number) => {
+export const getGroupVote = async (groupId: number, userId: number) => {
   try {
     const res = await customedAxios.get(`/group/${groupId}/vote`, {
-      headers: {
-        Authorization: 'Bearer ' + token,
-      },
+      params: { user: userId },
     });
     return res.data;
   } catch (error) {
