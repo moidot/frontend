@@ -37,8 +37,8 @@ const UrlButton = ({ pathname, teamname }: UrlProps) => {
         {
           title: '모이닷으로 가기',
           link: {
-            mobileWebUrl: `https://www.moidot.co.kr/invite/${pathname.split('/').slice(-1)[0]}`,
-            webUrl: `https://www.moidot.co.kr/invite/${pathname.split('/').slice(-1)[0]}`,
+            mobileWebUrl: `https://www.moidot.co.kr/participant/${pathname.split('/').slice(-1)[0]}`,
+            webUrl: `https://www.moidot.co.kr/participant/${pathname.split('/').slice(-1)[0]}`,
           },
         },
       ],
@@ -49,7 +49,7 @@ const UrlButton = ({ pathname, teamname }: UrlProps) => {
     <div className="flex w-[90vw] desktop:w-[440px] justify-between items-center text-b3 text-font_black mx-auto">
       <div
         className="flex items-center cursor-pointer text-b2"
-        onClick={() => handleCopyClipBoard(`${baseURL}/invite/${id.groupId}`)}>
+        onClick={() => handleCopyClipBoard(`${baseURL}/participant/${id.groupId}`)}>
         URL 복사하기
         <Copy className="ml-2" />
       </div>
