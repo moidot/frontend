@@ -20,6 +20,7 @@ import { deleteGroup } from '@/apis/deleteGroup';
 import LoadingPage from '@/pages/loading';
 import NotFound from '@/pages/404';
 import { useGetGroupVote } from '@/hooks/useGetGroupVote';
+import Head from 'next/head';
 
 const Participate = ({ id }: any) => {
   // const [partData, setPartData] = useState<ParticipationProps>();
@@ -121,6 +122,10 @@ const Participate = ({ id }: any) => {
 
   return (
     <section>
+      <Head>
+        <title>참여 정보</title>
+        <meta name="description" content="모임원의 출발지, 이동수단 등 모임 참여에 관한 자세한 정보를 확인해보세요." />
+      </Head>
       <Header />
       <Navbar focusType={NAV_LIST.PARTICIPANT} />
       <div className="max-w-[1200px] mx-auto font-Pretendard">

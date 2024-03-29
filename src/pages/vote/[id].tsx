@@ -7,6 +7,7 @@ import VoteWaitPage from './wait/[id]';
 import VoteDetailPage from './detail/[id]';
 import InviteVoteBeforeLogin from '@/components/invite/InviteVoteBeforeLogin';
 import NotFound from '../404';
+import Head from 'next/head';
 
 const VotePage = () => {
   const token = api.getToken();
@@ -30,6 +31,10 @@ const VotePage = () => {
 
   return (
     <div>
+      <Head>
+        <title>투표</title>
+        <meta name="description" content="추천된 장소 중 마음에 드는 곳에 투표해보세요." />
+      </Head>
       {token === undefined ? (
         <InviteVoteBeforeLogin />
       ) : voteData && voteData.voteId === -1 ? (
