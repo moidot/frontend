@@ -10,7 +10,7 @@ const MainPage = (props: any) => {
       {props && (
         <DefaultLayout>
           <Head>
-            <title>모임 장소 추천</title>
+            <title>모이닷 | 장소 추천</title>
             <meta name="description" content="모임원의 위치를 기반으로 중간 장소 3곳과 상세 장소를 추천" />
           </Head>
           <Main id={props.id} />

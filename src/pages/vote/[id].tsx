@@ -32,7 +32,7 @@ const VotePage = () => {
   return (
     <div>
       <Head>
-        <title>투표</title>
+        <title>모이닷 | 투표</title>
         <meta name="description" content="추천된 장소 중 마음에 드는 곳에 투표해보세요." />
       </Head>
       {token === undefined ? (

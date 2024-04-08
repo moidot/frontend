@@ -123,7 +123,7 @@ const Participate = ({ id }: any) => {
   return (
     <section>
       <Head>
-        <title>참여 정보</title>
+        <title>모이닷 | 참여 정보</title>
         <meta name="description" content="모임원의 출발지, 이동수단 등 모임 참여에 관한 자세한 정보를 확인해보세요." />
       </Head>
       <Header />

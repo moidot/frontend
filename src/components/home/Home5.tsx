@@ -4,12 +4,15 @@ import api from '@/services/TokenService';
 import { useGetParticipate } from '@/hooks/useGetGroupParticipate';
 import SpaceBox from '../common/home/SpaceBox';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
+import DeletePopup from './DeletePopup';
 
 const Home5 = () => {
   // const [emptySpaceState, setEmptySpaceState] = useState(true);
   const token = api.getToken();
   console.log(api.getToken());
   const { data, isLoading } = useGetParticipate(token);
+  const [clickAuth, setClickAuth] = useState<boolean>(false);
   const router = useRouter();
 
   console.log(data);
@@ -23,6 +26,10 @@ const Home5 = () => {
     router.push({
       pathname: `/main/${groupId}`,
     });
+  };
+
+  const onAuthClick = () => {
+    setClickAuth(!clickAuth);
   };
   return (
     <div>
@@ -65,9 +72,13 @@ const Home5 = () => {
                 ))}
               </div>
             )}
+            <div className="font-Pretendard text-font_gray text-b3 font-regular underline" onClick={onAuthClick}>
+              모이닷 탈퇴하기
+            </div>
           </div>
         </div>
       )}
+      {clickAuth && <DeletePopup onAuthClick={onAuthClick} />}
     </div>
   );
 };
