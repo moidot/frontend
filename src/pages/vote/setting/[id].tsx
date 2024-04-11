@@ -14,6 +14,7 @@ import { handleDateFormat } from '@/utils/changeDateFormat';
 import BackButtonBar from '@/components/common/backButtonBar';
 import { useRouter } from 'next/router';
 import { groupNameAtom } from '@/states/groupNameAtom';
+import { error } from 'console';
 
 const VoteSettingPage = () => {
   const [endTime, setEndTime] = useState<boolean>(false);
@@ -42,9 +43,10 @@ const VoteSettingPage = () => {
   const postGroupVoteMutation = useMutation((data: VoteStartData) => postGroupVote(token, data), {
     onSuccess: () => {
       console.log(`/vote/detail/${groupIdValue.groupId}`); // 내 모이닷 스페이스로 수정하기
+      setSetting(!setting);
     },
     onError: () => {
-      console.log('투표 생성 error');
+      console.log('투표 생성 error', error);
     },
   });
 
@@ -85,7 +87,7 @@ const VoteSettingPage = () => {
       <div
         className="mt-[100px]"
         onClick={() => {
-          setSetting(!setting), postGroupVoteMutation.mutate(voteData);
+          postGroupVoteMutation.mutate(voteData);
         }}>
         <VoteStartBtn />
       </div>

@@ -128,7 +128,7 @@ const Participate = ({ id }: any) => {
       </Head>
       <Header />
       <Navbar focusType={NAV_LIST.PARTICIPANT} />
-      <div className="max-w-[1200px] mx-auto font-Pretendard">
+      <div className="w-[360px] desktop:w-[1200px] mx-auto font-Pretendard">
         {/* 참여자 정보 띄우기 */}
         {partData && <ParticipationList data={partData} mode={updateMode} setMode={setUpdateMode} />}
         {/* 하단 메뉴 - 정보 수정 & 스페이스 삭제/나가기 */}
@@ -137,18 +137,18 @@ const Participate = ({ id }: any) => {
             onClick={() => {
               voteId === -1 ? setClickPlus(true) : alert('투표 시작 후에는 참여가 불가능합니다.');
             }}
-            className="flex cursor-pointer w-[90vw] desktop:w-[585px] h-[78px] mx-auto mt-[100px] mb-[150px] items-center justify-center bg-main_orange rounded-2xl text-white text-b1 font-bold font-Pretendard">
+            className="flex cursor-pointer w-[320px] desktop:w-[585px] h-[78px] mx-auto mt-[100px] mb-[150px] items-center justify-center bg-main_orange rounded-2xl text-white text-b1 font-bold font-Pretendard">
             내 정보 추가하기
           </div>
         ) : (
           <div className="w-[585px] my-[100px] mx-auto">
             <div
               onClick={handleCurrentUserInfo}
-              className="cursor-pointer flex w-[585px] h-[78px] items-center justify-center bg-main_orange rounded-2xl text-white text-b1 font-bold">
+              className="cursor-pointer flex w-[320px] desktop:w-[585px] h-[78px] items-center justify-center bg-main_orange rounded-2xl text-white text-b1 font-bold">
               내 정보 수정하기
             </div>
             <div
-              className="cursor-pointer mt-5 text-center text-font_gray text-[20px] underline"
+              className="cursor-pointer mt-5 text-center text-font_gray text-mobile_b4 desktop:text-[20px] underline"
               onClick={() => setIsClickDelete(!isClickDelete)}>
               {currentUserEmail === partData?.adminEmail ? (
                 <span>모이닷 스페이스 삭제하기</span>

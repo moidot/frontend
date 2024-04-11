@@ -43,14 +43,16 @@ const ParticipationList = ({ data, mode = false, setMode = () => {} }: Participa
   }, [currentUserEmail, data.participantsByRegion, setPartId]);
 
   return (
-    <div className="max-w-[1200px]">
+    <div className="w-[320px] desktop:w-[1200px]">
       <div className="text-center mt-10">
-        <div className="text-h1 font-bold text-font_black">{data.name}</div>
-        <div className="text-h3 font-bold text-font_gray">{data.date}</div>
+        <div className="text-mobile_h3 desktop:text-h1 font-bold text-font_black">{data.name}</div>
+        <div className="text-mobile_b4 desktop:text-h3 font-bold text-font_gray">{data.date}</div>
       </div>
       {/* URL 복사 & 카톡 공유 박스 */}
-      <div className="w-[90vw] desktop:w-[555px] bg-bg_orange rounded-2xl text-center mx-auto mt-[30px] mb-[48px] p-[15px]">
-        <div className="text-main_orange text-b1 font-bold mb-[15px]">모임원을 초대해보세요!</div>
+      <div className="w-[320px] desktop:w-[555px] bg-bg_orange rounded-2xl text-center mx-auto mt-[30px] mb-[48px] p-[15px]">
+        <div className="text-main_orange text-mobile_b3 desktop:text-b1 font-bold mb-[15px]">
+          모임원을 초대해보세요!
+        </div>
         <UrlButton pathname={locationUrl?.asPath} teamname={data?.name} />
       </div>
       <div className="relative">
@@ -58,7 +60,7 @@ const ParticipationList = ({ data, mode = false, setMode = () => {} }: Participa
         {currentUserEmail === data.adminEmail && (
           <button
             type="button"
-            className="absolute right-0 w-[155px] h-[54px] bg-bg_orange rounded-2xl text-b2 text-alert_delete"
+            className="absolute right-0 w-[74px] h-[27px] desktop:w-[155px] desktop:h-[54px] bg-bg_orange rounded-2xl text-mobile_b4 desktop:text-b2 text-alert_delete"
             onClick={() => setMode(!mode)}>
             내보내기
           </button>
@@ -68,7 +70,7 @@ const ParticipationList = ({ data, mode = false, setMode = () => {} }: Participa
           data.participantsByRegion.map((item: ParticipantsByRegionProps, index: number) => (
             <div className="mt-[72px]" key={index}>
               <div className="flex justify-between mb-5">
-                <div className="max-w-[265px] px-[32px] py-[8px] rounded-[53px] bg-main_orange text-b1 text-white font-bold">
+                <div className="w-[118px] desktop:max-w-[265px] px-[16px] py-[4px] desktop:px-[32px] desktop:py-[8px] rounded-[53px] bg-main_orange text-mobile_b4 desktop:text-b1 text-white font-bold">
                   {item.regionName}
                 </div>
               </div>
@@ -76,35 +78,37 @@ const ParticipationList = ({ data, mode = false, setMode = () => {} }: Participa
                 item.participations.map((part: ParticipationsProps) => (
                   <div
                     key={part.participationId}
-                    className="flex justify-between w-full h-[100px] items-center rounded-2xl pl-[24px] font-bold text-font_black mb-4"
+                    className="flex justify-between w-full h-[52px] desktop:h-[100px] items-center rounded-2xl pl-[12px] desktop:pl-[24px] font-bold text-font_black mb-2 desktop:mb-4"
                     style={
                       //현재 로그인 한 유저 배경색 짙게 표시
                       currentUserEmail === part.userEmail
                         ? { backgroundColor: '#FFEADB' }
                         : { backgroundColor: '#FFF9F5' }
                     }>
-                    <div className="flex items-center text-b1">
+                    <div className="flex items-center text-mobile_b4 desktop:text-b1">
                       {/* 모임장 왕관 표시 */}
                       {data.adminEmail === part.userEmail && <Master className="mr-2" />}
                       <span>{part.userName}</span>
                     </div>
                     <div className="flex items-center">
-                      <span className="text-font_gray font-light pr-4 text-b2">{part.locationName}</span>
+                      <span className="text-font_gray font-light pr-4 text-mobile_b4 desktop:text-b2">
+                        {part.locationName}
+                      </span>
                       {mode ? ( // 내보내기 or 교통 수단 확인
                         currentUserEmail === part.userEmail ? (
                           <div className="mr-[94px]"></div>
                         ) : (
                           <DeleteBtn
-                            className="mr-[24px] cursor-pointer"
+                            className="mr-[12px] desktop:mr-[24px] cursor-pointer"
                             onClick={() => {
                               setIsClickedRemoval(true), setUserName(part.userName);
                             }}
                           />
                         )
                       ) : part.transportation === 'PUBLIC' ? (
-                        <Sub className="mr-[24px]" />
+                        <Sub className="mr-[12px] desktop:mr-[24px]" />
                       ) : (
-                        <Car className="mr-[24px]" />
+                        <Car className="mr-[12px] desktop:mr-[24px]" />
                       )}
                     </div>
                     {/* 내보내기 버튼 활성화 시 팝업 */}

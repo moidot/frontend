@@ -19,6 +19,13 @@ const config: Config = {
         b1: '24px',
         b2: '20px',
         b3: '16px',
+        mobile_h1: '24px',
+        mobile_h2: '20px',
+        mobile_h3: '18px',
+        mobile_b1: '16px',
+        mobile_b2: '16px',
+        mobile_b3: '14px',
+        mobile_b4: '12px',
       },
       colors: {
         font_gray: '#B0B0B0',
@@ -40,7 +47,7 @@ const config: Config = {
         card_shadow: '0px 19px 64px 8px rgba(0, 0, 0, 0.04)',
       },
       screens: {
-        desktop: '480px',
+        desktop: '360px',
       },
     },
   },
