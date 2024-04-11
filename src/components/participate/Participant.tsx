@@ -24,9 +24,9 @@ import Head from 'next/head';
 
 const Participate = ({ id }: any) => {
   // const [partData, setPartData] = useState<ParticipationProps>();
-
+  const userId = api.getId();
   const { data: response, isLoading, isError } = useGetGroup(parseInt(id));
-  const { data: voteData } = useGetGroupVote(parseInt(id));
+  const { data: voteData } = useGetGroupVote(parseInt(id), userId);
   const currentUserEmail = api.getEmail();
   const token = api.getToken();
   const [partData, setPartData] = useState<ParticipationProps>();

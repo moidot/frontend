@@ -11,8 +11,9 @@ import Head from 'next/head';
 
 const VotePage = () => {
   const token = api.getToken();
+  const userId = api.getId();
   const group = useRecoilValue(groupIdAtom);
-  const { data: response, isLoading, isError } = useGetGroupVote(group.groupId);
+  const { data: response, isLoading, isError } = useGetGroupVote(group.groupId, userId);
   const [voteData, setVoteData] = useState<any>(null);
 
   useEffect(() => {

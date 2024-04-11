@@ -1,4 +1,5 @@
 import { useGetGroupVote } from '@/hooks/useGetGroupVote';
+import api from '@/services/TokenService';
 import { groupIdAtom } from '@/states/groupIdAtom';
 import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
@@ -6,7 +7,8 @@ import { useRecoilValue } from 'recoil';
 // 투표율 표시를 위한 진행바
 const VoteProgressBar = ({ votes }: any) => {
   const group = useRecoilValue(groupIdAtom);
-  const response: any = useGetGroupVote(group.groupId);
+  const userId = api.getId();
+  const response: any = useGetGroupVote(group.groupId, userId);
   const [votePeopleData, setVotePeopleData] = useState<any>();
   useEffect(() => {
     if (response.data?.message === '성공') setVotePeopleData(response.data?.data);
