@@ -43,7 +43,7 @@ const ParticipationList = ({ data, mode = false, setMode = () => {} }: Participa
   }, [currentUserEmail, data.participantsByRegion, setPartId]);
 
   return (
-    <div className="w-[320px] desktop:w-[1200px]">
+    <div className="w-[320px] mx-auto desktop:w-[1200px]">
       <div className="text-center mt-10">
         <div className="text-mobile_h3 desktop:text-h1 font-bold text-font_black">{data.name}</div>
         <div className="text-mobile_b4 desktop:text-h3 font-bold text-font_gray">{data.date}</div>
@@ -68,7 +68,7 @@ const ParticipationList = ({ data, mode = false, setMode = () => {} }: Participa
         {/* 참여중인 유저 정보 나열*/}
         {data.participantsByRegion &&
           data.participantsByRegion.map((item: ParticipantsByRegionProps, index: number) => (
-            <div className="mt-[72px]" key={index}>
+            <div className="mt-[36px] desktop:mt-[72px]" key={index}>
               <div className="flex justify-between mb-5">
                 <div className="max-w-[265px] px-[16px] py-[4px] desktop:px-[32px] desktop:py-[8px] rounded-[53px] bg-main_orange text-mobile_b4 desktop:text-b1 text-white font-bold">
                   {item.regionName}
