@@ -47,7 +47,7 @@ const config: Config = {
         card_shadow: '0px 19px 64px 8px rgba(0, 0, 0, 0.04)',
       },
       screens: {
-        desktop: '360px',
+        desktop: '585px',
       },
     },
   },

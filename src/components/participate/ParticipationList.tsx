@@ -70,7 +70,7 @@ const ParticipationList = ({ data, mode = false, setMode = () => {} }: Participa
           data.participantsByRegion.map((item: ParticipantsByRegionProps, index: number) => (
             <div className="mt-[72px]" key={index}>
               <div className="flex justify-between mb-5">
-                <div className="w-[118px] desktop:max-w-[265px] px-[16px] py-[4px] desktop:px-[32px] desktop:py-[8px] rounded-[53px] bg-main_orange text-mobile_b4 desktop:text-b1 text-white font-bold">
+                <div className="max-w-[265px] px-[16px] py-[4px] desktop:px-[32px] desktop:py-[8px] rounded-[53px] bg-main_orange text-mobile_b4 desktop:text-b1 text-white font-bold">
                   {item.regionName}
                 </div>
               </div>

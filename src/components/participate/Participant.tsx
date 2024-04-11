@@ -141,7 +141,7 @@ const Participate = ({ id }: any) => {
             내 정보 추가하기
           </div>
         ) : (
-          <div className="w-[585px] my-[100px] mx-auto">
+          <div className="w-[320px] desktop:w-[585px] my-[100px] mx-auto">
             <div
               onClick={handleCurrentUserInfo}
               className="cursor-pointer flex w-[320px] desktop:w-[585px] h-[78px] items-center justify-center bg-main_orange rounded-2xl text-white text-b1 font-bold">

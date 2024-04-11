@@ -46,7 +46,7 @@ const UrlButton = ({ pathname, teamname }: UrlProps) => {
   };
 
   return (
-    <div className="flex w-[320px] desktop:w-[440px] justify-between items-center text-b3 text-font_black mx-auto">
+    <div className="flex w-[270px] desktop:w-[440px] justify-between items-center text-b3 text-font_black mx-auto">
       <div
         className="flex items-center cursor-pointer text-mobile_b4 desktop:text-b2"
         onClick={() => handleCopyClipBoard(`${baseURL}/participant/${id.groupId}`)}>
