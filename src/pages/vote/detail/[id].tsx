@@ -32,11 +32,12 @@ const VoteDetailPage = () => {
   const [clickedEndVote, setClickedEndVote] = useState<boolean>(false); // 투표 종료 버튼 클릭 여부
   const [voteMax, setVoteMax] = useState<any>();
   const token = api.getToken();
+  const userId = api.getId();
   const groupIdData = useRecoilValue(groupIdAtom);
   const groupAdminId = typeof window !== 'undefined' ? sessionStorage.getItem('adminId') : null;
   const [voteIds, setVoteIds] = useState<any>([]);
 
-  const response = useGetGroupVote(groupIdData.groupId);
+  const response = useGetGroupVote(groupIdData.groupId, userId);
   const currentId = api.getEmail();
   const voteP: voteSelectPlaceData = {
     groupId: groupIdData.groupId,
