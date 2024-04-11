@@ -14,7 +14,6 @@ import { handleDateFormat } from '@/utils/changeDateFormat';
 import BackButtonBar from '@/components/common/backButtonBar';
 import { useRouter } from 'next/router';
 import { groupNameAtom } from '@/states/groupNameAtom';
-import { error } from 'console';
 
 const VoteSettingPage = () => {
   const [endTime, setEndTime] = useState<boolean>(false);
@@ -46,7 +45,7 @@ const VoteSettingPage = () => {
       setSetting(!setting);
     },
     onError: () => {
-      console.log('투표 생성 error', error);
+      console.log('투표 생성 error');
     },
   });
 
