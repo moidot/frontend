@@ -48,6 +48,7 @@ const VoteDetailPage = () => {
   }, []);
   //투표 데이터 voteData 변수에 저장하기
   useEffect(() => {
+    console.log('response', response);
     if (response.data?.message === '성공') setVoteData(response.data?.data);
     console.log('vote data', voteData);
   }, [response, voteData]);
@@ -80,6 +81,7 @@ const VoteDetailPage = () => {
 
   useEffect(() => {
     console.log('voteIDS... : ', voteIds);
+    voteIds.length > 0 ? setClickedStartBtn(true) : setClickedStartBtn(false);
   }, [voteIds]);
 
   //투표 참여 API react-query mutation
@@ -177,11 +179,7 @@ const VoteDetailPage = () => {
               투표하기
             </div>
           ) : (
-            <div
-              onClick={() => {
-                setClickedStartBtn(!clickedStartBtn), clickedStartBtn && postGroupVoteSelectMutation.mutate(voteP);
-              }}
-              className="cursor-pointer flex w-[585px] h-[72px] items-center justify-center border-2 bg-btn_disabled rounded-2xl mx-auto mt-[60px] mb-[22px] text-font_gray text-b2">
+            <div className="cursor-pointer flex w-[585px] h-[72px] items-center justify-center border-2 bg-btn_disabled rounded-2xl mx-auto mt-[60px] mb-[22px] text-font_gray text-b2">
               투표하기
             </div>
           ))}
