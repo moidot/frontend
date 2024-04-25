@@ -127,28 +127,26 @@ const VoteDetailPage = () => {
           <div className="text-b2 text-font_gray">{voteEndAt}</div>
         </div>
         {/* 투표 창 */}
-        <div className="w-[1168px] mx-auto">
-          <div
-            className="w-[1168px] mx-auto cursor-pointer"
-            style={{ pointerEvents: voteData?.isVotingParticipant ? (clickedAgainBtn ? 'auto' : 'none') : 'auto' }}>
-            {voteData?.voteStatuses.map((item: VoteStatusData) => (
-              <VoteChoiceOption
-                key={item.bestPlaceId}
-                votePlaceIds={voteIds}
-                setVoteIds={setVoteIds}
-                votes={item.votes}
-                placeName={item.placeName}
-                isVoted={item.isVoted}
-                bestPlaceId={item.bestPlaceId}
-                latitude={item.latitude}
-                longitude={item.longitude}
-                isEnabledMultipleChoice={voteData.isEnabledMultipleChoice}
-                isAnonymous={voteData.isAnonymous}
-                isClosed={voteData.isClosed}
-                voteMax={voteMax}
-              />
-            ))}
-          </div>
+        <div
+          className="w-[1168px] mx-auto cursor-pointer"
+          style={{ pointerEvents: voteData?.isVotingParticipant ? (clickedAgainBtn ? 'auto' : 'none') : 'auto' }}>
+          {voteData?.voteStatuses.map((item: VoteStatusData) => (
+            <VoteChoiceOption
+              key={item.bestPlaceId}
+              votePlaceIds={voteIds}
+              setVoteIds={setVoteIds}
+              votes={item.votes}
+              placeName={item.placeName}
+              isVoted={item.isVoted}
+              bestPlaceId={item.bestPlaceId}
+              latitude={item.latitude}
+              longitude={item.longitude}
+              isEnabledMultipleChoice={voteData.isEnabledMultipleChoice}
+              isAnonymous={voteData.isAnonymous}
+              isClosed={voteData.isClosed}
+              voteMax={voteMax}
+            />
+          ))}
         </div>
 
         {/* 투표가 진행중이고 참여자가 있을 때 버튼 보임 */}
