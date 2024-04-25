@@ -54,11 +54,12 @@ const VoteChoiceOption = ({
         backgroundColor: isClosed && voteMax?.bestPlaceId === bestPlaceId ? '#FFEADB' : '',
       }}>
       {checkedBox ? (
-        <div style={{ pointerEvents: isClosed ? 'none' : 'auto' }} onClick={() => setCheckedBox(!checkedBox)}>
+        <div onClick={() => setCheckedBox(!checkedBox)}>
           <CheckBox />
         </div>
       ) : (
-        <div style={{ pointerEvents: isClosed ? 'none' : 'auto' }} onClick={() => setCheckedBox(!checkedBox)}>
+        // style={{ pointerEvents: isClosed ? 'none' : 'auto' }} 임시 삭제
+        <div onClick={() => setCheckedBox(!checkedBox)}>
           <NoCheckBox />
         </div>
       )}
