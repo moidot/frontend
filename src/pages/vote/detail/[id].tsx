@@ -51,7 +51,7 @@ const VoteDetailPage = () => {
     console.log('response', response);
     if (response.data?.message === '성공') setVoteData(response.data?.data);
     console.log('vote data', voteData);
-  }, [response, voteData]);
+  }, []);
 
   // 투표 종료일 포맷 변경
   useEffect(() => {
@@ -128,7 +128,9 @@ const VoteDetailPage = () => {
         </div>
         {/* 투표 창 */}
         <div className="w-[1168px] mx-auto">
-          <div className="w-[1168px] mx-auto cursor-pointer">
+          <div
+            className="w-[1168px] mx-auto cursor-pointer"
+            style={{ pointerEvents: voteData?.isVotingParticipant ? (clickedAgainBtn ? 'auto' : 'none') : 'auto' }}>
             {voteData?.voteStatuses.map((item: VoteStatusData) => (
               <VoteChoiceOption
                 key={item.bestPlaceId}
