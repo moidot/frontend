@@ -18,7 +18,7 @@ const VotePage = () => {
 
   useEffect(() => {
     if (response?.message === '성공') setVoteData(response?.data);
-  }, [response]);
+  }, []);
 
   if (isLoading) {
     console.log('isLoading', isLoading);
