@@ -8,7 +8,11 @@
   font-weight: normal;
   font-style: normal;
 }
+* {
+  margin: 0;
+}
 
-html {
+body {
   background-color: white;
+  height: 100vh;
 }
