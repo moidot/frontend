@@ -9,8 +9,9 @@ const DeletePopup = ({ onAuthClick }: any) => {
   // 투표 종료하기 Mutation
   const deleteAuthMutation = useMutation(() => deleteAuth(token), {
     onSuccess: () => {
+      api.logout();
       alert('회원 탈퇴가 완료되었습니다.');
-      location.reload();
+      location.replace('/');
     },
     onError: () => {
       console.log('회원 탈퇴 error');

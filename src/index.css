@@ -12,7 +12,11 @@
   margin: 0;
 }
 
+:root {
+  --main-bg-color: white;
+}
+
 body {
-  background-color: white;
+  background-color: var(--main-bg-color);
   height: 100vh;
 }

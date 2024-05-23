@@ -31,6 +31,8 @@ const Participate = ({ id }: any) => {
   const token = api.getToken();
   const [partData, setPartData] = useState<ParticipationProps>();
   const [clickPlus, setClickPlus] = useState<boolean>(false);
+  const [isParticipateCurrentUser, setIsParticipateCurrentUser] = useState<any>('');
+
   const setGroupName = useSetRecoilState(groupNameAtom);
   const setGroupId = useSetRecoilState(groupIdAtom);
 
@@ -71,6 +73,16 @@ const Participate = ({ id }: any) => {
   useEffect(() => {
     partData && currentUserEmail === partData?.adminEmail ? setRole('leader') : setRole('member');
   }, [currentUserEmail, partData]);
+
+  useEffect(() => {
+    const findUser: any = partData?.participantsByRegion?.find((item: any) =>
+      item.participations.find((i: any) => currentUserEmail === i.userEmail),
+    );
+    findUser &&
+      setIsParticipateCurrentUser(
+        findUser?.participations?.find((i: any) => i.userEmail === currentUserEmail).userEmail,
+      );
+  }, [currentUserEmail, partData?.participantsByRegion]);
 
   const deleteGroupMutation = useMutation((groupId: number) => deleteGroup(token, groupId), {
     onSuccess: () => {
@@ -132,7 +144,7 @@ const Participate = ({ id }: any) => {
         {/* 참여자 정보 띄우기 */}
         {partData && <ParticipationList data={partData} mode={updateMode} setMode={setUpdateMode} />}
         {/* 하단 메뉴 - 정보 수정 & 스페이스 삭제/나가기 */}
-        {token === undefined ? (
+        {isParticipateCurrentUser !== currentUserEmail ? (
           <div
             onClick={() => {
               voteId === -1 ? setClickPlus(true) : alert('투표 시작 후에는 참여가 불가능합니다.');
