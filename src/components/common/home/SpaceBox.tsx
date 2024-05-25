@@ -11,11 +11,11 @@ const SpaceBox = ({
 }: GetParticipateProps) => {
   return (
     <div className="flex flex-col">
-      <div className="flex flex-row justify-between items-center rounded-t-2xl px-10 py-5 bg-main_orange w-[585px] h-[86px] ">
+      <div className="flex flex-row justify-between items-center rounded-t-2xl px-10 py-5 bg-main_orange w-[30.5vw] h-[86px] ">
         <div className="font-Pretendard text-white text-h3 font-bold">{groupName}</div>
         <div className="font-Pretendard text-white text-b2 font-thin ">{groupDate}</div>
       </div>
-      <div className="flex flex-col rounded-b-2xl p-10 bg-white w-[585px] gap-[18px]">
+      <div className="flex flex-col rounded-b-2xl p-10 bg-white w-[30.5vw] gap-[18px]">
         <div className="gap-[8px]">
           <div className="flex flex-row gap-[8px]">
             <LocationIcon />

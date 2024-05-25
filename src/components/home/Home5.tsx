@@ -36,8 +36,8 @@ const Home5 = () => {
       {isLoading ? (
         <div>로딩중</div>
       ) : (
-        <div>
-          <div className="flex flex-col justify-center items-center gap-[60px] bg-light_orange w-screen mt-24">
+        <div className="w-full bg-light_orange">
+          <div className="w-[62.5vw] flex flex-col justify-center items-center gap-[60px] mt-24">
             <div className="flex flex-col justify-center items-center gap-[2px] mt-10">
               <div className="font-Pretendard text-black text-h3 font-bold ">나의 모이닷 스페이스</div>
               <div className="font-Pretendard text-font_gray text-b3 font-regular ">
@@ -55,7 +55,7 @@ const Home5 = () => {
                 </div>
               </div>
             ) : (
-              <div className="grid grid-cols-2 w-100vw p-5 gap-8">
+              <div className="grid grid-cols-2 p-5 gap-8">
                 {data?.data.map((item) => (
                   <div key={item.groupId} onClick={() => onBoxClick(item.groupId)}>
                     <SpaceBox
@@ -72,7 +72,7 @@ const Home5 = () => {
                 ))}
               </div>
             )}
-            <div className="font-Pretendard text-font_gray text-b3 font-regular underline" onClick={onAuthClick}>
+            <div className="font-Pretendard text-font_gray text-b3 font-regular underline mb-5" onClick={onAuthClick}>
               모이닷 탈퇴하기
             </div>
           </div>

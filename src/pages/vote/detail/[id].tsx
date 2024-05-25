@@ -110,7 +110,7 @@ const VoteDetailPage = () => {
       {/* 지도 자리 */}
       {voteData?.voteStatuses && <VoteKakaoMap locationInfo={voteData?.voteStatuses} />}
       {/* 투표 탭 */}
-      <div className="mx-auto bg-white">
+      <div className="w-[62.5vw] mx-auto bg-white">
         <div className="w-full h-[74px] mt-2 flex justify-between items-center">
           <div className="w-[170px] h-[50px] flex justify-between text-b3">
             {voteData?.isEnabledMultipleChoice ? (
