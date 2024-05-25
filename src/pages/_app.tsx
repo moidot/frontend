@@ -1,12 +1,12 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { RecoilRoot } from 'recoil';
 import React, { useEffect } from 'react';
-import Script from 'next/script';
 import type { AppProps } from 'next/app';
 import '../../src/output.css';
 import { CookiesProvider } from 'react-cookie';
 import '../../src/index.css';
 import Head from 'next/head';
+import Script from 'next/script';
 import { useRouter } from 'next/router';
 import * as gtag from '../lib/gtag';
 
