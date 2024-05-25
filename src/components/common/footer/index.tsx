@@ -14,7 +14,7 @@ const Footer = () => {
   };
   return (
     <>
-      <div className="w-screen h-[240px] bg-[#333333] p-20 ">
+      <div className="w-full h-[240px] bg-[#333333] p-20 ">
         <div className="flex flex-row justify-between">
           <div>
             <div className="flex flex-row items-center gap-[32px]">

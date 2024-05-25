@@ -16,10 +16,15 @@
 }
 
 :root {
-  --main-bg-color: white;
+  --main-bg-color: red;
+}
+
+html {
+  height: 100%;
 }
 
 body {
   background-color: var(--main-bg-color);
   min-height: 100vh;
+  min-width: 700px;
 }

@@ -110,7 +110,7 @@ const VoteDetailPage = () => {
       {/* 지도 자리 */}
       {voteData?.voteStatuses && <VoteKakaoMap locationInfo={voteData?.voteStatuses} />}
       {/* 투표 탭 */}
-      <div className="w-[1200px] mx-auto bg-white">
+      <div className="mx-auto bg-white">
         <div className="w-full h-[74px] mt-2 flex justify-between items-center">
           <div className="w-[170px] h-[50px] flex justify-between text-b3">
             {voteData?.isEnabledMultipleChoice ? (
@@ -128,7 +128,7 @@ const VoteDetailPage = () => {
         </div>
         {/* 투표 창 */}
         <div
-          className="w-[1168px] mx-auto cursor-pointer"
+          className="w-[100%] mx-auto cursor-pointer"
           style={{ pointerEvents: voteData?.isVotingParticipant ? (clickedAgainBtn ? 'auto' : 'none') : 'auto' }}>
           {voteData?.voteStatuses.map((item: VoteStatusData) => (
             <VoteChoiceOption

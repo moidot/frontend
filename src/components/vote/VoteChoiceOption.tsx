@@ -49,7 +49,7 @@ const VoteChoiceOption = ({
 
   return (
     <div
-      className="w-full h-[72px] flex items-center pl-4 rounded-2xl"
+      className="w-[100%] h-[72px] flex items-center pl-4 rounded-2xl"
       style={{
         backgroundColor: isClosed && voteMax?.bestPlaceId === bestPlaceId ? '#FFEADB' : '',
       }}>
@@ -63,8 +63,8 @@ const VoteChoiceOption = ({
           <NoCheckBox />
         </div>
       )}
-      <div>
-        <div className="w-[988px] mx-5 text-b2 pb-1 text-left">
+      <div className="w-[90vw]">
+        <div className="mx-5 text-b2 pb-1 text-left">
           {checkedBox ? (
             <div className="text-main_orange font-bold flex items-center">
               {isClosed && voteMax?.bestPlaceId === bestPlaceId && <Master />}

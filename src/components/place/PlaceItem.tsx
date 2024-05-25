@@ -36,19 +36,11 @@ const PlaceItem = ({ title, thumUrl, distance, openTime, tel, category }: PlaceI
       <div className="bg-white w-[585px] rounded-2xl flex-row flex  gap-5 shadow-card_shadow ">
         {thumUrl ? (
           <div style={{ overflow: 'hidden' }} className="rounded-l-lg flex justify-start relative">
-            <Image src={thumUrl} width={175} height={175} fill style={{ objectFit: 'cover' }} alt="placeImg" priority />
+            <Image src={thumUrl} width={175} height={185} objectFit="cover" alt="placeImg" priority />
           </div>
         ) : (
           <div style={{ overflow: 'hidden' }} className="rounded-l-lg flex justify-start relative">
-            <Image
-              src={renderCategoryImage()}
-              width={175}
-              height={185}
-              fill
-              style={{ objectFit: 'cover' }}
-              alt="placeImg"
-              priority
-            />
+            <Image src={renderCategoryImage()} width={175} height={185} objectFit="cover" alt="placeImg" priority />
           </div>
         )}
 
