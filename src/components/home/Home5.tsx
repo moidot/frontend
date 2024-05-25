@@ -32,11 +32,11 @@ const Home5 = () => {
     setClickAuth(!clickAuth);
   };
   return (
-    <div className="w-full bg-light_orange mt-24">
+    <div className="w-full bg-light_orange mt-24 mx-auto">
       {isLoading ? (
         <div>로딩중</div>
       ) : (
-        <div className="w-[65vw]">
+        <div className="w-[65vw] mx-auto">
           <div className="flex flex-col justify-center items-center gap-[60px]">
             <div className="flex flex-col justify-center items-center gap-[2px] mt-10">
               <div className="font-Pretendard text-black text-h3 font-bold ">나의 모이닷 스페이스</div>
