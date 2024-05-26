@@ -166,7 +166,10 @@ const Place = ({ lng, lat, local }: PlaceProps) => {
             <div className="flex w-1/2 justify-center items-center gap-[30px]">
               {bestPlaceData ? (
                 bestPlaceData.data.slice(0, 2).map((item) => (
-                  <div key={item.x} className="flex-1" onClick={() => onModalClick(item)}>
+                  <div
+                    key={item.title}
+                    className="flex-1"
+                    onClick={() => (onModalClick(item), console.log('dnjgnfgndfgj', item))}>
                     <PlaceItem
                       title={item.title}
                       openTime={item.openTime}
@@ -185,7 +188,7 @@ const Place = ({ lng, lat, local }: PlaceProps) => {
             <div className="flex w-1/2 justify-center items-center gap-[30px]">
               {bestPlaceData ? (
                 bestPlaceData.data.slice(2, 4).map((item) => (
-                  <div key={item.x} className="flex-1" onClick={() => onModalClick(item)}>
+                  <div key={item.title} className="flex-1" onClick={() => onModalClick(item)}>
                     <PlaceItem
                       title={item.title}
                       openTime={item.openTime}

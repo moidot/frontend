@@ -11,6 +11,12 @@ interface UrlProps {
 }
 
 const UrlButton = ({ pathname, teamname }: UrlProps) => {
+  let clientWidth;
+
+  if (typeof document !== 'undefined') {
+    clientWidth = document.documentElement.clientWidth;
+  }
+
   const baseURL = 'https://www.moidot.co.kr'; // 배포 url로 변경하기
   const id: any = useRecoilValue(groupIdAtom);
   useEffect(() => {
@@ -51,7 +57,7 @@ const UrlButton = ({ pathname, teamname }: UrlProps) => {
         className="flex items-center cursor-pointer text-mobile_b4 desktop:text-b2"
         onClick={() => handleCopyClipBoard(`${baseURL}/participant/${id.groupId}`)}>
         URL 복사하기
-        {document.documentElement.clientWidth <= 768 ? (
+        {clientWidth && clientWidth <= 768 ? (
           <div className="ml-2">
             <svg width="20" height="20" viewBox="0 0 35 30">
               <Copy />
@@ -64,7 +70,7 @@ const UrlButton = ({ pathname, teamname }: UrlProps) => {
       <div className="w-[1px] h-[14px] desktop:h-[26px] bg-bg_light_gray"></div>
       <div className="flex items-center cursor-pointer text-mobile_b4 desktop:text-b2" onClick={onShare}>
         카카오톡 공유하기
-        {document.documentElement.clientWidth <= 768 ? (
+        {clientWidth && clientWidth <= 768 ? (
           <div className="ml-2">
             <svg width="20" height="20" viewBox="0 0 40 35">
               <KakaoTalk />

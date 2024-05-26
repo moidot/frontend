@@ -25,6 +25,11 @@ const ParticipationList = ({ data, mode = false, setMode = () => {} }: Participa
   const removalMemeberTitle: string = "정말 모임원  '" + userName + "'을(를) 삭제하시겠어요?";
   const removalMemeberDesc: string =
     '모임원을 삭제하시면 해당 모임원이 작성한\n모든 정보가 삭제되며 다시 불러올 수 없습니다.';
+  let clientWidth: any;
+
+  if (typeof document !== 'undefined') {
+    clientWidth = document.documentElement.clientWidth;
+  }
   const removalMutation = useMutation((participantId: number) => deleteGroupParticipateRemoval(token, participantId), {
     onSuccess: () => {
       alert('내보내기 성공');
@@ -88,7 +93,7 @@ const ParticipationList = ({ data, mode = false, setMode = () => {} }: Participa
                     <div className="flex items-center text-mobile_b4 desktop:text-b1">
                       {/* 모임장 왕관 표시 */}
                       {data.adminEmail === part.userEmail &&
-                        (document.documentElement.clientWidth <= 768 ? (
+                        (clientWidth && clientWidth <= 768 ? (
                           <svg width="20" height="20" viewBox="0 0 30 25">
                             <Master className="mr-2" />
                           </svg>
@@ -104,7 +109,7 @@ const ParticipationList = ({ data, mode = false, setMode = () => {} }: Participa
                       {mode ? ( // 내보내기 or 교통 수단 확인
                         currentUserEmail === part.userEmail ? (
                           <div className="mr-[60px] tablets:mr-[94px]"></div>
-                        ) : document.documentElement.clientWidth <= 768 ? (
+                        ) : clientWidth && clientWidth <= 768 ? (
                           <svg width="50" height="50" viewBox="0 0 100 75">
                             <DeleteBtn
                               className="mr-[12px] desktop:mr-[24px] cursor-pointer"
@@ -122,14 +127,14 @@ const ParticipationList = ({ data, mode = false, setMode = () => {} }: Participa
                           />
                         )
                       ) : part.transportation === 'PUBLIC' ? (
-                        document.documentElement.clientWidth <= 768 ? (
+                        clientWidth && clientWidth <= 768 ? (
                           <svg width="50" height="50" viewBox="0 0 100 75">
                             <Sub className="mr-[12px] desktop:mr-[24px]" />
                           </svg>
                         ) : (
                           <Sub className="mr-[12px] desktop:mr-[24px]" />
                         )
-                      ) : document.documentElement.clientWidth <= 768 ? (
+                      ) : clientWidth && clientWidth <= 768 ? (
                         <svg width="50" height="50" viewBox="0 0 100 75">
                           <Car className="mr-[12px] desktop:mr-[24px]" />
                         </svg>
