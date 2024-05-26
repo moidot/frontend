@@ -80,7 +80,7 @@ const Main = ({ id }: MainProps) => {
           <LoadingPage />
         </>
       ) : (
-        <div className="flex flex-col bg-white">
+        <div className="flex flex-col bg-white overflow-hidden">
           <div className="flex flex-col justify-center items-center p-4 mt-10">
             <div className="font-Pretendard text-black text-h1 font-bold">{groupNameData?.data.name}</div>
             <div className="font-Pretendard text-font_gray text-h3 font-bold">{groupNameData?.data.date}</div>

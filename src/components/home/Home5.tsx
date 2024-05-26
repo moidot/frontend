@@ -32,15 +32,17 @@ const Home5 = () => {
     setClickAuth(!clickAuth);
   };
   return (
-    <div className="w-full bg-light_orange mt-24 mx-auto">
+    <div className="w-full bg-light_orange mt-8 tablets:mt-24 mx-auto">
       {isLoading ? (
         <div>로딩중</div>
       ) : (
-        <div className="w-[65vw] mx-auto">
-          <div className="flex flex-col justify-center items-center gap-[60px]">
+        <div className="desktop:w-[80vw] xl:w-[65vw] mx-auto">
+          <div className="flex flex-col justify-center items-center gap-5 desktop:gap-[60px]">
             <div className="flex flex-col justify-center items-center gap-[2px] mt-10">
-              <div className="font-Pretendard text-black text-h3 font-bold ">나의 모이닷 스페이스</div>
-              <div className="font-Pretendard text-font_gray text-b3 font-regular ">
+              <div className="font-Pretendard text-black text-mobile_b1 tablets:text-h3 font-bold ">
+                나의 모이닷 스페이스
+              </div>
+              <div className="font-Pretendard text-font_gray text-mobile_b3 tablets:text-b3 font-regular ">
                 과거에 진행되었던 모임장소 조율이에요.
               </div>
             </div>
@@ -55,7 +57,7 @@ const Home5 = () => {
                 </div>
               </div>
             ) : (
-              <div className="grid grid-cols-2 p-5 gap-8">
+              <div className="flex flex-col lg:grid lg:grid-cols-2 p-5 gap-8">
                 {data?.data.map((item) => (
                   <div key={item.groupId} onClick={() => onBoxClick(item.groupId)}>
                     <SpaceBox

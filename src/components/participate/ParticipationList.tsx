@@ -25,6 +25,11 @@ const ParticipationList = ({ data, mode = false, setMode = () => {} }: Participa
   const removalMemeberTitle: string = "정말 모임원  '" + userName + "'을(를) 삭제하시겠어요?";
   const removalMemeberDesc: string =
     '모임원을 삭제하시면 해당 모임원이 작성한\n모든 정보가 삭제되며 다시 불러올 수 없습니다.';
+  let clientWidth: any;
+
+  if (typeof document !== 'undefined') {
+    clientWidth = document.documentElement.clientWidth;
+  }
   const removalMutation = useMutation((participantId: number) => deleteGroupParticipateRemoval(token, participantId), {
     onSuccess: () => {
       alert('내보내기 성공');
@@ -43,13 +48,13 @@ const ParticipationList = ({ data, mode = false, setMode = () => {} }: Participa
   }, [currentUserEmail, data.participantsByRegion, setPartId]);
 
   return (
-    <div className="w-[320px] mx-auto desktop:w-[1200px]">
+    <div className="w-[80vw] mx-auto desktop:w-[62.5vw]">
       <div className="text-center mt-10">
         <div className="text-mobile_h3 desktop:text-h1 font-bold text-font_black">{data.name}</div>
         <div className="text-mobile_b4 desktop:text-h3 font-bold text-font_gray">{data.date}</div>
       </div>
       {/* URL 복사 & 카톡 공유 박스 */}
-      <div className="w-[320px] desktop:w-[555px] bg-bg_orange rounded-2xl text-center mx-auto mt-[30px] mb-[48px] p-[15px]">
+      <div className="w-[80vw] desktop:w-[555px] bg-bg_orange rounded-2xl text-center mx-auto mt-[30px] mb-[48px] p-[15px]">
         <div className="text-main_orange text-mobile_b3 desktop:text-b1 font-bold mb-[15px]">
           모임원을 초대해보세요!
         </div>
@@ -87,7 +92,14 @@ const ParticipationList = ({ data, mode = false, setMode = () => {} }: Participa
                     }>
                     <div className="flex items-center text-mobile_b4 desktop:text-b1">
                       {/* 모임장 왕관 표시 */}
-                      {data.adminEmail === part.userEmail && <Master className="mr-2" />}
+                      {data.adminEmail === part.userEmail &&
+                        (clientWidth && clientWidth <= 768 ? (
+                          <svg width="20" height="20" viewBox="0 0 30 25">
+                            <Master className="mr-2" />
+                          </svg>
+                        ) : (
+                          <Master className="mr-2" />
+                        ))}
                       <span>{part.userName}</span>
                     </div>
                     <div className="flex items-center">
@@ -96,7 +108,16 @@ const ParticipationList = ({ data, mode = false, setMode = () => {} }: Participa
                       </span>
                       {mode ? ( // 내보내기 or 교통 수단 확인
                         currentUserEmail === part.userEmail ? (
-                          <div className="mr-[94px]"></div>
+                          <div className="mr-[60px] tablets:mr-[94px]"></div>
+                        ) : clientWidth && clientWidth <= 768 ? (
+                          <svg width="50" height="50" viewBox="0 0 100 75">
+                            <DeleteBtn
+                              className="mr-[12px] desktop:mr-[24px] cursor-pointer"
+                              onClick={() => {
+                                setIsClickedRemoval(true), setUserName(part.userName);
+                              }}
+                            />
+                          </svg>
                         ) : (
                           <DeleteBtn
                             className="mr-[12px] desktop:mr-[24px] cursor-pointer"
@@ -106,7 +127,17 @@ const ParticipationList = ({ data, mode = false, setMode = () => {} }: Participa
                           />
                         )
                       ) : part.transportation === 'PUBLIC' ? (
-                        <Sub className="mr-[12px] desktop:mr-[24px]" />
+                        clientWidth && clientWidth <= 768 ? (
+                          <svg width="50" height="50" viewBox="0 0 100 75">
+                            <Sub className="mr-[12px] desktop:mr-[24px]" />
+                          </svg>
+                        ) : (
+                          <Sub className="mr-[12px] desktop:mr-[24px]" />
+                        )
+                      ) : clientWidth && clientWidth <= 768 ? (
+                        <svg width="50" height="50" viewBox="0 0 100 75">
+                          <Car className="mr-[12px] desktop:mr-[24px]" />
+                        </svg>
                       ) : (
                         <Car className="mr-[12px] desktop:mr-[24px]" />
                       )}
