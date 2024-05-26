@@ -20,12 +20,14 @@ const Header = () => {
   };
   return (
     <div>
-      <div className="flex flex-row justify-between w-100vw  p-10 " onClick={onClick}>
-        <div className="w-36">
+      <div className="flex flex-row items-center justify-between w-100vw p-6 tablets:p-10" onClick={onClick}>
+        <div className="w-20 tablets:w-36">
           <LogoComponent />
         </div>
         {token !== undefined && (
-          <div onClick={onClickLogout} className="font-normal font-Pretendard text-font_gray text-b2 cursor-pointer">
+          <div
+            onClick={onClickLogout}
+            className="font-normal font-Pretendard text-font_gray text-mobile_b3 tablets:text-b2 cursor-pointer">
             로그아웃
           </div>
         )}

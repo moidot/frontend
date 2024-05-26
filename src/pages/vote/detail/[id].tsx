@@ -102,7 +102,7 @@ const VoteDetailPage = () => {
       <VoteTitle groupName={voteData?.groupName} groupDate={voteData?.groupDate} />
       {/* url 박스 */}
       {voteData && (
-        <div className="w-[90vw] desktop:w-[555px] bg-bg_orange rounded-2xl text-center mx-auto mt-[30px] mb-[48px] p-[15px]">
+        <div className="w-[80vw] desktop:w-[555px] bg-bg_orange rounded-2xl text-center mx-auto mt-[30px] mb-[48px] p-[15px]">
           <div className="text-main_orange text-b1 font-bold mb-[15px]">모임원을 초대해보세요!</div>
           <UrlButton pathname={locationUrl?.asPath} teamname={voteData?.groupName} />
         </div>
@@ -158,7 +158,7 @@ const VoteDetailPage = () => {
                 onClick={() => {
                   setClickedAgainBtn(false), clickedAgainBtn && postGroupVoteSelectMutation.mutate(voteP);
                 }}
-                className="cursor-pointer flex w-[585px] h-[72px] items-center justify-center bg-main_orange rounded-2xl mx-auto mt-[60px] mb-[22px] text-white text-b2">
+                className="cursor-pointer flex w-[60vw] desktop:w-[585px] h-[72px] items-center justify-center bg-main_orange rounded-2xl mx-auto mt-[60px] mb-[22px] text-white text-b2">
                 다시 투표하기
               </div>
             ) : (
@@ -166,7 +166,7 @@ const VoteDetailPage = () => {
                 onClick={() => {
                   setClickedAgainBtn(true);
                 }}
-                className="cursor-pointer flex w-[585px] h-[72px] items-center justify-center border-2 bg-btn_disabled rounded-2xl mx-auto mt-[60px] mb-[22px] text-font_gray text-b2">
+                className="cursor-pointer flex w-[60vw] desktop:w-[585px] h-[72px] items-center justify-center border-2 bg-btn_disabled rounded-2xl mx-auto mt-[60px] mb-[22px] text-font_gray text-b2">
                 다시 투표하기
               </div>
             )
@@ -175,11 +175,11 @@ const VoteDetailPage = () => {
               onClick={() => {
                 setClickedStartBtn(!clickedStartBtn), clickedStartBtn && postGroupVoteSelectMutation.mutate(voteP);
               }}
-              className="cursor-pointer flex w-[585px] h-[72px] items-center justify-center bg-main_orange rounded-2xl mx-auto mt-[60px] mb-[22px] text-white text-b2">
+              className="cursor-pointer flex w-[60vw] desktop:w-[585px] h-[72px] items-center justify-center bg-main_orange rounded-2xl mx-auto mt-[60px] mb-[22px] text-white text-b2">
               투표하기
             </div>
           ) : (
-            <div className="cursor-pointer flex w-[585px] h-[72px] items-center justify-center border-2 bg-btn_disabled rounded-2xl mx-auto mt-[60px] mb-[22px] text-font_gray text-b2">
+            <div className="cursor-pointer flex w-[60vw] desktop:w-[585px] h-[72px] items-center justify-center border-2 bg-btn_disabled rounded-2xl mx-auto mt-[60px] mb-[22px] text-font_gray text-b2">
               투표하기
             </div>
           ))}
@@ -187,7 +187,7 @@ const VoteDetailPage = () => {
         {currentId === groupAdminId && voteData?.isClosed === false ? (
           <div
             onClick={() => setClickedEndVote(!clickedEndVote)}
-            className="cursor-pointer flex w-[585px] h-[72px] mb-[150px] items-center justify-center border-2 border-main_orange rounded-2xl mx-auto text-main_orange text-b2 box-border">
+            className="cursor-pointer flex w-[60vw] desktop:w-[585px] h-[72px] mb-[150px] items-center justify-center border-2 border-main_orange rounded-2xl mx-auto text-main_orange text-b2 box-border">
             투표 종료하기
           </div>
         ) : (

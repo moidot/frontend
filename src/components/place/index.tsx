@@ -92,11 +92,11 @@ const Place = ({ lng, lat, local }: PlaceProps) => {
   };
   return (
     <div>
-      <div className="flex flex-col ">
-        <div className="font-Pretendard text-black text-h3 font-bold pt-[44px] w-[1200px] mx-auto">
+      <div className="flex flex-col overflow-auto scrollbar-hide">
+        <div className="font-Pretendard text-black text-h3 font-bold pt-[44px] desktop:w-[1200px] mx-auto">
           모여서 여기로 가는거 어때요?
         </div>
-        <div className="flex flex-row gap-12 pt-[12px] w-[1200px] mx-auto">
+        <div className="flex flex-row gap-4 desktop:gap-12 pt-[12px] desktop:w-[1200px] mx-auto">
           {chip == ChipList.CAFE ? (
             <div>
               <ChipCafeOn />

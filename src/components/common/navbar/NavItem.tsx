@@ -16,12 +16,12 @@ const NavItem = ({ type, isFocused, groupId }: NavItemProps) => {
     <>
       {isFocused && groupId !== null ? (
         <Link href={`${url}/${groupId}`} className="w-[400px] h-[29px] text-center">
-          <div className="font-thin font-Pretendard text-main_orange text-b2">{label}</div>
+          <div className="font-thin font-Pretendard text-main_orange text-mobile_b3 tablets:text-b2">{label}</div>
           <div className="mt-1.5 w-full h-0.5 bg-main_orange rounded-2xl"></div>
         </Link>
       ) : (
         <Link href={`${url}/${groupId}`} className="w-[400px] h-[29px] text-center">
-          <div className="font-Pretendard font-thin text-font_gray text-b2">{label}</div>
+          <div className="font-Pretendard font-thin text-font_gray text-mobile_b3 tablets:text-b2">{label}</div>
         </Link>
       )}
     </>

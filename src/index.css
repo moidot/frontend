@@ -15,16 +15,9 @@
   box-sizing: border-box;
 }
 
-:root {
-  --main-bg-color: white;
-}
 
-html {
-  height: 100%;
-}
 
 body {
-  background-color: var(--main-bg-color);
   min-height: 100vh;
-  min-width: 700px;
+  /* min-width: 700px; */
 }

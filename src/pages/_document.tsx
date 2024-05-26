@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export default function Document() {
   return (
-    <Html lang="en">
+    <Html lang="en" className="bg-white dark:bg-white">
       <Head>
         <Link href="../../src/input.css" rel="stylesheet" />
       </Head>
