@@ -33,20 +33,27 @@ const PlaceItem = ({ title, thumUrl, distance, openTime, tel, category }: PlaceI
 
   return (
     <>
-      <div className="bg-white w-[585px] rounded-2xl flex-row flex  gap-5 shadow-card_shadow ">
+      <div className="bg-white w-[30rem] xl:w-[38rem] h-[228px] rounded-2xl flex-row flex gap-5 shadow-card_shadow  over">
         {thumUrl ? (
-          <div style={{ overflow: 'hidden' }} className="rounded-l-lg flex justify-start relative">
-            <Image src={thumUrl} width={175} height={185} objectFit="cover" alt="placeImg" priority />
+          <div style={{ overflow: 'hidden' }} className="rounded-l-2xl flex justify-start relative">
+            <Image src={thumUrl} width={175} height={185} alt="placeImg" priority style={{ objectFit: 'cover' }} />
           </div>
         ) : (
-          <div style={{ overflow: 'hidden' }} className="rounded-l-lg flex justify-start relative">
-            <Image src={renderCategoryImage()} width={175} height={185} objectFit="cover" alt="placeImg" priority />
+          <div style={{ overflow: 'hidden' }} className="rounded-l-2xl flex justify-start relative">
+            <Image
+              src={renderCategoryImage()}
+              width={175}
+              height={185}
+              alt="placeImg"
+              priority
+              style={{ objectFit: 'cover' }}
+            />
           </div>
         )}
 
         <div className=" flex flex-col gap-[64px]">
           <div>
-            <div className="font-Pretendard text-black text-b1 font-bold pt-4">{title}</div>
+            <div className="font-Pretendard text-black text-b3 xl:text-b1 font-bold pt-4">{title}</div>
             <div className="font-Pretendard text-main_orange text-b4 font-regular">{distance}</div>
           </div>
           <div className="flex flex-col gap-[12px]">
