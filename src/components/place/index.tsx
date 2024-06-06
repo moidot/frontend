@@ -92,11 +92,9 @@ const Place = ({ lng, lat, local }: PlaceProps) => {
   };
   return (
     <div>
-      <div className="flex flex-col overflow-auto scrollbar-hide">
-        <div className="font-Pretendard text-black text-h3 font-bold pt-[44px] desktop:w-[1200px] mx-auto">
-          모여서 여기로 가는거 어때요?
-        </div>
-        <div className="flex flex-row gap-4 desktop:gap-12 pt-[12px] desktop:w-[1200px] mx-auto">
+      <div className="flex flex-col justify-start xl:w-[80rem] mx-auto">
+        <div className="font-Pretendard text-black text-h3 font-bold pt-[44px]">모여서 여기로 가는거 어때요?</div>
+        <div className="flex flex-row gap-4 desktop:gap-12 pt-[12px]">
           {chip == ChipList.CAFE ? (
             <div>
               <ChipCafeOn />
@@ -161,9 +159,9 @@ const Place = ({ lng, lat, local }: PlaceProps) => {
             />
           </div>
         ) : (
-          <div className=" flex flex-col justify-center items-center ">
+          <div className=" flex flex-col justify-start items-center">
             <div className="pt-[44px]"></div>
-            <div className="flex w-1/2 justify-center items-center gap-[30px]">
+            <div className="flex justify-start items-center gap-[30px]">
               {bestPlaceData ? (
                 bestPlaceData.data.slice(0, 2).map((item) => (
                   <div
@@ -185,7 +183,7 @@ const Place = ({ lng, lat, local }: PlaceProps) => {
               )}
             </div>
             <div className="pt-[30px]"></div>
-            <div className="flex w-1/2 justify-center items-center gap-[30px]">
+            <div className="flex justify-start items-center gap-[30px]">
               {bestPlaceData ? (
                 bestPlaceData.data.slice(2, 4).map((item) => (
                   <div key={item.title} className="flex-1" onClick={() => onModalClick(item)}>
@@ -206,7 +204,7 @@ const Place = ({ lng, lat, local }: PlaceProps) => {
           </div>
         )}
 
-        <div className="flex justify-center items-center pt-[140px]">{/* <More /> */}</div>
+        <div className="flex justify-start items-center pt-[140px]">{/* <More /> */}</div>
       </div>
     </div>
   );
