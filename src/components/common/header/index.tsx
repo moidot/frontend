@@ -4,6 +4,7 @@ import LogoComponent from '@assets/header/logo.svg';
 import { useRouter } from 'next/router';
 const Header = () => {
   const token = api.getToken();
+  const userId = api.getId();
   const router = useRouter();
   const onClick = () => {
     if (token != undefined) {
@@ -24,12 +25,14 @@ const Header = () => {
         <div className="w-20 tablets:w-36">
           <LogoComponent />
         </div>
-        {token !== undefined && (
+        {token && userId ? (
           <div
             onClick={onClickLogout}
             className="font-normal font-Pretendard text-font_gray text-mobile_b3 tablets:text-b2 cursor-pointer">
             로그아웃
           </div>
+        ) : (
+          <></>
         )}
       </div>
       <hr />

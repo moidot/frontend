@@ -1,4 +1,5 @@
 import FooterLogo from '@assets/footer/logo.svg';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 const Footer = () => {
@@ -12,6 +13,7 @@ const Footer = () => {
   const onLocationTermsClick = () => {
     router.push('/locationTerms');
   };
+
   return (
     <>
       <div className="w-full h-[240px] bg-[#333333] p-5 desktop:p-20 overflow-auto scrollbar-hide">
@@ -34,9 +36,19 @@ const Footer = () => {
                 위치정보 수집 및 활용방침
               </div>
               <div className="font-normal font-Pretendard text-white text-b2 hidden tablets:visible">|</div>
-              <div className="font-normal font-Pretendard text-white text-b2 cursor-pointer">소개</div>
+              <Link
+                href={`https://forms.gle/JzTqCUixp6hn5Q8f7`}
+                passHref
+                className="font-normal font-Pretendard text-white text-b2 cursor-pointer">
+                만족도 조사
+              </Link>
               <div className="font-normal font-Pretendard text-white text-b2 hidden tablets:visible">|</div>
-              <div className="font-normal font-Pretendard text-white text-b2 cursor-pointer">Instagram</div>
+              <Link
+                href={`https://www.instagram.com/moi_dot?igsh=NmQzajd0dnNrdDFo`}
+                passHref
+                className="font-normal font-Pretendard text-white text-b2 cursor-pointer">
+                Instagram
+              </Link>
             </div>
 
             <div className="font-normal font-Pretendard text-[#A1A1A1] text-mobile_b4 tablets:text-b2 mt-4">
