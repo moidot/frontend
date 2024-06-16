@@ -7,77 +7,65 @@ import VoteTitle from '@/components/vote/VoteTitle';
 import VoteEndPopup from '@/components/vote/detail/VoteEndPopup';
 import { useEffect, useState } from 'react';
 import VoteKakaoMap from '@/components/vote/detail/VoteKakaoMap';
-import { VoteData, voteSelectPlaceData } from '@/types/VoteType';
-import { useGetGroupVote } from '@/hooks/useGetGroupVote';
+import { voteSelectPlaceData } from '@/types/VoteType';
 import { VoteStatusData } from '@/types/VoteType';
 import api from '@/services/TokenService';
-import { useRecoilValue, RecoilEnv } from 'recoil';
+import { RecoilEnv, useRecoilValue } from 'recoil';
 import { VoteSelectData, postGroupVoteSelect } from '@/apis/postGroupVoteSelect';
 import { useMutation } from '@tanstack/react-query';
-import { groupIdAtom } from '@/states/groupIdAtom';
 import { handleDateFormat } from '@/utils/changeDateFormat';
 import { useRouter } from 'next/router';
+import { groupIdAtom } from '@/states/groupIdAtom';
 
-const VoteDetailPage = () => {
+const VoteDetailPage = ({ response }: any) => {
   RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
   // eslint-disable-next-line react-hooks/exhaustive-deps
   // let votePlaceIds: any = [];
   // (02/22) 테스트하기 - 변수로 관리해 제대로 반영이 안되던 투표 배열 state로 관리하게 수정
 
   const locationUrl = useRouter();
-  const [voteData, setVoteData] = useState<VoteData>(); // 투표 전체 데이터
   const [voteEndAt, setVoteEndAt] = useState<any>(''); // 투표 종료 시간 데이터
   const [clickedStartBtn, setClickedStartBtn] = useState<boolean>(false); // 투표하기 버튼 선택/미선택
   const [clickedAgainBtn, setClickedAgainBtn] = useState<boolean>(false); // 재투표 버튼 선택/미선택
   const [clickedEndVote, setClickedEndVote] = useState<boolean>(false); // 투표 종료 버튼 클릭 여부
   const [voteMax, setVoteMax] = useState<any>();
   const token = api.getToken();
-  const userId = api.getId();
-  const groupIdData = useRecoilValue(groupIdAtom);
+  const group = useRecoilValue(groupIdAtom);
   const groupAdminId = typeof window !== 'undefined' ? sessionStorage.getItem('adminId') : null;
   const [voteIds, setVoteIds] = useState<any>([]);
 
-  const response = useGetGroupVote(groupIdData.groupId, userId);
+  // const { data: response } = useGetGroupVote(group.groupId, userId);
   const currentId = api.getEmail();
   const voteP: voteSelectPlaceData = {
-    groupId: groupIdData.groupId,
+    groupId: group.groupId,
     bestPlaceIds: voteIds,
   };
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  //투표 데이터 voteData 변수에 저장하기
-  useEffect(() => {
-    console.log('response', response);
-    if (response.data?.message === '성공') setVoteData(response.data?.data);
-    console.log('vote data', voteData);
-  }, []);
 
   // 투표 종료일 포맷 변경
   useEffect(() => {
-    const changeDate = handleDateFormat(voteData?.endAt);
+    const changeDate = handleDateFormat(response?.data?.endAt);
     setVoteEndAt(changeDate);
-  }, [voteData?.endAt]);
+  }, [response?.data?.endAt]);
 
   //보류 --- 재투표 버튼 눌렀을 때 체크한 데이터 저장하기
   useEffect(() => {
-    if (voteData?.voteStatuses) {
-      const temp = voteData?.voteStatuses?.filter((item) => item.isVoted);
+    if (response?.data?.voteStatuses) {
+      const temp = response?.data?.voteStatuses?.filter((item: any) => item.isVoted);
       // temp?.map((item) => votePlaceIds.push(item.bestPlaceId));
-      const temp2 = temp?.map((item) => item.bestPlaceId);
+      const temp2 = temp?.map((item: any) => item.bestPlaceId);
       setVoteIds(temp2);
     }
-  }, [voteData?.voteStatuses]);
+  }, [response?.data?.voteStatuses]);
 
   useEffect(() => {
-    setVoteMax(
-      voteData?.voteStatuses &&
-        voteData?.voteStatuses.reduce((prev, value) => {
+    response?.data.voteStatuses &&
+      setVoteMax(
+        response?.data?.voteStatuses.reduce((prev: any, value: any) => {
           return prev.votes >= value.votes ? prev : value;
-        }),
-    );
+        }, 0),
+      );
     console.log('voteMax is...', voteMax);
-  }, [voteData?.isClosed, voteData?.voteStatuses, voteMax]);
+  }, [response?.data.voteStatuses, voteMax]);
 
   useEffect(() => {
     console.log('voteIDS... : ', voteIds);
@@ -99,26 +87,26 @@ const VoteDetailPage = () => {
     <section className="font-Pretendard">
       <Header />
       <Navbar focusType={NAV_LIST.VOTE} />
-      <VoteTitle groupName={voteData?.groupName} groupDate={voteData?.groupDate} />
+      <VoteTitle groupName={response?.data?.groupName} groupDate={response?.data?.groupDate} />
       {/* url 박스 */}
-      {voteData && (
+      {response?.data && (
         <div className="w-[80vw] desktop:w-[555px] bg-bg_orange rounded-2xl text-center mx-auto mt-[30px] mb-[48px] p-[15px]">
           <div className="text-main_orange text-b1 font-bold mb-[15px]">모임원을 초대해보세요!</div>
-          <UrlButton pathname={locationUrl?.asPath} teamname={voteData?.groupName} />
+          <UrlButton pathname={locationUrl?.asPath} teamname={response?.data?.groupName} />
         </div>
       )}
       {/* 지도 자리 */}
-      {voteData?.voteStatuses && <VoteKakaoMap locationInfo={voteData?.voteStatuses} />}
+      {response?.data?.voteStatuses && <VoteKakaoMap locationInfo={response?.data?.voteStatuses} />}
       {/* 투표 탭 */}
       <div className="w-[62.5vw] mx-auto bg-white">
         <div className="w-full h-[74px] mt-2 flex justify-between items-center">
           <div className="w-[170px] h-[50px] flex justify-between text-b3">
-            {voteData?.isEnabledMultipleChoice ? (
+            {response?.data?.isEnabledMultipleChoice ? (
               <div className="text-main_orange">● 복수선택</div>
             ) : (
               <div className="text-font_gray">● 복수선택</div>
             )}
-            {voteData?.isAnonymous ? (
+            {response?.data?.isAnonymous ? (
               <div className="text-main_orange">● 익명투표</div>
             ) : (
               <div className="text-font_gray">● 익명투표</div>
@@ -129,8 +117,16 @@ const VoteDetailPage = () => {
         {/* 투표 창 */}
         <div
           className="w-[100%] mx-auto cursor-pointer"
-          style={{ pointerEvents: voteData?.isVotingParticipant ? (clickedAgainBtn ? 'auto' : 'none') : 'auto' }}>
-          {voteData?.voteStatuses.map((item: VoteStatusData) => (
+          style={{
+            pointerEvents: response?.data?.isClosed
+              ? 'none'
+              : response?.data?.isVotingParticipant
+                ? clickedAgainBtn
+                  ? 'auto'
+                  : 'none'
+                : 'auto',
+          }}>
+          {response?.data?.voteStatuses.map((item: VoteStatusData) => (
             <VoteChoiceOption
               key={item.bestPlaceId}
               votePlaceIds={voteIds}
@@ -141,17 +137,17 @@ const VoteDetailPage = () => {
               bestPlaceId={item.bestPlaceId}
               latitude={item.latitude}
               longitude={item.longitude}
-              isEnabledMultipleChoice={voteData.isEnabledMultipleChoice}
-              isAnonymous={voteData.isAnonymous}
-              isClosed={voteData.isClosed}
+              isEnabledMultipleChoice={response?.data.isEnabledMultipleChoice}
+              isAnonymous={response?.data.isAnonymous}
+              isClosed={response?.data.isClosed}
               voteMax={voteMax}
             />
           ))}
         </div>
 
         {/* 투표가 진행중이고 참여자가 있을 때 버튼 보임 */}
-        {!voteData?.isClosed &&
-          (voteData?.isVotingParticipant ? (
+        {!response?.data?.isClosed &&
+          (response?.data?.isVotingParticipant ? (
             clickedAgainBtn ? (
               // 재투표 선택
               <div
@@ -184,7 +180,7 @@ const VoteDetailPage = () => {
             </div>
           ))}
         {/* 모임장일 때만 버튼 생성 */}
-        {currentId === groupAdminId && voteData?.isClosed === false ? (
+        {currentId === groupAdminId && response?.data?.isClosed === false ? (
           <div
             onClick={() => setClickedEndVote(!clickedEndVote)}
             className="cursor-pointer flex w-[60vw] desktop:w-[585px] h-[72px] mb-[150px] items-center justify-center border-2 border-main_orange rounded-2xl mx-auto text-main_orange text-b2 box-border">
