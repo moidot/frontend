@@ -1,10 +1,20 @@
 import DefaultLayout from '@/components/common/layout/defaultLayout';
 import Main from '@/components/main';
+import { groupIdAtom } from '@/states/groupIdAtom';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
+import { useEffect } from 'react';
+import { useSetRecoilState } from 'recoil';
 
 const MainPage = (props: any) => {
   console.log(props, 'props');
+  const setGroupId = useSetRecoilState(groupIdAtom);
+  useEffect(() => {
+    sessionStorage.setItem('groupId', props.id);
+    setGroupId({
+      groupId: parseInt(props.id),
+    });
+  }, [props, props.id, setGroupId]);
   return (
     <>
       {props && (

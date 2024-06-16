@@ -5,28 +5,22 @@ import VoteBox from '@/components/vote/VoteBox';
 import VoteStartBtn from '@/components/vote/VoteStartBtn';
 import VoteTitle from '@/components/vote/VoteTitle';
 import { useGetGroup } from '@/hooks/useGetGroup';
-import { useGetGroupVote } from '@/hooks/useGetGroupVote';
 import api from '@/services/TokenService';
 import { groupIdAtom } from '@/states/groupIdAtom';
 import { ParticipationProps } from '@/types/ParticipateType';
-import { VoteData } from '@/types/VoteType';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 
-const VoteWaitPage = () => {
+const VoteWaitPage = ({ response }: any) => {
   const currentUserEmail = api.getEmail();
-  const userId = api.getId();
   const router = useRouter();
-  const [voteData, setVoteData] = useState<VoteData>();
   const [groupData, setGroupData] = useState<ParticipationProps>();
   const [adminEmail, setAdminEmail] = useState<string | undefined>('');
   const group = useRecoilValue(groupIdAtom);
-  const response = useGetGroupVote(group.groupId, userId);
   const getGroup = useGetGroup(group.groupId);
   const [sumParticipant, setSumParticipant] = useState<number>(0);
   useEffect(() => {
-    if (response.data?.message === '성공') setVoteData(response.data?.data);
     if (getGroup.data?.message === '성공') setGroupData(getGroup.data?.data);
     setAdminEmail(groupData?.adminEmail);
   }, [getGroup.data?.data, getGroup.data?.message, groupData?.adminEmail, response]);
@@ -50,9 +44,9 @@ const VoteWaitPage = () => {
       <Navbar focusType={NAV_LIST.VOTE} />
       <div className="max-w-[1200px] mx-auto font-Pretendard">
         <div className="mb-[90px]">
-          <VoteTitle groupName={voteData?.groupName} groupDate={voteData?.groupDate} />
+          <VoteTitle groupName={response?.data?.groupName} groupDate={response?.data?.groupDate} />
         </div>
-        <VoteBox admin={adminEmail} groupName={voteData?.groupName} />
+        <VoteBox admin={adminEmail} groupName={response?.data?.groupName} />
         <div onClick={handleClickVoteStartBtn}> {currentUserEmail === adminEmail && <VoteStartBtn />}</div>
       </div>
     </section>
