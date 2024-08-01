@@ -28,7 +28,7 @@ export const swipeList: ISwipeList[] = [
 ];
 const Home3 = () => {
   return (
-    <div className="flex flex-col justify-center items-center mt-[100px]">
+    <div className="w-screen flex flex-col justify-center items-center mt-[100px] overflow-hidden">
       <SwipeText />
       <div className="carousel rounded-box">
         <div className="carousel-item">

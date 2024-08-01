@@ -7,7 +7,7 @@ const Home2 = () => {
   return (
     <>
       {/* part2 : 모이닷 소개 */}
-      <div className="bg-light_orange w-screen mt-20">
+      <div className="bg-light_orange w-screen mt-20 overflow-scroll">
         <div className="flex flex-col items-center justify-center p-8">
           <div className="flex flex-col items-center justify-center gap-4">
             <Talk1 />
