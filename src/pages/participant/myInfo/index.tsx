@@ -48,7 +48,7 @@ const MyInfoUpdatePage = () => {
         const geocoder = new window.kakao.maps.services.Geocoder();
 
         geocoder.addressSearch(userData.address, function (result: any, status: any) {
-          // 정상적으로 검색이 완료됐으면
+          // 정상적으로 검색이 완료된 경우
           if (status === window.kakao.maps.services.Status.OK) {
             setLocation({ location: userData.address, lng: result[0].x, lat: result[0].y });
           }
