@@ -8,7 +8,6 @@ import RenewalPage from '@/renewal';
 const HomePage = () => {
   // const token = api.getToken();
   // const userId = api.getId();
-  // console.log('t', token);
   return (
     <>
       <RenewalPage />
