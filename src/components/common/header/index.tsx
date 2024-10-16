@@ -19,6 +19,7 @@ const Header = () => {
     if (log?.message === '성공') api.logout();
     router.push('/');
   };
+
   return (
     <div>
       <div className="flex flex-row items-center justify-between w-100vw p-6 tablets:p-10" onClick={onClick}>
