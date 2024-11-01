@@ -4,7 +4,9 @@ import LogoComponent from '@assets/header/logo.svg';
 import { useRouter } from 'next/router';
 const Header = () => {
   const token = api.getToken();
+  console.log('token', token);
   const userId = api.getId();
+  console.log('userId', userId);
   const router = useRouter();
   const onClick = () => {
     if (token != undefined) {

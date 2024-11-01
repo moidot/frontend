@@ -8,7 +8,6 @@ import CalendarImg from '@assets/create/web_icon_calendar.svg';
 import { useState } from 'react';
 import NextButton from '@/components/common/button/next/NextButton';
 import SpaceCreateCalendarModal from '../SpaceCreateCalendarModal';
-import tw from 'twin.macro';
 
 const DEFAULT_DATE: string = '모임날짜를 선택해주세요.';
 
@@ -63,22 +62,22 @@ const SpaceCreateInfo = () => {
       <div className="spacer h-6 tablets:h-10"></div>
       <Step activeStep="INFO" />
       <div className="info-header pt-[34px] flex flex-col items-center justify-center">
-        <div className="text-b4 text-bg_light_gray font-normal font-Pretendard">어떤 모임인가요?</div>
-        <div className="text-b1 text-black font-bold font-Pretendard">모임 정보를 입력해 주세요.</div>
+        <div className="text-b4 text-bg_light_gray font-normal font-Pretendard tablets:text-b2">어떤 모임인가요?</div>
+        <div className="text-b1 text-black font-bold font-Pretendard tablets:text-h3">모임 정보를 입력해 주세요.</div>
       </div>
       <div className="input-section pt-[83px] gap-[32px]">
         <div className="flex flex-row items-center justify-between mb-[12px]">
-          <div className={`text-b3 text-black font-normal font-Pretendard ${tw`tablets:(text-b2)`}`}>모임명</div>
+          <div className={`text-b3 text-black font-normal font-Pretendard tablets:text-b2`}>모임명</div>
           <div className="flex flex-row">
-            <div className="text-b4 text-font_gray font-normal font-Pretendard">공백포함 </div>
-            <div className="text-b4 text-font_gray font-normal font-Pretendard tablets:(pl-[10px]">
+            <div className={`text-b4 text-font_gray font-normal font-Pretendard tablets:text-b3`}>공백포함</div>
+            <div className={'text-b4 text-font_gray font-normal font-Pretendard tablets:pl-[10px] tablets:text-b3'}>
               {name.length >= 15 ? 15 : name.length}
             </div>
-            <div className="text-b4 text-font_gray font-normal font-Pretendard">/15 자 </div>
+            <div className="text-b4 text-font_gray font-normal font-Pretendard tablets:text-b3">/15 자</div>
           </div>
         </div>
         <input
-          className="input-field w-[320px] h-[72px] pt-[20px] pb-[20px] pl-[24px] pr-[24px] rounded-lg bg-bg_orange"
+          className="input-field w-[320px] h-[72px] pt-[20px] pb-[20px] pl-[24px] pr-[24px] rounded-lg bg-bg_orange tablets:w-[585px] tablets:text-b3"
           placeholder="15자 이내의 모임명을 입력해주세요."
           value={name}
           onChange={onNameChange}
@@ -87,9 +86,9 @@ const SpaceCreateInfo = () => {
       </div>
       <div className="date-section pt-[83px] gap-[32px]">
         <div className="flex flex-row items-center mb-[12px]">
-          <div className="text-b3 text-black font-normal font-Pretendard">모임날짜</div>
+          <div className="text-b3 text-black font-normal font-Pretendard tablets:text-b2">모임날짜</div>
         </div>
-        <div className="date-display w-[320px] h-[72px] pt-[20px] pb-[20px] pl-[24px] pr-[24px] rounded-lg bg-bg_orange flex flex-row items-center justify-between">
+        <div className="date-display w-[320px] h-[72px] pt-[20px] pb-[20px] pl-[24px] pr-[24px] rounded-lg bg-bg_orange flex flex-row items-center justify-between tablets:w-[585px] tablets:text-b3">
           <div className="text-b4 text-font_gray font-normal font-Pretendard">{date}</div>
           {modalClick && portalElement ? (
             <SpaceCreateCalendarModal
@@ -105,7 +104,7 @@ const SpaceCreateInfo = () => {
           )}
         </div>
       </div>
-      <div className="button-section pt-[185px] w-[320px]">
+      <div className="button-section pt-[140px] w-[320px] tablets:w-[585px] tablets:pt-[185px]">
         <NextButton isActive={active} onClick={active ? onNextClick : undefined} />
       </div>
     </div>

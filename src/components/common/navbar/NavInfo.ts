@@ -19,4 +19,4 @@ export const NAV_INFO = {
     label: '투표',
     url: NAV_URL_LIST.VOTE,
   },
-} as const satisfies Record<(typeof NAV_LIST)[keyof typeof NAV_LIST], NavItemType>;
+} as const;
