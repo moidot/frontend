@@ -4,7 +4,9 @@ import LogoComponent from '@assets/header/logo.svg';
 import { useRouter } from 'next/router';
 const Header = () => {
   const token = api.getToken();
+  console.log('token', token);
   const userId = api.getId();
+  console.log('userId', userId);
   const router = useRouter();
   const onClick = () => {
     if (token != undefined) {
@@ -19,6 +21,7 @@ const Header = () => {
     if (log?.message === '성공') api.logout();
     router.push('/');
   };
+
   return (
     <div>
       <div className="flex flex-row items-center justify-between w-100vw p-6 tablets:p-10" onClick={onClick}>

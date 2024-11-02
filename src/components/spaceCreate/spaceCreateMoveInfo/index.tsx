@@ -88,26 +88,26 @@ const SpaceCreateMoveInfo = () => {
   return (
     <div className="flex justify-center items-center flex-col">
       <BackButtonBar onClick={onBackClick} />
-      <div className="h-[43px]"></div>
+      <div className="spacer h-6 tablets:h-10"></div>
       <Step activeStep="START_LOCATION" />
       <div className="pt-[34px] flex justify-center items-center flex-col">
         <div className="flex flex-row">
-          <div className="font-normal font-Pretendard text-b1 text-main_orange">{data?.name}</div>
-          <div className="font-normal font-Pretendard text-b1 text-font_gray">에 가기위한 </div>
+          <div className="font-normal font-Pretendard tablets:text-b1 text-b4 text-main_orange">{data?.name}</div>
+          <div className="font-normal font-Pretendard tablets:text-b1 text-b4 font_gray">에 가기위한 </div>
         </div>
-        <div className="font-bold font-Pretendard text-h3 text-font_black">이동정보를 알려주세요 </div>
+        <div className="font-bold font-Pretendard tablets:text-h3 text-b1 text-font_black">이동정보를 알려주세요 </div>
       </div>
-      <div className="pt-[83px] w-[590px] gap-[52px] flex flex-col">
+      <div className="tablets:pt-[83px] pt-[40px] tablets:w-[590px] w-[320px] gap-[52px] flex flex-col">
         <div>
           <div className="flex flex-row items-center mb-[12px]">
-            <div className="font-normal font-Pretendard text-b1 text-black">출발 위치</div>
+            <div className="font-normal font-Pretendard tablets:text-b1 text-b3 text-black">출발 위치</div>
           </div>
           <div className="w-full h-[72px] pt-[20px] pb-[20px] pl-[24px] pr-[24px] rounded-lg bg-bg_orange flex flex-row items-center justify-between">
-            <div className="font-normal font-Pretendard text-b3 text-font_gray">{location.location}</div>
+            <div className="font-normal font-Pretendard text-b3  text-font_gray">{location.location}</div>
             {modalClick && portalElement ? (
               <SpaceCreateStartLocationModal setModalClick={setModalClick} modalClick={modalClick} />
             ) : (
-              <div onClick={onLocationClick}>
+              <div onClick={onLocationClick} className="tablets:w-8 tablets:h-8 w-6 h-6 hover:cursor-pointer">
                 <LocationIcon />
               </div>
             )}
@@ -115,19 +115,19 @@ const SpaceCreateMoveInfo = () => {
         </div>
         <div>
           <div className="flex flex-col gap-[12px]">
-            <div className="font-normal font-Pretendard text-b1 text-black">이동 수단</div>
+            <div className="font-normal font-Pretendard tablets:text-b1 text-b3 text-black">이동 수단</div>
             <div className="flex flex-col gap-[12px]">
               <div className="w-full h-[72px] pt-[20px] pb-[20px] pl-[24px] pr-[24px] rounded-lg bg-bg_orange flex flex-row items-center justify-between">
                 <div>
                   {transportClick ? (
                     <div className="flex flex-row gap-[28px] items-center">
                       <TransportOnIcon />
-                      <div className="font-bold font-Pretendard text-b2 text-main_orange">대중교통</div>
+                      <div className="font-bold font-Pretendard tablets:text-b2 text-b3 text-main_orange">대중교통</div>
                     </div>
                   ) : (
                     <div className="flex flex-row gap-[28px] items-center">
                       <TransportOffIcon />
-                      <div className="font-normal font-Pretendard text-b2 text-black">대중교통</div>
+                      <div className="font-normal font-Pretendard tablets:text-b2 text-b3 text-black">대중교통</div>
                     </div>
                   )}
                 </div>
@@ -139,12 +139,12 @@ const SpaceCreateMoveInfo = () => {
                   {carClick ? (
                     <div className="flex flex-row gap-[28px] items-center">
                       <CarOnIcon />
-                      <div className="font-bold font-Pretendard text-b2 text-main_orange">자동차</div>
+                      <div className="font-bold font-Pretendard tablets:text-b2 text-b3 text-main_orange">자동차</div>
                     </div>
                   ) : (
                     <div className="flex flex-row gap-[28px] items-center">
                       <CarOffIcon />
-                      <div className="font-normal font-Pretendard text-b2 text-black">자동차</div>
+                      <div className="font-normal font-Pretendard tablets:text-b2 text-b3 text-black">자동차</div>
                     </div>
                   )}
                 </div>
@@ -156,12 +156,11 @@ const SpaceCreateMoveInfo = () => {
         </div>
       </div>
       <div className="pt-[45px]">
-        <div className="font-normal font-Pretendard text-b3 text-font_gray">
+        <div className="font-normal font-Pretendard tablets:text-b3 text-b4 text-font_gray">
           입력하신 장소정보는 다른 모임원들에게 보여집니다.
         </div>
       </div>
-
-      <div className="pt-[8px]">
+      <div className="pt-[8px] tablets:w-[590px] w-[320px]">
         {active ? (
           <SpaceCreateButton isActive={active} onClick={onNextClick} />
         ) : (

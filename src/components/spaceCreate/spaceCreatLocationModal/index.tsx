@@ -88,16 +88,19 @@ const SpaceCreateStartLocationModal = ({ modalClick, setModalClick }: SpaceCreat
       className="fixed flex justify-center items-center flex-row top-0 right-0 left-0 w-[100vw] h-[100vh] z-10 "
       style={{ backgroundColor: 'rgba( 0, 0, 0, 0.6 )' }}>
       <div className="w-[790px] max-h-[90vh] pt-[32px] pb-[81px] flex flex-col bg-white z-20 gap-[40px] rounded-2xl overflow-auto scrollbar-hide">
-        <div className="flex flex-row justify-center items-center pl-[205px] pr-[44px]">
-          <div className="font-bold font-Pretendard text-font_black text-h3">출발 위치를 등록해주세요</div>
-          <div onClick={onCloseClick} className="pl-[133px]">
+        <div className="flex flex-row items-center justify-between  w-full px-10">
+          <div className="tablets:w-10 w-5" />
+          <div className="font-bold font-Pretendard text-font_black tablets:text-h3 text-mobile-h3 ">
+            출발 위치를 등록해주세요
+          </div>
+          <div onClick={onCloseClick} className="tablets:w-10 tablets:h-10 w-5 h-5">
             <CloseBtn />
           </div>
         </div>
-        <div className="pl-[102px] pr-[102px]">
-          <div className="w-[586px] h-[72px] mt-[53px] rounded-lg p-[20px] bg-bg_orange flex flex-row items-center justify-between outline-none">
+        <div className="flex items-center justify-center flex-col p-5">
+          <div className="tablets:w-[586px] w-full h-[72px] mt-[53px] rounded-lg p-[20px] bg-bg_orange flex flex-row items-center justify-between outline-none">
             <input
-              className="w-full h-[72px] pt-[20px] pb-[20px] pl-[24px] pr-[24px] rounded-lg bg-bg_orange"
+              className="w-full h-[72px] pt-[20px] pb-[20px] rounded-lg bg-bg_orange"
               placeholder="위치를 입력해주세요"
               value={searchLocationVal}
               onChange={onSearchLocationValChange}
@@ -107,13 +110,19 @@ const SpaceCreateStartLocationModal = ({ modalClick, setModalClick }: SpaceCreat
               <SearchIcon />
             </div>
           </div>
-          <div className="pt-[23px]" onClick={onLoadCurrentLocation}>
-            <div className="flex flex-row gap-[16px] items-center" onClick={onLoadCurrentLocation}>
-              <LocationIcon />
-              <div className="font-normal font-Pretendard text-b3 text-main_orange">현재위치 불러오기</div>
+          <div className="pt-[23px] flex items-start w-full tablets:w-[586px]" onClick={onLoadCurrentLocation}>
+            <div
+              className="flex flex-row tablets:gap-[16px] gap-[8px] items-center justify-start "
+              onClick={onLoadCurrentLocation}>
+              <div className="tablets:w-9 tablets:h-9 w-5 h-5">
+                <LocationIcon />
+              </div>
+              <div className="font-normal font-Pretendard tablets:text-b3 text-mobile_b4 text-main_orange">
+                현재위치 불러오기
+              </div>
             </div>
           </div>
-          <div className="w-[586px] h-[8px] bg-bg_orange mt-[22px] mb-[16px]"></div>
+          <div className="tablets:w-[586px] w-[360px] h-[8px] bg-bg_orange mt-[22px] mb-[16px]"></div>
           {searched === 'fail' ? (
             <FailSearchLocation />
           ) : (
@@ -129,7 +138,7 @@ const SpaceCreateStartLocationModal = ({ modalClick, setModalClick }: SpaceCreat
                   });
                   setModalClick(!modalClick);
                 }}
-                className={`w-[586px] h-[72px] mt-[53px] rounded-lg p-[20px]  flex flex-row items-center justify-between outline-none ${
+                className={`w-full h-[72px] mt-[53px] rounded-lg p-[20px]  flex flex-row items-center justify-between outline-none ${
                   selectedItemId === item.id ? 'bg-bg_orange' : ''
                 }`}>
                 <SearchLocationItem

@@ -45,6 +45,7 @@ const SpaceCreateInfo = () => {
       setActive(true);
     }
   };
+
   const onDateClick = () => {
     setDate(date);
     setModalClick(!modalClick);
@@ -56,39 +57,39 @@ const SpaceCreateInfo = () => {
   }, [name, date]);
 
   return (
-    <div className="flex justify-center items-center flex-col">
+    <div className="flex flex-col items-center justify-center">
       <BackButtonBar onClick={onBackClick} />
-      <div className="h-[43px]"></div>
+      <div className="spacer h-6 tablets:h-10"></div>
       <Step activeStep="INFO" />
-      <div className="pt-[34px] flex justify-center items-center flex-col">
-        <div className="font-normal font-Pretendard text-b1 text-bg_light_gray">어떤 모임인가요?</div>
-        <div className="font-bold font-Pretendard text-h3 text-black">모임 정보를 입력해 주세요.</div>
+      <div className="info-header pt-[34px] flex flex-col items-center justify-center">
+        <div className="text-b4 text-bg_light_gray font-normal font-Pretendard tablets:text-b2">어떤 모임인가요?</div>
+        <div className="text-b1 text-black font-bold font-Pretendard tablets:text-h3">모임 정보를 입력해 주세요.</div>
       </div>
-      <div className="pt-[83px] w-[590px] gap-[32px]">
+      <div className="input-section pt-[83px] gap-[32px]">
         <div className="flex flex-row items-center justify-between mb-[12px]">
-          <div className="font-normal font-Pretendard text-b1 text-black">모임명</div>
+          <div className={`text-b3 text-black font-normal font-Pretendard tablets:text-b2`}>모임명</div>
           <div className="flex flex-row">
-            <div className="font-normal font-Pretendard text-b3 text-font_gray">공백포함 </div>
-            <div className="font-normal font-Pretendard text-b3 text-font_gray">
+            <div className={`text-b4 text-font_gray font-normal font-Pretendard tablets:text-b3`}>공백포함</div>
+            <div className={'text-b4 text-font_gray font-normal font-Pretendard tablets:pl-[10px] tablets:text-b3'}>
               {name.length >= 15 ? 15 : name.length}
             </div>
-            <div className="font-normal font-Pretendard text-b3 text-font_gray">/15 자 </div>
+            <div className="text-b4 text-font_gray font-normal font-Pretendard tablets:text-b3">/15 자</div>
           </div>
         </div>
         <input
-          className="w-full h-[72px] pt-[20px] pb-[20px] pl-[24px] pr-[24px] rounded-lg bg-bg_orange"
+          className="input-field w-[320px] h-[72px] pt-[20px] pb-[20px] pl-[24px] pr-[24px] rounded-lg bg-bg_orange tablets:w-[585px] tablets:text-b3"
           placeholder="15자 이내의 모임명을 입력해주세요."
           value={name}
           onChange={onNameChange}
         />
-        <div className="font-normal font-Pretendard text-b3 text-alert_delete pt-[16px]">{error}</div>
+        <div className="error-message text-b4 text-alert_delete pt-[16px]">{error}</div>
       </div>
-      <div className="pt-[83px] w-[590px] gap-[32px]">
+      <div className="date-section pt-[83px] gap-[32px]">
         <div className="flex flex-row items-center mb-[12px]">
-          <div className="font-normal font-Pretendard text-b1 text-black">모임날짜</div>
+          <div className="text-b3 text-black font-normal font-Pretendard tablets:text-b2">모임날짜</div>
         </div>
-        <div className="w-full h-[72px] pt-[20px] pb-[20px] pl-[24px] pr-[24px] rounded-lg bg-bg_orange flex flex-row items-center justify-between">
-          <div className="font-normal font-Pretendard text-b3 text-font_gray">{date}</div>
+        <div className="date-display w-[320px] h-[72px] pt-[20px] pb-[20px] pl-[24px] pr-[24px] rounded-lg bg-bg_orange flex flex-row items-center justify-between tablets:w-[585px] tablets:text-b3">
+          <div className="text-b4 text-font_gray font-normal font-Pretendard">{date}</div>
           {modalClick && portalElement ? (
             <SpaceCreateCalendarModal
               setModalClick={setModalClick}
@@ -103,8 +104,8 @@ const SpaceCreateInfo = () => {
           )}
         </div>
       </div>
-      <div className="pt-[185px]">
-        {active ? <NextButton isActive={active} onClick={onNextClick} /> : <NextButton isActive={active} />}
+      <div className="button-section pt-[140px] w-[320px] tablets:w-[585px] tablets:pt-[185px]">
+        <NextButton isActive={active} onClick={active ? onNextClick : undefined} />
       </div>
     </div>
   );

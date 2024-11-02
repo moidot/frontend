@@ -5,6 +5,7 @@ import SpaceCreateInfo from '../spaceCreateInfo';
 import { useState } from 'react';
 import NextButton from '@/components/common/button/next/NextButton';
 import SpaceCreateMoveInfo from '../spaceCreateMoveInfo';
+
 const SpaceCreateName = () => {
   const { data, setCurrent, setData } = useFunnelContext();
   const [name, setName] = useState('');
@@ -49,22 +50,24 @@ const SpaceCreateName = () => {
   return (
     <div className="flex justify-center items-center flex-col">
       <BackButtonBar onClick={onBackClick} />
-      <div className="h-[43px]"></div>
+      <div className="spacer h-6 tablets:h-10"></div>
       <Step activeStep="NAME" />
       <div className="pt-[34px] flex justify-center items-center flex-col">
         <div className="flex flex-row">
-          <div className="font-normal font-Pretendard text-b1 text-main_orange">{data?.name}</div>
-          <div className="font-normal font-Pretendard text-b1 text-bg_light_gray">에서 사용할</div>
+          <div className="font-normal font-Pretendard text-b4 text-main_orange tablets:text-b2">{data?.name}</div>
+          <div className="font-normal font-Pretendard text-b4 text-bg_light_gray tablets:text-b2">에서 사용할</div>
         </div>
-        <div className="font-bold font-Pretendard text-h3 text-black">닉네임을 알려주세요</div>
+        <div className="font-bold font-Pretendard  text-b1 tablets:text-h3 text-black">닉네임을 알려주세요</div>
       </div>
-      <div className="pt-[83px] w-[590px] gap-[32px]">
+      <div className="pt-[83px]  gap-[32px]">
         <div className="flex flex-row items-center justify-between mb-[12px]">
-          <div className="font-normal font-Pretendard text-b1 text-black">닉네임</div>
-          <div className="font-normal font-Pretendard text-b3 text-font_gray">공백포함 {name.length} / 8자</div>
+          <div className="font-normal font-Pretendard  tablets:text-b1 text-b3 text-black">닉네임</div>
+          <div className="font-normal font-Pretendard tablets:text-b3 text-b4 text-font_gray">
+            공백포함 {name.length} / 8자
+          </div>
         </div>
         <input
-          className="w-full h-[72px] pt-[20px] pb-[20px] pl-[24px] pr-[24px] rounded-lg bg-bg_orange"
+          className="tablets:w-[585px] h-[72px] pt-[20px] pb-[20px] pl-[24px] pr-[24px] rounded-lg bg-bg_orange w-[320px]"
           placeholder="8자 이내의 이름을 입력해주세요."
           value={name}
           onChange={onNameChange}
@@ -72,7 +75,7 @@ const SpaceCreateName = () => {
         <div className="font-normal font-Pretendard text-b3 text-alert_delete pt-[16px]">{error}</div>
       </div>
 
-      <div className="pt-[185px]">
+      <div className="pt-[185px] w-[320px] tablets:w-[585px]">
         {active ? <NextButton isActive={active} onClick={onNextClick} /> : <NextButton isActive={active} />}
       </div>
     </div>
