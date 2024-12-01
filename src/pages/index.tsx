@@ -1,10 +1,10 @@
 import HomeLayout from '@/components/common/layout/homeLayout';
-import LoginAfter from '@/components/home/LoginAfter';
+// import LoginAfter from '@/components/home/LoginAfter';
 import LoginBefore from '@/components/home/LoginBefore';
 import api from '@/services/TokenService';
 import UserHomePage from './user';
 
-import RenewalPage from '@/renewal';
+// import RenewalPage from '@/renewal';
 
 const HomePage = () => {
   const token = api.getToken();

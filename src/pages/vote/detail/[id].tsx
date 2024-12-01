@@ -121,10 +121,10 @@ const VoteDetailPage = ({ response }: any) => {
             pointerEvents: response?.data?.isClosed
               ? 'none'
               : response?.data?.isVotingParticipant
-                ? clickedAgainBtn
-                  ? 'auto'
-                  : 'none'
-                : 'auto',
+              ? clickedAgainBtn
+                ? 'auto'
+                : 'none'
+              : 'auto',
           }}>
           {response?.data?.voteStatuses.map((item: VoteStatusData) => (
             <VoteChoiceOption
