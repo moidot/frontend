@@ -93,10 +93,10 @@ const Place = ({ lng, lat, local }: PlaceProps) => {
   return (
     <div>
       <div className="flex flex-col justify-start mx-auto w-full tablets:w-[40rem]">
-        <div className="font-Pretendard text-black font-bold pt-[44px] text-mobile_h3 tablets:text-h3">
+        <div className="font-Pretendard text-black font-bold pt-11 tablets:pt-[44px] text-mobile_h3 tablets:text-h3">
           모여서 여기로 가는거 어때요?
         </div>
-        <div className="flex flex-wrap justify-center gap-4 tablets:gap-8 pt-[12px]">
+        <div className="flex flex-wrap justify-center gap-4 tablets:gap-8 pt-3 tablets:pt-[12px]">
           {chip == ChipList.CAFE ? (
             <div>
               <ChipCafeOn />
@@ -162,8 +162,8 @@ const Place = ({ lng, lat, local }: PlaceProps) => {
           </div>
         ) : (
           <div className="flex flex-col justify-start items-center">
-            <div className="pt-[44px]"></div>
-            <div className="flex justify-start items-center gap-[20px] tablets:gap-[25px]">
+            <div className="pt-11 tablets:pt-[44px]"></div>
+            <div className="flex justify-start items-center gap-5 tablets:gap-[25px]">
               {bestPlaceData ? (
                 bestPlaceData.data.slice(0, 2).map((item) => (
                   <div
@@ -184,8 +184,8 @@ const Place = ({ lng, lat, local }: PlaceProps) => {
                 <div></div>
               )}
             </div>
-            <div className="pt-[30px]"></div>
-            <div className="flex justify-start items-center gap-[20px] tablets:gap-[25px]">
+            <div className="pt-7 tablets:pt-[30px]"></div>
+            <div className="flex justify-start items-center gap-5 tablets:gap-[25px]">
               {bestPlaceData ? (
                 bestPlaceData.data.slice(2, 4).map((item) => (
                   <div key={item.title} className="flex-1" onClick={() => onModalClick(item)}>
@@ -206,7 +206,7 @@ const Place = ({ lng, lat, local }: PlaceProps) => {
           </div>
         )}
 
-        <div className="flex justify-start items-center pt-[140px]">{/* <More /> */}</div>
+        <div className="flex justify-start items-center pt-36 tablets:pt-[140px]">{/* <More /> */}</div>
       </div>
     </div>
   );

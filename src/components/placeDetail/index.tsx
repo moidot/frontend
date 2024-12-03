@@ -45,10 +45,10 @@ const PlaceDetail = ({
 
   return (
     <div
-      className="fixed flex justify-center items-center flex-row top-0 right-0 left-0 w-[100vw] h-[100vh] z-10  "
+      className="fixed flex justify-center items-center flex-row top-0 right-0 left-0 w-full h-full z-10"
       style={{ backgroundColor: 'rgba( 0, 0, 0, 0.6 )' }}>
-      <div className="display block p-[32px]">
-        <div className="rounded-xl w-[1200px] max-h-[90vh] bg-white z-20 pt-[400px] pb-[100px] overflow-scroll flex justify-center items-center flex-col scrollbar-hide ">
+      <div className="display block p-8 tablets:p-[32px]">
+        <div className="rounded-xl w-full tablets:w-[1200px] max-h-[90vh] bg-white z-20 pt-20 tablets:pt-[400px] pb-10 tablets:pb-[100px] overflow-scroll flex justify-center items-center flex-col scrollbar-hide">
           <PlaceDetailInfo
             title={title}
             thumUrl={thumUrl}
@@ -64,7 +64,7 @@ const PlaceDetail = ({
           {placeNav == 'LOCATION' && (
             <div className="flex justify-center items-center flex-col">
               <PlaceDetailLocation lng={lng} lat={lat} />
-              <div className="p-[40px]"></div>
+              <div className="p-10 tablets:p-[40px]"></div>
               <div onClick={handleMapMoreClick}>
                 <MapMore />
               </div>
@@ -76,7 +76,7 @@ const PlaceDetail = ({
             </div>
           )}
           {placeNav == 'PRICE' && (
-            <div className="pb-[23px]">
+            <div className="pb-6 tablets:pb-[23px]">
               <PlaceDetailPrice />
             </div>
           )}
