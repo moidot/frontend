@@ -9,10 +9,12 @@ export const customedAxios = axios.create({
   },
 });
 
-customedAxios.interceptors.request.use((config) => {
-  if (TokenService.getToken() !== undefined && TokenService.getId() !== undefined) {
-    config.headers!.authorization = `Bearer ${TokenService.getToken()}`;
-  }
-  return config;
-});
+if (typeof window !== 'undefined') {
+  customedAxios.interceptors.request.use((config) => {
+    if (TokenService.getToken() !== undefined && TokenService.getId() !== undefined) {
+      config.headers!.authorization = `Bearer ${TokenService.getToken()}`;
+    }
+    return config;
+  });
+}
 export default customedAxios;

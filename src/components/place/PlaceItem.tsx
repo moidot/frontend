@@ -33,7 +33,7 @@ const PlaceItem = ({ title, thumUrl, distance, openTime, tel, category }: PlaceI
 
   return (
     <>
-      <div className="bg-white w-[30rem] xl:w-[38rem] h-[228px] rounded-2xl flex-row flex gap-5 shadow-card_shadow  over">
+      <div className="bg-white w-[30rem] xl:w-[38rem] h-[228px] rounded-2xl flex-row flex gap-5 shadow-card_shadow">
         {thumUrl ? (
           <div style={{ overflow: 'hidden' }} className="rounded-l-2xl flex justify-start relative">
             <Image src={thumUrl} width={175} height={185} alt="placeImg" priority style={{ objectFit: 'cover' }} />
@@ -51,21 +51,21 @@ const PlaceItem = ({ title, thumUrl, distance, openTime, tel, category }: PlaceI
           </div>
         )}
 
-        <div className=" flex flex-col gap-[64px]">
+        <div className="flex flex-col gap-4 tablets:gap-[64px]">
           <div>
-            <div className="font-Pretendard text-black text-b3 xl:text-b1 font-bold pt-4">{title}</div>
+            <div className="font-Pretendard text-black text-b3 xl:text-b1 font-bold pt-1 tablets:pt-4">{title}</div>
             <div className="font-Pretendard text-main_orange text-b4 font-regular">{distance}</div>
           </div>
-          <div className="flex flex-col gap-[12px]">
-            <div className="flex flex-row gap-[12px] items-center">
-              <div className="flex flex-row gap-[4px]">
+          <div className="flex flex-col gap-3 tablets:gap-[12px]">
+            <div className="flex flex-row gap-3 tablets:gap-[12px] items-center">
+              <div className="flex flex-row gap-1 tablets:gap-[4px]">
                 <TimeIcon />
                 <div className="font-Pretendard text-font_gray text-b3 font-regular">영업 종료 시간</div>
               </div>
               <div className="font-Pretendard text-font_gray text-b2 font-bold">{openTime}</div>
             </div>
-            <div className="flex flex-row gap-[12px] items-center pb-[16px]">
-              <div className="flex flex-row gap-[4px]">
+            <div className="flex flex-row gap-3 tablets:gap-[12px] items-center pb-4 tablets:pb-[16px]">
+              <div className="flex flex-row gap-1 tablets:gap-[4px]">
                 <PhoneIcon />
                 <div className="font-Pretendard text-font_gray text-b3 font-regular">연락처</div>
               </div>

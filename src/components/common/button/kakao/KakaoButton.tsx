@@ -1,5 +1,6 @@
 import KakaoLogin from '@assets/home/kakao/btn_login.svg';
 import { useRouter } from 'next/router';
+import { Link } from 'react-router-dom';
 
 const KakaoLoginButton = () => {
   const router = useRouter();
@@ -13,6 +14,7 @@ const KakaoLoginButton = () => {
   }
 
   function kakaoLogin() {
+    console.log('LINK', LINK);
     router.push(LINK);
   }
   return (

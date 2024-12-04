@@ -81,7 +81,7 @@ const Main = ({ id }: MainProps) => {
         </>
       ) : (
         <div className="flex flex-col bg-white overflow-hidden">
-          <div className="flex flex-col justify-center items-center p-4 mt-10">
+          <div className="flex flex-col justify-center items-center p-2 tablets:p-4 mt-4 tablets:mt-10">
             <div className="font-Pretendard text-font_black text-mobile_h1 tablets:text-h1 font-bold">
               {groupNameData?.data.name}
             </div>
@@ -89,7 +89,7 @@ const Main = ({ id }: MainProps) => {
               {groupNameData?.data.date}
             </div>
           </div>
-          <div className="p-10">
+          <div className="p-4 tablets:p-10">
             <ShareButton teamname={groupNameData?.data.name} />
           </div>
 

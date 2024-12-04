@@ -90,17 +90,19 @@ const VoteDetailPage = ({ response }: any) => {
       <VoteTitle groupName={response?.data?.groupName} groupDate={response?.data?.groupDate} />
       {/* url 박스 */}
       {response?.data && (
-        <div className="w-[80vw] desktop:w-[555px] bg-bg_orange rounded-2xl text-center mx-auto mt-[30px] mb-[48px] p-[15px]">
-          <div className="text-main_orange text-b1 font-bold mb-[15px]">모임원을 초대해보세요!</div>
+        <div className="w-[90vw] tablets:w-[80vw] desktop:w-[555px] bg-bg_orange rounded-2xl text-center mx-auto mt-[20px] tablets:mt-[30px] mb-[30px] tablets:mb-[48px] p-[15px]">
+          <div className="text-main_orange text-mobile_b3 desktop:text-b1 font-bold mb-[15px]">
+            모임원을 초대해보세요!
+          </div>
           <UrlButton pathname={locationUrl?.asPath} teamname={response?.data?.groupName} />
         </div>
       )}
       {/* 지도 자리 */}
       {response?.data?.voteStatuses && <VoteKakaoMap locationInfo={response?.data?.voteStatuses} />}
       {/* 투표 탭 */}
-      <div className="w-[62.5vw] mx-auto bg-white">
-        <div className="w-full h-[74px] mt-2 flex justify-between items-center">
-          <div className="w-[170px] h-[50px] flex justify-between text-b3">
+      <div className="w-[90vw] tablets:w-[62.5vw] mx-auto bg-white">
+        <div className="w-full h-[60px] tablets:h-[74px] mt-2 flex justify-between items-center">
+          <div className="w-[150px] tablets:w-[170px] h-[40px] tablets:h-[50px] flex justify-between text-b3">
             {response?.data?.isEnabledMultipleChoice ? (
               <div className="text-main_orange">● 복수선택</div>
             ) : (
@@ -112,7 +114,7 @@ const VoteDetailPage = ({ response }: any) => {
               <div className="text-font_gray">● 익명투표</div>
             )}
           </div>
-          <div className="text-b2 text-font_gray">{voteEndAt}</div>
+          <div className="text-b3 tablets:text-b2 text-font_gray">{voteEndAt}</div>
         </div>
         {/* 투표 창 */}
         <div
